@@ -1,0 +1,49 @@
+.wrapper {
+	margin: 0 auto;
+	width: 960px;
+	opacity: 1.0;
+	}
+	
+.tops {
+	width: 100%;
+	height: 165px;
+	background-image: url("images/topo.png");
+	background-repeat: repeat;  
+	}
+	
+#topline {
+	width: 100%;
+	height: 40px;
+	background-color: #99cccc;
+	opacity: 0.4;
+	}
+	
+#logo {
+	float: left;
+	}
+
+
+#socials {
+	list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+
+#slogan {
+	float: left;
+	}
+	
+#menu {
+	width: 100%;
+	height: 60px;
+	background-color: #99cccc;
+	opacity: 0.4;
+	clear: both;
+	list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+
+li {
+	display: inline;
+	}
