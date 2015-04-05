@@ -9,13 +9,19 @@
             <input type="search" name="search" placeholder="Search bills, legislators, etc...." autocomplete="on">
           </div>
         </form>
-      </div>
+      </div>   
 
       <div class="dashhead" id="login">Login</div>
       <div class="loginbox">
-        <form action="login.php" method="post">
+<!--       	<?php
+   		if (isset($_SESSION["status"])) {
+      	echo "<div id=\"status\">" .  $_SESSION["status"] . "</div>";
+      	unset($_SESSION["status"]);
+   		}
+   		?>   -->
+        <form action="login.php" method="POST">
           <div class="loginbox">
-            <input type="text" name="name" id="username" placeholder="User name" />
+            <input type="text" name="username" id="username" placeholder="User name" />
           </div>
           <input type="submit" value="Go">
           <div>

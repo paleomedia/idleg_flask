@@ -1,5 +1,7 @@
-<?php $thisPage="Home"; ?>
-<?php include 'top.php'; ?>
+<?php
+include 'session_start.php';
+$thisPage="Home"; 
+include 'top.php'; ?>
 
   <body>
 

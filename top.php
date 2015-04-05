@@ -6,14 +6,15 @@
   
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
 
-  <title>IDLEG - Idaho Legislative Information Portal, Bills, Lawmakers & Data</title>
+  <title><?php if ($thisPage!="")
+echo "$thisPage"; ?> - Idaho Legislative Information Portal, Bills, Lawmakers & Data</title>
   <meta charset="utf-8" />
   <meta name="description" content="idleg: Idaho legislative bill information portal" />
   <meta name="keywords" content="Idaho, legislature, bills, laws, legislation" />
   <meta name="author" content="Nathaniel Hoffman" />  <!-- Note: Make dynamic based on page author -->
 
   <?php include 'functions.php'; ?>
-  <meta name="revised" content="<?php filemtime(index.html); ?>" />  <!-- last mod of index.html -->
+  <meta name="revised" content="<?php filemtime('index.php'); ?>" />  <!-- last mod of index.html -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="styles.css" type="text/scc" rel="stylesheet" />
