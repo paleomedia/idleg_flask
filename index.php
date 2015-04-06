@@ -1,6 +1,6 @@
 <?php
-include 'session_start.php';
-$thisPage="Home"; 
+$thisPage = 'Home'; 
+
 include 'top.php'; ?>
 
   <body>

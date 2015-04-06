@@ -1,18 +1,16 @@
 <?php
 
-session_start();
-include 'users.php';
+include('users.php');
 
-if (check_login($_POST["username"], $_POST["password"])) {
-  $_SESSION["access_granted"] = true;
-  header("Location:granted.php");
+if (isset($_POST["username"]) && isset($_POST["password"])) {
+$name = $_POST["username"];
+$password = $_POST["password"];
 
-} else {
-  $status = "Invalid username or password";
-  $_SESSION["status"] = $status;
-  $_SESSION["user_preset"] = $_POST["user"];
-  $_SESSION["access_granted"] = false;
-
-  header("Location:index.php");
+if (check_login($name, $password)) {
+	$_SESSION["name"] = $name;
+	redirect("index.php", "Login successful! Welcome back, $name.");
+	} else {
+	redirect("index.php", "Incorrect user name and/or password.");
+	}
 }
 ?>
