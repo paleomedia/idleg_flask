@@ -32,7 +32,7 @@ class Dao {
     return $conn->query("SELECT * FROM comments");
   }
   
-  public function saveJson ($data) {
+/*  public function saveJson ($data) {
   	$conn = $this->getConnection();
   	foreach ($data as $item) {
   	$saveQuery = "INSERT INTO lawmakers
@@ -42,6 +42,6 @@ class Dao {
     $q->bindParam(":item", $item);
     $q->execute();
   }
-  	
+  	*/
   
 } // end Dao

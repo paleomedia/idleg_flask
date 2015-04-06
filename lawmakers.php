@@ -1,7 +1,7 @@
 <?php
 $thisPage="Lawmakers"; 
 include 'top.php'; 
-require_once "Dao.php"; ?>
+// require_once "Dao.php"; ?>
   
 <div class="maincontainer">
    
@@ -14,7 +14,15 @@ require_once "Dao.php"; ?>
 //convert json object to php associative array
     $data = json_decode($jsondata, true);
     
-/* get the legislator details
+ /*   foreach ($data as $section => $jsons) {
+    	foreach ($jsons as $key => $value) {
+    	echo "<pre>";
+    	echo "$section:\t$key:\t($value)<br>";
+    	echo "</pre>"; 
+    	}
+    	echo "<br />" }
+    
+ get the legislator details
 // FIXXXXXX extra fields
      $suffix = $data['personal']['address']['streetaddress'];
      $nickname = $data['personal']['address']['city'];
@@ -28,8 +36,9 @@ require_once "Dao.php"; ?>
     $active = $data['active'];
     $chamber = $data['chamber'];
     $photo_url = $data['photo_url'];  
+    */
     
-    
+    $db = new PDO("mysql:host=127.0.0.1;port=8889;dbname=idleg_test", "root", "root");
     $sql = "INSERT INTO lawmakers(first_name, last_name, middle_name, district, party, active, chamber, photo_url)
     VALUES('$first_name', '$last_name', '$middle_name', '$district', '$party', '$active', '$chamber', '$photo_url')";
     if(!mysql_query($sql,$con))
@@ -39,9 +48,9 @@ require_once "Dao.php"; ?>
     }
     
     VALUES('".$item['first_name']."', '".$item['last_name']."', '".$item['middle_name']."', '".$item['district']."', '".$item['party']."', '".$item['active']."', '".$item['chamber']."', '".$item['photo_url']."');
-*/
 
-    try {
+
+/*    try {
       $dao = new Dao();
     } catch (Exception $e) {
       var_dump($e);
@@ -51,6 +60,6 @@ require_once "Dao.php"; ?>
 //insert into mysql table
    	saveJson($data);
 
-    
+  */  
     
  include 'footer.php'; ?>
