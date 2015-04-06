@@ -38,5 +38,5 @@ function redirect($url, $flash_message = NULL) {
 
 function new_user($name, $password, $user_info) {
 	$db = new PDO("mysql:host=127.0.0.1;port=8889;dbname=idleg_test", "root", "root");
-	
+	}
 	?>

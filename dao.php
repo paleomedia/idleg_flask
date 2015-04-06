@@ -12,13 +12,13 @@ class Dao {
   
   public function getConnection () {
     return
-      new PDO("mysql:host={$this->host};dbname={$this->db};port={$this->dbport}", $this->user, $this->pass);
+      new PDO("mysql:host={$this->host};dbname={$this->db};port={$this->dbport}", $this->user, $this->dbpassword);
   }
 
   public function saveComment ($comment) {
     $conn = $this->getConnection();
     $saveQuery =
-        "INSERT INTO comment
+        "INSERT INTO comments
         (comment)
         VALUES
         (:comment)";
@@ -29,6 +29,19 @@ class Dao {
 
   public function getComments () {
     $conn = $this->getConnection();
-    return $conn->query("SELECT * FROM comment");
+    return $conn->query("SELECT * FROM comments");
   }
+  
+  public function saveJson ($data) {
+  	$conn = $this->getConnection();
+  	foreach ($data as $item) {
+  	$saveQuery = "INSERT INTO lawmakers
+  	(first_name, last_name, middle_name, district, party, active, chamber, photo_url)
+    VALUES(:item['first_name']."', '".$item['last_name']."', '".$item['middle_name']."', '".$item['district']."', '".$item['party']."', '".$item['active']."', '".$item['chamber']."', '".$item['photo_url']."');
+    $q = $conn->prepare($saveQuery);
+    $q->bindParam(":item", $item);
+    $q->execute();
+  }
+  	
+  
 } // end Dao
