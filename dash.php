@@ -17,6 +17,7 @@
  		 <div class="loginbox">
  		 <div class="dashitem">
  			<p>You are logged in as <?= $_SESSION["name"] ?>.</p>
+ 			<?php var_dump($_SESSION); ?>
  		</div>
  			<form id="logout" action="logout.php" method="post">
  				<input type="submit" value="Log out" />

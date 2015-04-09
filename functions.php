@@ -65,7 +65,7 @@ $db = new PDO("mysql:host=127.0.0.1;port=8889;dbname=idleg_test", "root", "root"
     $photo_url = $data['photo_url'];
     
     
-     $host = getenv('IP');
+    $host = getenv('IP');
     $user = getenv('C9_USER');
     $password = "";
     $database = "c9";

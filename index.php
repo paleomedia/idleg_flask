@@ -1,6 +1,6 @@
 <?php
 $thisPage = 'Home'; 
-require_once "Dao.php";
+require_once "dao.php";
   $dao = new Dao();
 include 'top.php'; ?>
 
