@@ -12,12 +12,12 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 
 	try {
 		$dao = new Dao();
-		if ($dao - > check_login($name, $password)) {
+		if ($dao -> check_login($name, $password)) {
 			$_SESSION["name"] = $name;
-			$dao - > redirect("index.php", "Login successful! Welcome back, $name.");
+			$dao -> redirect("index.php", "Login successful! Welcome back, $name.");
 		}
 		else {
-			$dao - > redirect("index.php", "Incorrect user name and/or password.");
+			$dao -> redirect("index.php", "Incorrect user name and/or password.");
 		}
 	}
 	catch (Exception $e) {
