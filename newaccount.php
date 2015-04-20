@@ -16,9 +16,7 @@ include 'top.php'; ?>
             		<input type="text" name="username" id="username" placeholder="Username" /> 
             		<input type="email" name="email" id="email" placeholder="Email" />      			
             		<input type="password" name="password" id="password" placeholder="Password">
-            		<input type="text" name="username" id="username" placeholder="Username" />
-            		<input type="text" name="username" id="username" placeholder="Username" />
-            		<input type="text" name="username" id="username" placeholder="Username" />
+            		<input type="password" name="passconfirm" id="passwordconfirm" placeholder="Confirm password">
           		</div>
           			<input type="submit" value="Go">
         	</form>      

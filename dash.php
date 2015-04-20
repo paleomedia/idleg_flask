@@ -31,11 +31,11 @@
 			<div class="loginbox">
         	<form action="login.php" method="POST">
           		<div class="loginbox">
-            		<input type="text" name="username" id="username" placeholder="Username" />
+            		<input type="text" name="username" id="username" placeholder="Username" tabindex="1" />
           		</div>
-          			<input type="submit" value="Go">
+          			<input type="submit" value="Go" tabindex="3">
           		<div>
-            		<input type="password" name="password" id="password" placeholder="Password">
+            		<input type="password" name="password" id="password" placeholder="Password" tabindex="2">
           		</div>
         	</form>
         <p span id="newuser">or <a href="newaccount.php">create new account</a>
@@ -49,11 +49,11 @@
         <div class="loginbox">
         	<form action="login.php" method="POST">
           		<div class="loginbox">
-            		<input type="text" name="username" id="username" placeholder="Username" />
+            		<input type="text" name="username" id="username" placeholder="Username" tabindex="1" />
           		</div>
-          			<input type="submit" value="Go">
+          			<input type="submit" value="Go" tabindex="3">
           		<div>
-            		<input type="password" name="password" id="password" placeholder="Password">
+            		<input type="password" name="password" id="password" placeholder="Password" tabindex="2">
           		</div>
         	</form>
         <p span id="newuser">or <a href="newaccount.php">create new account</a>

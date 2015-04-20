@@ -14,7 +14,7 @@
 //convert json object to php associative array
     $legislators = json_decode($jsondata, true);
     
-    echo "<pre>" . print_r($data, 1) . "</pre>";
+   // echo "<pre>" . print_r($legislators, 1) . "</pre>";
 
     $dao = new Dao();
     $connection = $dao->getConnection();

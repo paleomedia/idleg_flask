@@ -62,7 +62,16 @@ class Dao {
   
   public function newUser ($username, $password, $email) {
     $conn = $this->getConnection();
-    
+    $saveQuery =
+          "INSERT INTO users
+          (username, password, email)
+          VALUES
+          (:username, :password, :email)";
+      $q = $conn->prepare($saveQuery);
+      $q->bindParam(":username", $username);
+      $q->bindParam(":password", $password);
+      $q->bindParam(":email", $email);
+      return $q->execute();
   }
   
   public function saveBills ($id, $session, $title, $bill_id, $connection) {
