@@ -8,7 +8,7 @@ party VARCHAR(12),
 website VARCHAR(64),
 district_cong TINYINT,
 district_leg TINYINT,
-registered TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 verified BOOL
 );
 
@@ -39,7 +39,7 @@ topic_id BIGINT(20)
 );
 
 CREATE TABLE IF NOT EXISTS bills (
-bill_id BIGINT(20) NOT NULL PRIMARY KEY,
+bill_id VARCHAR(15) NOT NULL PRIMARY KEY,
 year YEAR(4),
 title MEDIUMBLOB,
 bill_name VARCHAR(6),

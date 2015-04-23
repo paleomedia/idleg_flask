@@ -1,6 +1,12 @@
 <?php
+
 if (!isset($_SESSION)) {
 	session_start();
+}
+
+if (isset($_COOKIE["username"])) {
+  $username = $_COOKIE["username"];
+  $_SESSION["name"] = $username;
 }
 ?>
 

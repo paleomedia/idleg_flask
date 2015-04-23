@@ -5,7 +5,8 @@ require_once("dao.php"); ?>
   
 <div class="maincontainer">
    
-<?php include 'dash.php';
+<?php include 'dash.php'; 
+
 
 // read the json file contents
  
@@ -14,22 +15,24 @@ require_once("dao.php"); ?>
 //convert json object to php associative array
     $bills = json_decode($jsondata, true);
     
-//    echo "<pre>" . print_r($bills, 1) . "</pre>";
+ //   echo "<pre>" . print_r($bills, 1) . "</pre>";
 
     $dao = new Dao();
     $connection = $dao->getConnection();
     $i = 1;
     foreach ($bills as $bill) {
-        $id = $bill['id'];
-        $session = $bill['session'];
+        $bill_name = $bill['bill_id'];
+        $year = $bill['session'];
         $title = $bill['title'];
-        $bill_id = $bill['bill_id'];
+        $bill_id = $bill['id'];
         
         echo "inserting record $i<br/>";
         $i++;
         
-        $dao->saveBills($id, $session, $title, $bill_id, $connection) or die(print_r($connection->errorInfo(), true));
-        echo "$bill_id actually inserted</br>";
-    }
+        $dao->saveBills($bill_id, $year, $title, $bill_name, $connection) or die(print_r($connection->errorInfo(), true));
+        echo "$bill_name actually inserted</br>";
+    } 
+    
+    
       
 include 'footer.php'; ?>

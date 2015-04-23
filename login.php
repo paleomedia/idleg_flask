@@ -14,6 +14,8 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
 		$dao = new Dao();
 		if ($dao -> check_login($name, $password)) {
 			$_SESSION["name"] = $name;
+			$expireTime = time() + 60*60*24*180;   # 180 days from now
+			setcookie("username", $_SESSION["name"], $expireTime);
 			$dao -> redirect("index.php", "Login successful! Welcome back, $name.");
 		}
 		else {

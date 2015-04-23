@@ -74,20 +74,20 @@ class Dao {
       return $q->execute();
   }
   
-  public function saveBills ($id, $session, $title, $bill_id, $connection) {
+  public function saveBills ($bill_id, $year, $title, $bill_name, $connection) {
   
     $saveQuery =
           "INSERT INTO bills
           (bill_id, year, title, bill_name)
           VALUES
-          (:id, :session, :title, :bill_id)";
+          (:bill_id, :year, :title, :bill_name)";
       $q = $connection->prepare($saveQuery);
-      $q->bindParam(":id", $id);
-      $q->bindParam(":session", $session);
-      $q->bindParam(":title", $title);
       $q->bindParam(":bill_id", $bill_id);
+      $q->bindParam(":year", $year);
+      $q->bindParam(":title", $title);
+      $q->bindParam(":bill_name", $bill_name);
       $q->execute();
-      return $bill_id;
+      return $bill_name;
   }
   
 } // end Dao
