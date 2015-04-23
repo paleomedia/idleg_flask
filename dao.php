@@ -90,5 +90,13 @@ class Dao {
       return $bill_name;
   }
   
+  public function getBills () {
+    $conn = $this->getConnection();
+    return $conn->query("SELECT bill_name, title, (votes_for + votes_against) AS total
+      FROM bills
+      ORDER BY total
+      LIMIT 5");
+  }
+  
 } // end Dao
 ?>

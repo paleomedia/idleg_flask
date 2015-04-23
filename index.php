@@ -9,8 +9,42 @@ include 'top.php'; ?>
   <div class="maincontainer">
     
 <?php include 'dash.php'; ?>
+
+<div class="billmain">
+      <div class="active">
+        <p>Most Active Bills</p>
+
+<?php 
+        $bill_list = $dao->getBills();
+
+    foreach ($bill_list as $bill) { ?>
+      <div class="billimage"><span><?php echo $bill["bill_name"]; ?></span></div>
+      <div class="lastaction">Passed xx/xx/xxxx</div>
+      <div class="billsummary"><?php echo $bill["title"]; ?></div>
+    <?php } ?>
+    </div>
+    </div>
+
+<!--        
+        <div class="comments">
+          <div class="commentbox">
+            <form name="commentForm" action="handler.php" method="POST">
+              <textarea name="comment" rows="4" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Go."></textarea>
+              <label>Yea or Nay?</label>
+              <label>
+                <input type="radio" name="vote" value="pro" /><img class="prolabel" src="images/thumbs_up.png" />
+              </label>
+              <label class="neutrallabel">
+                <input type="radio" name="vote" value="neutral" />?</label>
+              <label>
+                <input type="radio" name="vote" value="anti" /><img class="antilabel" src="images/thumbs_down.png" />
+              </label>
+              <input type="submit" name="commentButton" value="Comment" />
+              <input type="hidden" name="form" value="comment">
+            </form>
+          </div>  -->
     
-    <div class="billmain">
+ <!--   <div class="billmain">
       <div class="active">
         <p>Most Active</p>
         <div class="billimage"><span>S 1081</span></div>
@@ -32,9 +66,11 @@ include 'top.php'; ?>
               <input type="submit" name="commentButton" value="Comment" />
               <input type="hidden" name="form" value="comment">
             </form>
-          </div>
-          <?php
-    $comments = $dao->getComments();
+          </div>  -->
+          
+          
+         <?php
+/*    $comments = $dao->getComments();
     echo "<table>";
     foreach ($comments as $comment) {
       echo "<tr>";
@@ -43,9 +79,9 @@ include 'top.php'; ?>
       echo "</tr>";
     }
     echo "</table>";
-    ?>
+ */   ?> 
           </div>
-      </div>
+      
 
 <!--    <div class="active">
         <p>Also Active</p>
@@ -88,6 +124,6 @@ include 'top.php'; ?>
 
     </div> -->
 
-  </div>
+  
 
 <?php include 'footer.php'; ?>  
