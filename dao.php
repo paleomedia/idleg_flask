@@ -1,5 +1,5 @@
 <?php
-// Dao.php
+// dao.php
 // class for saving and getting info to/from MySQL
 
 class Dao {
@@ -43,21 +43,24 @@ class Dao {
 	  die;
 	}
 
-  public function saveComment ($comment) {
+  public function saveComment ($username, $comment, $bill, $comment_type) {
     $conn = $this->getConnection();
     $saveQuery =
         "INSERT INTO comments
-        (comment)
+        (username, comment, bill_id, comment_type)
         VALUES
-        (:comment)";
+        (:username, :comment, :bill,  :comment_type)";
     $q = $conn->prepare($saveQuery);
+    $q->bindParam(":username", $username);
     $q->bindParam(":comment", $comment);
-    $q->execute();
+    $q->bindParam(":bill", $bill);
+    $q->bindParam(":comment_type", $comment_type);
+    return $q->execute();
   }
 
-  public function getComments () {
+  public function getComments ($bill, $comment_type) {
     $conn = $this->getConnection();
-    return $conn->query("SELECT * FROM comments");
+    return $conn->query("SELECT username, comment, date FROM comments WHERE bill_id = '$bill' AND comment_type = '$comment_type'");
   }
   
   public function newUser ($username, $password, $email) {
@@ -92,7 +95,7 @@ class Dao {
   
   public function getBills () {
     $conn = $this->getConnection();
-    return $conn->query("SELECT bill_name, title, (votes_for + votes_against) AS total
+    return $conn->query("SELECT bill_name, bill_id, title, (votes_for + votes_against) AS total
       FROM bills
       ORDER BY total
       LIMIT 5");

@@ -3,10 +3,11 @@ $(function() {
 $("#form").submit(function(){
     var values = $("form").serialize();
     var comment = $("#comment").val();
+    
     console.log(values);
     $.ajax({
       type: "POST",
-      url: "handlerAjax.php",
+      url: "handler.php",
       data: values,
       success: function() {
         $("#comments tbody").prepend("<tr><td>" +

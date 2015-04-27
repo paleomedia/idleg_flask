@@ -1,7 +1,9 @@
 <?php
 $thisPage = 'Home'; 
 require_once "dao.php";
+include 'api_functions.php';
   $dao = new Dao();
+  
 include 'top.php'; ?>
 
   <body>
@@ -11,118 +13,67 @@ include 'top.php'; ?>
 <?php include 'dash.php'; ?>
 
 <div class="billmain">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+  <script src="JS/ajax.js" type="text/javascript"></script>
+  <?php 
+    $bill_list = $dao->getBills();
+
+    foreach ($bill_list as $bill) { 
+      $action_date = last_action($bill["bill_id"]) ?>
       <div class="active">
-        <p>Most Active Bills</p>
-
-<?php 
-        $bill_list = $dao->getBills();
-
-    foreach ($bill_list as $bill) { ?>
+        <p>Active Bills</p>
       <div class="billimage"><span><?php echo $bill["bill_name"]; ?></span></div>
-      <div class="lastaction">Passed xx/xx/xxxx</div>
+      <div class="lastaction">Last Action: <?php echo $action_date; ?> </div>
       <div class="billsummary"><?php echo $bill["title"]; ?></div>
-    <?php } ?>
-    </div>
-    </div>
-
-<!--        
-        <div class="comments">
-          <div class="commentbox">
-            <form name="commentForm" action="handler.php" method="POST">
-              <textarea name="comment" rows="4" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Go."></textarea>
-              <label>Yea or Nay?</label>
-              <label>
-                <input type="radio" name="vote" value="pro" /><img class="prolabel" src="images/thumbs_up.png" />
-              </label>
-              <label class="neutrallabel">
-                <input type="radio" name="vote" value="neutral" />?</label>
-              <label>
-                <input type="radio" name="vote" value="anti" /><img class="antilabel" src="images/thumbs_down.png" />
-              </label>
-              <input type="submit" name="commentButton" value="Comment" />
-              <input type="hidden" name="form" value="comment">
-            </form>
-          </div>  -->
-    
- <!--   <div class="billmain">
-      <div class="active">
-        <p>Most Active</p>
-        <div class="billimage"><span>S 1081</span></div>
-        <div class="lastaction">Passed Senate, 2/20/2015</div>
-        <div class="billsummary">Summary: HEALTH CARE - Amends existing law to provide reserves and surplus requirements of public postsecondary educational institutions with a public postsecondary educational institution plan for health care benefits.</div>
-        <div class="comments">
-          <div class="commentbox">
-            <form name="commentForm" action="handler.php" method="POST">
-              <textarea name="comment" rows="4" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Go."></textarea>
-              <label>Yea or Nay?</label>
-              <label>
-                <input type="radio" name="vote" value="pro" /><img class="prolabel" src="images/thumbs_up.png" />
-              </label>
-              <label class="neutrallabel">
-                <input type="radio" name="vote" value="neutral" />?</label>
-              <label>
-                <input type="radio" name="vote" value="anti" /><img class="antilabel" src="images/thumbs_down.png" />
-              </label>
-              <input type="submit" name="commentButton" value="Comment" />
-              <input type="hidden" name="form" value="comment">
-            </form>
-          </div>  -->
-          
-          
-         <?php
-/*    $comments = $dao->getComments();
-    echo "<table>";
-    foreach ($comments as $comment) {
-      echo "<tr>";
-      echo "<td>" . $comment["comment"] . "</td>";
- #    echo "<td>" . $comment["created"] . "</td>";
-      echo "</tr>";
-    }
-    echo "</table>";
- */   ?> 
-          </div>
       
-
-<!--    <div class="active">
-        <p>Also Active</p>
-        <div class="billimage"><span>S 1082</span>
-        </div>
-        <div class="lastaction">Passed Senate, 2/20/2015</div>
-        <div class="billsummary">Summary: HEALTH CARE - Amends existing law to provide reserves and surplus requirements of public postsecondary educational institutions with a public postsecondary educational institution plan for health care benefits.</div>
-        <div class="comments">
+      <div class="comments">
           <div class="commentbox">
-            <form>
-              <textarea name="comment" rows="4" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Go."></textarea>
-              <label>Yea or Nay?</label>
+            <form name="commentForm" action="handler.php" method="POST">
+              <textarea name="comment" rows="4" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit."></textarea>
+              <label>Yea, Nay of Neutral?</label>
               <label>
                 <input type="radio" name="vote" value="pro" /><img class="prolabel" src="images/thumbs_up.png" />
               </label>
-              <label class="neutrallabel">
-                <input type="radio" name="vote" value="neutral" />?</label>
               <label>
                 <input type="radio" name="vote" value="anti" /><img class="antilabel" src="images/thumbs_down.png" />
               </label>
-
-
-              <input type="submit" value="Go" />
+              <label class="neutrallabel">
+                <input type="radio" name="vote" value="neutral" checked="checked" />?</label>
+              <input type="submit" name="commentButton" value="Submit" />
+              <input type="hidden" name="form" value="comment" />
+              <input type="hidden" name="bill" value="<?php echo $bill["bill_id"]; ?>" />
             </form>
           </div>
-          <div class="pro">
-            <span>Conrad says:</span> Best bill ever ... Lorem ipsum dolor sit amet, nobis suavitate iracundia ei his, ad nihil eirmod quo, viris temporibus qui eu. Et idque omnes instructior usu, qui ut posse everti lobortis, id his deserunt assentior.
-            Quo oratio senserit te, verterem constituto usu ut. Te pro aeque equidem maluisset, ponderum consetetur sea no. At volutpat torquatos adipiscing est, tempor temporibus in cum.
-          </div>
-          <div class="neutral">
-            <span>Sarah says:</span> Could go either way... Lorem ipsum dolor sit amet, nobis suavitate iracundia ei his, ad nihil eirmod quo, viris temporibus qui eu. Et idque omnes instructior usu, qui ut posse everti lobortis, id his deserunt assentior.
-            Quo oratio senserit te, verterem constituto usu ut. Te pro aeque equidem maluisset, ponderum consetetur sea no. At volutpat torquatos adipiscing est, tempor temporibus in cum.
-          </div>
-          <div class="anti">
-            <span>José says:</span> Impeach! Impeach! Lorem ipsum dolor sit amet, nobis suavitate iracundia ei his, ad nihil eirmod quo, viris temporibus qui eu. Et idque omnes instructior usu, qui ut posse everti lobortis, id his deserunt assentior.
-            Quo oratio senserit te, verterem constituto usu ut. Te pro aeque equidem maluisset, ponderum consetetur sea no. At volutpat torquatos adipiscing est, tempor temporibus in cum.
-          </div>
-        </div>
-      </div>
+          
+            <div class="pro"><h3>Yea</h3>
+              <?php $comments = $dao->getComments($bill["bill_id"], "pro");
+              foreach ($comments as $comment) { 
+              ?>
+              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"];
+              echo "DATE:" . $comment["date"]; ?> 
+              <?php } ?>
+            </div> 
+            
+            <div class="neutral"><h3>Neutral</h3>
+              <?php $comments = $dao->getComments($bill["bill_id"], "neutral");
+              foreach ($comments as $comment) {  ?>
+              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"] ?>
+              <?php } ?>
+            </div>
 
-    </div> -->
+            <div class="anti"><h3>Nay</h3>
+              <?php $comments = $dao->getComments($bill["bill_id"], "anti");
+              foreach ($comments as $comment) {  ?>
+              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"] ?>
+              <?php } ?>
+            </div>
+      </div>
+    </div>
+      
+    <?php } ?>
+
+  </div>
+</div>
 
   
 
