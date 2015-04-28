@@ -1,0 +1,401 @@
+.tops {
+	width: 100%;
+	height: 125px;
+	background-image: url("../images/topo.png");
+	background-repeat: repeat;  
+	float: left;
+	}
+	
+#topline {
+	width: 100%;
+	height: 40px;
+	background-color: #99cccc;
+	opacity: 0.4;
+	float: left;
+	}
+
+
+div.socials {	
+    margin: 0;
+    position: absolute;
+	top: 0;
+	right: 0;
+	text-align: right;
+	font-size: 1.2em;
+	padding: 1.25em .5em;
+    }
+
+.socials ul {
+	list-style: none;
+	}
+
+.socials li {
+    position: relative;
+	display: inline-block;
+	margin-right: .125em;
+	}
+
+li.social_tw a {
+	text-decoration: none;
+	background-image: url("../images/twittericon.png");
+	} 
+
+#logoline {
+	width: 100%;
+	height: 45px;
+	float: left;
+	}
+		
+div#logo {
+	float: left;
+	font-family: Garamond, "Times New Roman", serif;
+	font-size: 24px;
+	}
+
+
+	
+#slogan {
+	float: left;
+	font-family: Garamond, "Times New Roman", serif;
+	font-size: 16px
+	padding: 40
+	}
+	
+#menu {
+	width: 100%;
+	height: 40px;
+	background-color: #99cccc;
+	opacity: 0.4;
+	clear: both;
+	float: left;
+    }
+
+#menu ul {
+	list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#menu li {
+	float: left;
+	display: inline-block
+	padding: .5em;
+	margin: 10;
+	}
+	
+body {
+	font-family: 'Source Sans Pro', Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 1.3rem;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+}
+.tops {
+	width: 100%;
+	height: 100%;
+	background-image: url("../images/topo.png");
+	background-repeat: repeat;
+	float: left;
+}
+#topline {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	background-color: rgba(153, 204, 204, .4);
+	float: left;
+}
+div.socials {
+	margin: 0;
+	position: absolute;
+	top: 0px;
+	right: 5px;
+}
+.socials ul {
+	list-style: none;
+}
+.socials li {
+	position: relative;
+	display: inline;
+	margin-right: .125em;
+}
+.socials li a {
+	text-decoration: none;
+}
+#logoline {
+	width: 100%;
+	height: 100%;
+	float: left;
+}
+#logo {
+	float: left;
+	letter-spacing: .15em;
+	font-family: Garamond, "Times New Roman", serif;
+	font-size: 1.5rem;
+	padding: 0px 10px 0px 0px;
+}
+#slogan {
+	float: left;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: .7rem;
+	padding: 25px 0px 0px 0px;
+}
+#menu {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(153, 204, 204, .4);
+	float: left;
+}
+#menu ul {
+	list-style: none;
+	margin: 5px 35px;
+	padding: 1px 10px;
+	overflow: hidden;
+}
+#menu li {
+	display: inline-block;
+	padding: 1px;
+	margin: 1px 10px;
+	font-size: 1rem;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	text-transform: uppercase;
+}
+#menu a {
+	text-decoration: none;
+	color: black;
+}
+#menu a:hover {
+	color: gray;
+}
+#menu #currentpage {
+	text-decoration: underline;
+}
+.maincontainer {
+	clear: both;
+	width: 100%;
+}
+.dashboard {
+	width: 20%;
+	height: 100%;
+	float: left;
+	background-color: #EFF0F2;
+	padding: 0px;
+	margin-top: 10px;
+	border-right: solid 1px black;
+	border-bottom: solid 1px black;
+}
+.dashhead {
+	text-align: center;
+	color: white;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	padding: 20px 0px 10px 0px;
+}
+.dashitem {
+	color: #3F5388;
+	padding: 10px;
+	line-height: 1em;
+}
+form {
+	width: 100%;
+	margin: 0px;
+}
+input[type=submit] {
+	float: right;
+	position: relative;
+	padding: 7px 15px;
+	left: 0px;
+	border: 2px solid #207cca;
+	background-color: #207cca;
+	color: white;
+}
+input[type=search],
+input[type=email],
+input[type=text],
+input[type=password],
+textarea {
+	width: 100%;
+	padding: 8px 15px;
+	background: rgba(239, 240, 242, 0.4);
+	/* border: 1px solid black; */
+}
+div {
+	overflow: hidden;
+	padding-right: 0em;
+}
+#newuser {
+	text-align: right;
+	color: #3F5388;
+	padding: 10px;
+	line-height: 1em;
+	margin: 0px 10px;
+	text-transform: uppercase;
+}
+#newuser a {
+	text-decoration: none;
+}
+#dashtop {
+	background-color: #333C45;
+}
+#login {
+	background-color: #ECC64B;
+}
+label[for="rememberme"] {
+	margin: 0px 20px;
+}
+#bills {
+	background-color: #99CCCC;
+}
+#testimony {
+	background-color: #0A9DA5;
+}
+#lawmakers {
+	background-color: #364F8A;
+}
+#topics {
+	background-color: #8CAC8C;
+}
+.billmain {
+	width: 79%;
+	height: 100%;
+	background-color: white;
+	float: left;
+	margin: 0px;
+	position: relative;
+}
+
+.active {
+	border: 1px solid black;
+	padding: 0px 10px;
+	margin: 10px 0px 5px 10px;
+	background-color: #EFF0F2;
+}
+.active p {
+	font-size: 1.3rem;
+	text-transform: uppercase;
+	font-style: italic;
+}
+.billimage {
+	background-image: url("../images/billpage.png");
+	position: relative;
+	width: 70px;
+	height: 70px;
+	float: left;
+	margin: 0px 5px 0px 0px;
+	border: 1px solid gray;
+}
+.billimage span {
+	font-size: 1.5em;
+	font-family: 'Source Sans Pro', Helvetica, sans-serif;
+	font-weight: bold;
+	line-height: 70px;
+	padding: 0px 5px;
+	text-align: center;
+}
+.lastaction {
+	padding: 0px 0px 5px 0px;
+	font-style: italic;
+}
+.billsummary {
+	font-size: 1rem;
+	line-height: 1.1rem;
+}
+.legislators_main {
+	position: relative;
+	width: 100%;
+}
+.legislators_main div {
+	height: 50px;
+  	position: absolute;
+  	width: 50px;
+  	border: 1px solid;
+}
+.comments {
+	border-top: 1px gray solid;
+	width: 100%;
+	height: 100%;
+	padding: 5px 0px 5px 5px;
+}
+.pro h3, .neutral h3, .anti h3 {
+	color: black;
+	text-transform: uppercase;
+	font-size: 1.2em;
+	line-height: 1.5em;
+	text-align: center;
+}
+.pro {
+	float: left;
+	width: 32%;
+	border-right: 1px dashed black;
+	padding-right: 5px;
+	min-height: 1px;
+	line-height: 1.2em;
+}
+.neutral {
+	float: left;
+	width: 32%;
+	border-right: 1px dashed black;
+	padding-left: 5px;
+	padding-right: 5px;
+	min-height: 1px;
+	line-height: 1.2em;
+}
+.anti {
+	float: left;
+	width: 31%;
+	padding-left: 5px;
+	min-height: 1px;
+	line-height: 1.2em;
+}
+.commentbox input[type=radio] {
+	margin: 0px 5px 0px 0px;
+	display: inline-block;
+	width: 20px;
+	height: 25px;
+}
+.commentbox label {
+	width: auto;
+	height: auto;
+	float: left;
+	margin: 0px 10px 10px 0px;
+	font-size: 1.8em;
+	text-align: center;
+	line-height: 20px;
+	vertical-align: baseline;
+}
+.comments span {
+	color: blue;
+	text-transform: uppercase;
+	font-size: 1.2em;
+	line-height: 1.5em;
+}
+.prolabel {
+	background-size: 20px;
+	width: 20px;
+	height: 25px;
+	background-repeat: no-repeat;
+	position: relative;
+}
+.antilabel {
+	width: 20px;
+	height: 25px;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	position: relative;
+}
+.footer {
+	width: 100%;
+	height: 100%x;
+	background-image: url("../images/topo.png");
+	background-repeat: repeat;
+	background-color: #F5FDE3;
+	clear: both;
+}
+#cc {
+	padding: 10px;
+	float: left;
+	vertical-align: top;
+	width: 40%;
+	line-height: 1rem;
+}
