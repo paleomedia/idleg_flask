@@ -63,6 +63,14 @@ class Dao {
     return $conn->query("SELECT username, comment, date FROM comments WHERE bill_id = '$bill' AND comment_type = '$comment_type'");
   }
   
+  public function getUserComments ($user) {
+    $conn = $this->getConnection();
+    return $conn->query("SELECT comment, date FROM comments
+                        WHERE username = '$user'
+                        ORDER BY date
+                        LIMIT 5");
+  }
+  
   public function newUser ($username, $password, $email) {
     $conn = $this->getConnection();
     $saveQuery =
@@ -104,7 +112,7 @@ class Dao {
   public function getLegislators () {
     $conn = $this->getConnection();
     return $conn->query("SELECT first_name, last_name, middle_name, district, party, chamber, photo_url
-      FROM legislators");
+      FROM lawmakers");
   }
   
 } // end Dao

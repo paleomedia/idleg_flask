@@ -1,7 +1,8 @@
 <?php
 $thisPage = 'Home'; 
-require_once "dao.php";
-include 'api_functions.php';
+require_once "lib/classes/dao.php";
+include 'lib/api_functions.php';
+
   $dao = new Dao();
   
 include 'top.php'; ?>
@@ -13,9 +14,12 @@ include 'top.php'; ?>
 <?php include 'dash.php'; ?>
 
 <div class="billmain">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-  <script src="JS/ajax.js" type="text/javascript"></script>
-  <?php 
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="js/ajax.js" type="text/javascript"></script>
+  
+  <?php
+  
     $bill_list = $dao->getBills();
 
     foreach ($bill_list as $bill) { 
@@ -28,17 +32,17 @@ include 'top.php'; ?>
       
       <div class="comments">
           <div class="commentbox">
-            <form name="commentForm" action="handler.php" method="POST">
-              <textarea name="comment" rows="4" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit."></textarea>
-              <label>Yea, Nay of Neutral?</label>
+            <form name="commentForm" action="lib/handler.php" method="POST">
+              <textarea name="comment" rows="4" id="comment" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit."></textarea>
+              <label>Yea, Nay or Neutral?</label>
               <label>
-                <input type="radio" name="vote" value="pro" /><img class="prolabel" src="images/thumbs_up.png" />
+                <input type="radio" name="vote" value="pro" id="pro" /><img class="prolabel" src="images/thumbs_up.png" />
               </label>
               <label>
-                <input type="radio" name="vote" value="anti" /><img class="antilabel" src="images/thumbs_down.png" />
+                <input type="radio" name="vote" value="anti" id="anti" /><img class="antilabel" src="images/thumbs_down.png" />
               </label>
               <label class="neutrallabel">
-                <input type="radio" name="vote" value="neutral" checked="checked" />?</label>
+                <input type="radio" name="vote" value="neutral" id="neutral" checked="checked" />?</label>
               <input type="submit" name="commentButton" value="Submit" />
               <input type="hidden" name="form" value="comment" />
               <input type="hidden" name="bill" value="<?php echo $bill["bill_id"]; ?>" />
@@ -49,22 +53,24 @@ include 'top.php'; ?>
               <?php $comments = $dao->getComments($bill["bill_id"], "pro");
               foreach ($comments as $comment) { 
               ?>
-              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"];
-              echo "DATE:" . $comment["date"]; ?> 
+              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"] . "<br />";
+              echo "DATE:" . $comment["date"] . "<br />"; ?> 
               <?php } ?>
             </div> 
             
             <div class="neutral"><h3>Neutral</h3>
               <?php $comments = $dao->getComments($bill["bill_id"], "neutral");
               foreach ($comments as $comment) {  ?>
-              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"] ?>
+              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"] . "<br />";
+              echo "DATE:" . $comment["date"] . "<br />"; ?>
               <?php } ?>
             </div>
 
             <div class="anti"><h3>Nay</h3>
               <?php $comments = $dao->getComments($bill["bill_id"], "anti");
               foreach ($comments as $comment) {  ?>
-              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"] ?>
+              <span><?php echo $comment["username"]; ?> says:</span> <?php echo $comment["comment"] . "<br />";
+              echo "DATE:" . $comment["date"] . "<br />";  ?>
               <?php } ?>
             </div>
       </div>

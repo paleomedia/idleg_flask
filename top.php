@@ -16,10 +16,10 @@ if (isset($_COOKIE["username"])) {
 
 <head>
   
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
 
   <title><?php if ($thisPage != "") {
-echo "$thisPage"; } ?> - Idaho Legislative Information Portal, Bills, Lawmakers & Data</title>
+    echo "$thisPage"; } ?> - Idaho Legislative Information Portal, Bills, Lawmakers & Data</title>
   <meta charset="utf-8" />
   <meta name="description" content="idleg: Idaho legislative bill information portal" />
   <meta name="keywords" content="Idaho, legislature, bills, laws, legislation" />
@@ -27,7 +27,7 @@ echo "$thisPage"; } ?> - Idaho Legislative Information Portal, Bills, Lawmakers 
   <meta name="revised" content="<?php filemtime('index.php'); ?>" />  <!-- last mod of index.html -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="styles.css" type="text/scc" rel="stylesheet" />
+  <link href="css/styles.css" type="text/scc" rel="stylesheet" />
   <link rel="shortcut icon" href="/images/favicon.ico" />
 
 </head>
@@ -38,11 +38,11 @@ echo "$thisPage"; } ?> - Idaho Legislative Information Portal, Bills, Lawmakers 
         <div class="socials">
           <ul>
             <li class="social">
-              <a href="http://twitter.com/idleg"><img src="images/twittericon.png" width="24px" height="24px">
+              <a href="https://twitter.com/search?q=%23idleg&src=typd"><img src="images/twittericon.png" width="24px" height="24px">
               </a>
             </li>
             <li class="social">
-              <a href="http://idleg.com/rss"><img src="images/RSS-Icon.png" width="24px" height="24px">
+              <a href="http://idleg.info/rss"><img src="images/RSS-Icon.png" width="24px" height="24px">
               </a>
             </li>
             <li class="social">
@@ -50,7 +50,7 @@ echo "$thisPage"; } ?> - Idaho Legislative Information Portal, Bills, Lawmakers 
               </a>
             </li>
             <li class="social">
-              <a href="mailto:editor@idleg.com"><img src="images/Email-Icon.png" width="24px" height="24px">
+              <a href="mailto:editor@idleg.info"><img src="images/Email-Icon.png" width="24px" height="24px">
               </a>
             </li>
             <li class="social">

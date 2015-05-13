@@ -1,42 +1,47 @@
 <?php
     $thisPage="Lawmakers"; 
     include 'top.php'; 
-    require_once("dao.php"); ?>
+    require_once("lib/classes/dao.php"); ?>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+    <script src="js/shapeshift.min.js" type="text/javascript"></script>     
   
     <div class="maincontainer">
-   
-<?php include 'dash.php'; 
-
-/* read the json file contents */
  
-    $jsondata = file_get_contents('http://openstates.org/api/v1/legislators/?apikey=bcc2a830883c4f459dbffe94b2a3e90f&state=id'); 
+    <?php include 'dash.php'; ?>
 
-//convert json object to php associative array
-    $legislators = json_decode($jsondata, true);
-    
-   // echo "<pre>" . print_r($legislators, 1) . "</pre>";
+    <div class="billmain">
+        <div class="lawmaker">
 
-    $dao = new Dao();
-    $connection = $dao->getConnection();
-    $i = 1;
-    foreach ($legislators as $legislator) {
-     $sql = "INSERT INTO lawmakers(leg_id, last_name, first_name, middle_name, district, party, active, chamber, photo_url)
-     VALUES('" . $legislator['leg_id'] . "', " .
-           "'" . $legislator['last_name'] . "', " .
-           "'" . $legislator['first_name'] . "', " .
-           "'" . $legislator['middle_name'] . "', " .
-                 $legislator['district'] . ", " .
-           "'" . $legislator['party'] . "', " .
-                 $legislator['active'] . ", " .
-           "'" . $legislator['chamber'] . "', " .
-           "'" . $legislator['photo_url'] . "')";
-     echo "inserting record $i<br/>";
-     $i++;
-     
-     $count = $connection->exec($sql) or die(print_r($connection->errorInfo(), true));
-     echo "rows actually inserted $count </br>";
-    }
-      
+            <?php $dao = new Dao();
+            $legislators = $dao->getLegislators();
+            foreach ($legislators as $legislator) { ?>
+            
+            <div>
+                <div class="leg_img">
+                    
+                    <img src="<?php echo $legislator["photo_url"]; ?>" alt="<?php echo $legislator["last_name"]; ?>" />
+                    <h2><span><?php echo $legislator["first_name"] . " " . $legislator["last_name"] . ", " . $legislator["party"] . " (". $legislator["district"] . ")"; ?></span></h2>
+                </div>
+        
+            </div>        
+            <?php } ?>
+         </div>    
+
+     <script type="text/javascript">
+        $(document).ready(function(){
+	$('.lawmaker').shapeshift(
+	    {
+    align:'left',
+    minColumns:3
+  });
+  $(".ss-container").trigger("ss-shuffle")
+});</script>
+
+    </div>
+    </div>
     
     
- include 'footer.php'; ?>
+<?php include 'footer.php'; ?>

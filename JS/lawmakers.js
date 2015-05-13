@@ -1,1 +1,0 @@
-$('.legislators_main').shapeshift();

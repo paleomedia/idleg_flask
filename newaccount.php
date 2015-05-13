@@ -11,13 +11,15 @@ include 'top.php'; ?>
       
 	<div class="dashhead" id="login">Create new account</div>    
 		<div class="loginbox">
-        	<form action="newuser.php" method="POST">
+        	<form action="lib/newuser.php" method="POST">
           		<div class="loginbox">
             		<input type="text" name="username" id="username" placeholder="Username" /> 
             		<input type="email" name="email" id="email" placeholder="Email" />      			
             		<input type="password" name="password" id="password" placeholder="Password">
             		<input type="password" name="passconfirm" id="passwordconfirm" placeholder="Confirm password">
-          		</div>
+            		</div>
+            		<label for="rememberme">Remember me:</label> 
+            		<input type="checkbox" name="rememberme" value="1">
           			<input type="submit" value="Go">
         	</form>      
 		</div>

@@ -3,17 +3,17 @@ $(function() {
 $("#form").submit(function(){
     var values = $("form").serialize();
     var comment = $("#comment").val();
+    var sentiment = "." . $("input:radio[name=vote]:checked").val();
+    
     console.log(values);
     $.ajax({
       type: "POST",
-      url: "handlerAjax.php",
+      url: "../lib/handler.php",
       data: values,
       success: function() {
-        $("#comments tbody").prepend("<tr><td>" +
-          comment + "</td><td>Just now</td></tr>");
+        $("sentiment h3").after("Your latest comment:
+          comment);
         $("#comment").val("");
-        $("#email").val("");
-        $("#age").val("");
       },
       error: function () {
         alert("FAILURE");
