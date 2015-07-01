@@ -46,7 +46,7 @@ if (isset($_COOKIE["username"])) {
               </a>
             </li>
             <li class="social">
-              <a href="http://github.com"><img src="images/Github-Icon.png" width="24px" height="24px">
+              <a href="https://github.com/paleomedia/idleg"><img src="images/Github-Icon.png" width="24px" height="24px">
               </a>
             </li>
             <li class="social">

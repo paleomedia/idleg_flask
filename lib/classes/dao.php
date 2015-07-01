@@ -106,7 +106,7 @@ class Dao {
     return $conn->query("SELECT bill_name, bill_id, title, (votes_for + votes_against) AS total
       FROM bills
       ORDER BY total
-      LIMIT 5");
+      LIMIT 20");
   }
   
   public function getLegislators () {
