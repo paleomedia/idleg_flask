@@ -30,6 +30,64 @@ if (isset($_COOKIE["username"])) {
   <link href="css/styles.css" type="text/scc" rel="stylesheet" />
   <link rel="shortcut icon" href="/images/favicon.ico" />
 
+<!-- css fonts library -->
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
+<!-- jplist demo page styles -->
+<link rel="stylesheet" href="normalize.css" type="text/css" />
+<link rel="stylesheet" href="jplist-demo-pages.min.css" type="text/css" />
+
+<!-- jQuery library -->		
+<script src="../assets/js/vendor/jquery-1.10.0.min.js"></script>
+
+<!-- jPList Core -->
+<link href="jplist-core.min.css" rel="stylesheet" type="text/css" />
+<script src="jplist-core.min.js"></script>
+
+<!-- add here jPList controls and bundles -->
+...
+
+<!-- Example of jplist JavaScript options for PHP server side -->
+
+<script>
+$('document').ready(function(){
+   $('#demo').jplist({
+   
+      itemsBox: '.list' 
+      ,itemPath: '.list-item' 
+      ,panelPath: '.jplist-panel'
+      
+      //data source
+      ,dataSource: {
+         
+         type: 'server'
+         ,server: {
+         
+            //jQuery ajax settings
+            ajax:{
+              url: 'server.php'
+              ,dataType: 'html'
+              ,type: 'POST'
+            }
+
+            ,serverOkCallback: function(serverData, statuses, ajax, response){
+                //server callback in case of success 
+            }
+
+            ,serverErrorCallback: function(statuses){
+                //server callback in case of fail 
+            }
+         }
+
+         //render function for json + templates like handlebars, xml + xslt etc.
+         ,render: null
+       }
+
+   });
+});
+</script> 
+
+
 </head>
 
 <header>

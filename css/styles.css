@@ -313,7 +313,7 @@ label[for="rememberme"] {
 .leg_img {
 	position: relative;
 	width: 100%;
-	
+	z-index: auto;
 }
 .leg_img h2 {
 	position: absolute; 

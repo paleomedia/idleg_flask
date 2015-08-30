@@ -1,5 +1,6 @@
 <?php
 
+
 /* get list of lawmakers and insert into lawmakers table
 read the json file contents */
 
