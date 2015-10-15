@@ -1,0 +1,71 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - Idaho Legislative Information Portal, Bills, Lawmakers & Data</title>
+    {% else %}
+    <title>Welcome to microblog</title>
+    {% endif %}
+
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8" />
+    <meta name="description" content="idleg: Idaho legislative bill information portal" />
+    <meta name="keywords" content="Idaho, legislature, bills, laws, legislation" />
+    <meta name="author" content="Nathaniel Hoffman" />  <!-- Note: Make dynamic based on page author -->
+    {#  <meta name="revised" content="<?php filemtime('index.php'); ?>  last mod of index.html #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="/app/static/css/styles.css" type="text/scc" rel="stylesheet" />
+    <link rel="shortcut icon" href="/app/static/images/favicon.ico" />
+  </head>
+
+  <body>
+    <header>
+      <div class="tops">
+        <div id="topline">
+          <div class="socials">
+            <ul>
+              <li class="social">
+                <a href="https://twitter.com/search?q=%23idleg&src=typd"><img src="/app/static/images/twittericon.png" width="24px" height="24px">
+                </a>
+              </li>
+              <li class="social">
+                <a href="http://idleg.info/rss"><img src="/app/static/images/RSS-Icon.png" width="24px" height="24px">
+                </a>
+              </li>
+              <li class="social">
+                <a href="https://github.com/paleomedia/idleg"><img src="/app/static/images/Github-Icon.png" width="24px" height="24px">
+                </a>
+              </li>
+              <li class="social">
+                <a href="mailto:editor@idleg.info"><img src="/app/static/images/Email-Icon.png" width="24px" height="24px">
+                </a>
+              </li>
+              <li class="social">
+                <a href="http://facebook.com"><img src="/app/static/images/Facebook-Icon.png" width="24px" height="24px">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="logoline">
+          <div id="logo">
+            <h1>#IDleg</h1>
+          </div>
+          <div id="slogan">
+            <h2>An Idaho social-political network</h2>
+          </div>
+        </div>
+      <div id="menu">
+        <ul>
+          <li><a href="/index">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/bills">Bills</a></li>
+          <li><a href="/lawmakers">Lawmakers</a></li>
+          <li><a href="/topics">Topics</a></li>
+        </ul>		
+     </div>
+    </header>
+    <hr>
+    {% block content %}{% endblock %}
+  </body>
+</html>
