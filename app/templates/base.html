@@ -1,71 +1,102 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     {% if title %}
     <title>{{ title }} - Idaho Legislative Information Portal, Bills, Lawmakers & Data</title>
     {% else %}
-    <title>Welcome to microblog</title>
+    <title>Welcome to Idleg</title>
     {% endif %}
-
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
-    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
     <meta name="description" content="idleg: Idaho legislative bill information portal" />
     <meta name="keywords" content="Idaho, legislature, bills, laws, legislation" />
     <meta name="author" content="Nathaniel Hoffman" />  <!-- Note: Make dynamic based on page author -->
     {#  <meta name="revised" content="<?php filemtime('index.php'); ?>  last mod of index.html #}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="/app/static/css/styles.css" type="text/scc" rel="stylesheet" />
-    <link rel="shortcut icon" href="/app/static/images/favicon.ico" />
+    <link href="{{ url_for('static', filename='/css/bootstrap.min.css') }}" rel="stylesheet'>
+    <link href="{{ url_for('static', filename='/css/styles.css') }}" type="text/scc" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/images/favicon.ico') }}" />
   </head>
 
   <body>
     <header>
-      <div class="tops">
-        <div id="topline">
-          <div class="socials">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation"">
+        <div class="container">
+          <div class="navbar-header">          
             <ul>
-              <li class="social">
-                <a href="https://twitter.com/search?q=%23idleg&src=typd"><img src="/app/static/images/twittericon.png" width="24px" height="24px">
+            <li class="social">
+              <a class="navbar-brand" href="https://twitter.com/search?q=%23idleg&src=typd"><img src="{{ url_for('static', filename="/images/twittericon.png") }}" width="24px" height="24px">
                 </a>
               </li>
               <li class="social">
-                <a href="http://idleg.info/rss"><img src="/app/static/images/RSS-Icon.png" width="24px" height="24px">
+                <a href="http://idleg.info/rss"><img src='{{ url_for('static', filename="/images/RSS-Icon.png") }} width="24px" height="24px">
                 </a>
               </li>
               <li class="social">
-                <a href="https://github.com/paleomedia/idleg"><img src="/app/static/images/Github-Icon.png" width="24px" height="24px">
+                <a href="https://github.com/paleomedia/idleg"><img src="{{ url_for('static', filename="/images/Github-Icon.png") }}" width="24px" height="24px">
                 </a>
               </li>
+             <li class="social">
+                <a href="mailto:editor@idleg.info"><img src="{{ url_for('static', filename="/images/Email-Icon.png") }}" width="24px" height="24px">
+               </a>
+            </li>
               <li class="social">
-                <a href="mailto:editor@idleg.info"><img src="/app/static/images/Email-Icon.png" width="24px" height="24px">
-                </a>
-              </li>
-              <li class="social">
-                <a href="http://facebook.com"><img src="/app/static/images/Facebook-Icon.png" width="24px" height="24px">
+                <a href="http://facebook.com"><img src="{{ url_for('static', filename="/images/Facebook-Icon.png") }}" width="24px" height="24px">
                 </a>
               </li>
             </ul>
           </div>
         </div>
-        <div id="logoline">
-          <div id="logo">
-            <h1>#IDleg</h1>
-          </div>
-          <div id="slogan">
-            <h2>An Idaho social-political network</h2>
-          </div>
+
+	<!-- Logo and branding -->
+        <div class="page-header"">
+          <h1>#IDleg <small>An Idaho social-political network</small></h1>
         </div>
-      <div id="menu">
-        <ul>
-          <li><a href="/index">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/bills">Bills</a></li>
-          <li><a href="/lawmakers">Lawmakers</a></li>
-          <li><a href="/topics">Topics</a></li>
-        </ul>		
-     </div>
+
+	<!-- Navigation menu -->
+	<nav class="navbar navbar-default">
+  	  <div class="container-fluid">
+    	  <!-- Brand and toggle get grouped for better mobile display -->
+    	    <div class="navbar-header">
+      	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        	<span class="sr-only">Toggle navigation</span>
+        	<span class="icon-bar"></span>
+        	<span class="icon-bar"></span>
+        	<span class="icon-bar"></span>
+      	      </button>
+    	    </div>   
+   	<!-- Collect the nav links, forms, and other content for toggling -->
+    	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      	    <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/bills">Bills</a></li>
+              <li><a href="/lawmakers">Lawmakers</a></li>
+              <li><a href="/topics">Topics</a></li>
+            </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+      	  </form>
+      	  <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/bills">Bills</a></li>
+            <li><a href="/lawmakers">Lawmakers</a></li>
+            <li><a href="/topics">Topics</a></li>
+           </ul>
+    	</div><!-- /.navbar-collapse -->
+  	</div><!-- /.container-fluid -->
+	</nav>	
     </header>
     <hr>
+
+    {% block container %} {% endblock %}
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul>
@@ -76,5 +107,10 @@
       {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
+
+    <!-- jQuery (for Bootstrap plugins -->
+    <script src="https://ajax.goggleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"></script>
+
   </body>
 </html>

@@ -1,18 +1,18 @@
 from flask import Flask
+from app.idleg.views import idleg_blueprint
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_oauth import OAuth
-from flask.ext.login import LoginManager
-from config import basedir
+# from config import basedir
 
 app = Flask(__name__)
+app.register_blueprint(idleg_blueprint)
+
+''' 
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
-lm = LoginManager()
-lm.init_app(app)
-lm.login_view = 'login'
-
 oauth = OAuth()
+
 twitter = oauth.remote_app('twitter',
     base_url='https://api.twitter.com/1/',
     request_token_url='https://api.twitter.com/oauth/request_token',
@@ -21,6 +21,7 @@ twitter = oauth.remote_app('twitter',
     consumer_key='nZRuF6tkYBLbhUvrHfauHK88a',
     consumer_secret='n15RO8Xh0XgnB5ia1779cb9xKCF7pn5JKie161vSzd3lXzxh9W'
 )
+
 facebook = oauth.remote_app('facebook',
     base_url='https://graph.facebook.com/',
     request_token_url=None,
@@ -30,5 +31,5 @@ facebook = oauth.remote_app('facebook',
     consumer_secret='789db0a5084f84ca460f66a9b44d2666',
     request_token_params={'scope': 'email'}
 )
-
-from app import views, models
+'''
+# from app import views, models
