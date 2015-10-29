@@ -15,10 +15,10 @@
     <meta name="author" content="Nathaniel Hoffman" />  <!-- Note: Make dynamic based on page author -->
     {#  <meta name="revised" content="<?php filemtime('index.php'); ?>  last mod of index.html #}
 
-    <link href="{{ url_for('static', filename='/css/bootstrap.min.css') }}" rel="stylesheet'>
-    <link href="{{ url_for('static', filename='/css/styles.css') }}" type="text/scc" rel="stylesheet" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='/images/favicon.ico') }}" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
   </head>
 
   <body>
@@ -28,23 +28,23 @@
           <div class="navbar-header">          
             <ul>
             <li class="social">
-              <a class="navbar-brand" href="https://twitter.com/search?q=%23idleg&src=typd"><img src="{{ url_for('static', filename="/images/twittericon.png") }}" width="24px" height="24px">
+              <a class="navbar-brand" href="https://twitter.com/search?q=%23idleg&src=typd"><img src="{{ url_for('static', filename="images/twittericon.png") }}" width="24px" height="24px">
                 </a>
               </li>
               <li class="social">
-                <a href="http://idleg.info/rss"><img src='{{ url_for('static', filename="/images/RSS-Icon.png") }} width="24px" height="24px">
+                <a href="http://idleg.info/rss"><img src="{{ url_for('static', filename="images/RSS-Icon.png") }}" width="24px" height="24px">
                 </a>
               </li>
               <li class="social">
-                <a href="https://github.com/paleomedia/idleg"><img src="{{ url_for('static', filename="/images/Github-Icon.png") }}" width="24px" height="24px">
+                <a href="https://github.com/paleomedia/idleg"><img src="{{ url_for('static', filename="images/Github-Icon.png") }}" width="24px" height="24px">
                 </a>
               </li>
              <li class="social">
-                <a href="mailto:editor@idleg.info"><img src="{{ url_for('static', filename="/images/Email-Icon.png") }}" width="24px" height="24px">
+                <a href="mailto:editor@idleg.info"><img src="{{ url_for('static', filename="images/Email-Icon.png") }}" width="24px" height="24px">
                </a>
             </li>
               <li class="social">
-                <a href="http://facebook.com"><img src="{{ url_for('static', filename="/images/Facebook-Icon.png") }}" width="24px" height="24px">
+                <a href="http://facebook.com"><img src="{{ url_for('static', filename="images/Facebook-Icon.png") }}" width="24px" height="24px">
                 </a>
               </li>
             </ul>
@@ -108,9 +108,9 @@
     {% endwith %}
     {% block content %}{% endblock %}
 
-    <!-- jQuery (for Bootstrap plugins -->
+    <!-- jQuery (for Bootstrap plugins) -->
     <script src="https://ajax.goggleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
   </body>
 </html>

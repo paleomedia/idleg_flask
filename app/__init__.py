@@ -1,16 +1,17 @@
 from flask import Flask
-from app.idleg.views import idleg_blueprint
+from app.idleg.views import homepage
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_oauth import OAuth
+#from flask_oauth import OAuth
 # from config import basedir
 
 app = Flask(__name__)
-app.register_blueprint(idleg_blueprint)
+app.register_blueprint(homepage)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+db= SQLAlchemy(App)
+
+db.create_all()
 
 ''' 
-app.config.from_object('config')
-db = SQLAlchemy(app)
-
 oauth = OAuth()
 
 twitter = oauth.remote_app('twitter',
@@ -32,4 +33,3 @@ facebook = oauth.remote_app('facebook',
     request_token_params={'scope': 'email'}
 )
 '''
-# from app import views, models
