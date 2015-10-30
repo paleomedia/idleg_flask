@@ -7,7 +7,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.register_blueprint(homepage)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-db= SQLAlchemy(App)
+db= SQLAlchemy(app)
 
 db.create_all()
 

@@ -23,30 +23,25 @@
 
   <body>
     <header>
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation"">
-        <div class="container">
-          <div class="navbar-header">          
-            <ul>
-            <li class="social">
-              <a class="navbar-brand" href="https://twitter.com/search?q=%23idleg&src=typd"><img src="{{ url_for('static', filename="images/twittericon.png") }}" width="24px" height="24px">
-                </a>
-              </li>
-              <li class="social">
-                <a href="http://idleg.info/rss"><img src="{{ url_for('static', filename="images/RSS-Icon.png") }}" width="24px" height="24px">
-                </a>
-              </li>
-              <li class="social">
-                <a href="https://github.com/paleomedia/idleg"><img src="{{ url_for('static', filename="images/Github-Icon.png") }}" width="24px" height="24px">
-                </a>
-              </li>
-             <li class="social">
-                <a href="mailto:editor@idleg.info"><img src="{{ url_for('static', filename="images/Email-Icon.png") }}" width="24px" height="24px">
-               </a>
-            </li>
-              <li class="social">
-                <a href="http://facebook.com"><img src="{{ url_for('static', filename="images/Facebook-Icon.png") }}" width="24px" height="24px">
-                </a>
-              </li>
+      <div class="tops">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation social">
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                <a href="https://twitter.com/search?q=%23idleg&src=typd"><img src="{{ url_for('static', filename="images/twittericon.png") }}" width="24px" height="24px"></a>
+                </li>
+                <li>
+                <a href="http://idleg.info/rss"><img src="{{ url_for('static', filename="images/RSS-Icon.png") }}" width="24px" height="24px"></a>
+                </li>
+                <li>
+                <a href="https://github.com/paleomedia/idleg"><img src="{{ url_for('static', filename="images/Github-Icon.png") }}" width="24px" height="24px"></a>
+                </li>
+                <li>
+                <a href="mailto:editor@idleg.info"><img src="{{ url_for('static', filename="images/Email-Icon.png") }}" width="24px" height="24px"></a>
+                </li>
+                <li>
+                <a href="http://facebook.com"><img src="{{ url_for('static', filename="images/Facebook-Icon.png") }}" width="24px" height="24px"></a>
+                </li>
             </ul>
           </div>
         </div>
@@ -57,21 +52,20 @@
         </div>
 
 	<!-- Navigation menu -->
-	<nav class="navbar navbar-default">
-  	  <div class="container-fluid">
-    	  <!-- Brand and toggle get grouped for better mobile display -->
-    	    <div class="navbar-header">
-      	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        	<span class="sr-only">Toggle navigation</span>
-        	<span class="icon-bar"></span>
-        	<span class="icon-bar"></span>
-        	<span class="icon-bar"></span>
-      	      </button>
-    	    </div>   
+    <div class="navbar navbar-inverse navbar-static-top" role="navigation"> 
+    	<!-- Brand and toggle get grouped for better mobile display -->
+       <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+        	  <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+       	    <span class="icon-bar"></span>
+     	    </button>
+    	  </div>   
    	<!-- Collect the nav links, forms, and other content for toggling -->
-    	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    	  <div class="collapse navbar-collapse">
       	    <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">Home <span class="sr-only">(current)</span></a></li>
               <li><a href="/about">About</a></li>
               <li><a href="/bills">Bills</a></li>
               <li><a href="/lawmakers">Lawmakers</a></li>
@@ -83,18 +77,12 @@
             </div>
               <button type="submit" class="btn btn-default">Submit</button>
       	  </form>
-      	  <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/bills">Bills</a></li>
-            <li><a href="/lawmakers">Lawmakers</a></li>
-            <li><a href="/topics">Topics</a></li>
-           </ul>
-    	</div><!-- /.navbar-collapse -->
-  	</div><!-- /.container-fluid -->
+    	 </div><!-- /.navbar-collapse -->
+  	</div><!-- /.container -->
+  	</div><!-- /.tops -->
 	</nav>	
     </header>
-    <hr>
+    <hr />
 
     {% block container %} {% endblock %}
     {% with messages = get_flashed_messages() %}
