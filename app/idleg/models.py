@@ -1,22 +1,20 @@
 from app import db
 
 class User(db.Model):
-   __tablename__ = 'users'
-  id = db.Column(db.Integer, primary_key=True)
-  social_id = db.Column(db.String(64), nullable=False, unique=True)
-  nickname = db.Column(db.String(64), nullable=False)
-  email = db.Column(db.String(64), nullable=True)
-  party = db.Column(db.String(12))
-  website = db.Column(db.String(64))
-  district_cong = db.Column(db.Integer)
-  district_leg = db.Column(db.Integer)
-  date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-  verified = db.Column(db.bool)
-);
+  __tablename__ = 'users'
+id = db.Column(db.Integer, primary_key=True)
+social_id = db.Column(db.String(64), nullable=False, unique=True)
+nickname = db.Column(db.String(64), nullable=False)
+email = db.Column(db.String(64), nullable=True)
+party = db.Column(db.String(12))
+website = db.Column(db.String(64))
+district_cong = db.Column(db.Integer)
+district_leg = db.Column(db.Integer)
+date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+verified = db.Column(db.bool)
 
-# New instance instantiation
+#New instance instantiation
 def __init__(nickname, email):
-    
                 self.nickname     = name
                 self.email    = email
                 self.password = password
@@ -24,24 +22,23 @@ def __init__(nickname, email):
 def __repr__(self):
   return '<User %r>' % (self.nickname)   
 
-class Comment(db.Model)
+class Comment(db.Model):
   __tablename__ = 'comments'
-  
-  comment_id = db.Column(db.Integer, primary_key=True)
-  nickname = db.Column(db.String(64)
-  comment MEDIUMBLOB,
-  comment_link VARCHAR(200),
-  comment_type VARCHAR(9),
-  votes_for TINYINT,
-  votes_against TINYINT,
-  flags TINYINT,
-  bill_id VARCHAR(20),
-  comment_ip VARCHAR(100),
-  comment TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  comment_parent BIGINT(20),
-  approved BOOL
-  );
-  
+comment_id = db.Column(db.Integer, primary_key=True)
+nickname = db.Column(db.String(64))
+comment = db.Column(db.String(256))
+comment_link = db.Column(db.String(200))
+comment_type = db.Column(db.String(9))
+votes_for = db.Column(db.Integer)
+votes_against = db.Column(db.Integer)
+flags = db.Column(db.Integer)
+bill_id = db.Column(db.String(20))
+comment_ip = db.Column(db.String(100))
+#  comment TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+comment_parent = db.Column(db.String(20))
+approved = db.Column(db.Bool)
+
+'''  
 CREATE TABLE IF NOT EXISTS topics (
 topic_id BIGINT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 topic VARCHAR(64)
@@ -103,9 +100,7 @@ user_id VARCHAR(64),
 lawmaker VARCHAR(9)
 );
 
-
-
-
+'''
 
 import sunlight
 

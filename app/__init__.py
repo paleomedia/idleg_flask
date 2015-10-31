@@ -1,13 +1,14 @@
 from flask import Flask
-from app.idleg.views import homepage
 from flask.ext.sqlalchemy import SQLAlchemy
-#from flask_oauth import OAuth
-# from config import basedir
+from flask_oauth import OAuth
+from config import basedir
 
 app = Flask(__name__)
-app.register_blueprint(homepage)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-db= SQLAlchemy(app)
+db = SQLAlchemy(app)
+
+from app.idleg.views import idleg
+app.register_blueprint(idleg)
 
 db.create_all()
 
