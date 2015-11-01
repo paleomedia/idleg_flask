@@ -1,15 +1,16 @@
-from flask import render_template, request, Blueprint, jsonify
+from flask import render_template, request, Blueprint, jsonify, flash, redirect, url_for, session
 from werkzeug import abort
 from app import app, db
-from app.idleg.models import User
+from app.auth.models import User, RegistrationForm, LoginForm
 
 idleg = Blueprint('idleg', __name__)
 
-@idleg.route('/')
+# @idleg.route('/')
 @idleg.route('/index')
 def home():
   return render_template('index.html')
 
+'''
 @idleg.route('/users')
 def users():
   users = USer.query.all()
@@ -28,3 +29,8 @@ def create_user():
   db.session.add(email)
   db.session.commit()
   return 'User created.'
+'''
+
+@app.errorhandler(404)
+def page_not_found(e):
+  return render_template('404.html'), 404

@@ -1,9 +1,8 @@
-WTF_CSRF_ENABLED = True
-SECRET_KEY = 'you-will-never-guess'
+WTF_CSRF_ENABLED = False
 
-class BaseConfig(object) :
+class BaseConfig(object):
   'Base config class'
-  SECRET_KEY = 'A random secret key'
+  SECRET_KEY = 'aG45!geB8593423)fkFrd4C'
   DEBUG= True
   TESTING = False
 

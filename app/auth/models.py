@@ -1,9 +1,14 @@
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf import Form
+from wtforms import TextField, PasswordField
+from wtforms.validators import InputRequired, EqualTo
 from app import db
 
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   social_id = db.Column(db.String(64), nullable=False, unique=True)
-  nickname = db.Column(db.String(64), nullable=False)
+  username = db.Column(db.String(64), nullable=False)
+  pwdhash= db.Column(db.String(100))
   email = db.Column(db.String(64), nullable=True)
   party = db.Column(db.String(12))
   website = db.Column(db.String(64))
@@ -13,17 +18,28 @@ class User(db.Model):
   verified = db.Column(db.Boolean)
 
 #New instance instantiation
-def __init__(nickname, email):
-                self.nickname     = name
-                self.email    = email
-                self.password = password
+def __init__(self, username, password):
+                self.username = username
+                self.pwdhash = generate_password_hash(password)
                              
 def __repr__(self):
-  return '<User %r>' % (self.nickname)   
+  return '<User %r>' % (self.username)   
 
 import sunlight
 
-
+class RegistrationForm(Form):
+  username = TextField('Username', [InputRequired()])
+  password = PasswordField(
+    'Password', [
+      InputRequired(), EqualTo('confirm', message='Passwords must match')
+    ]
+  )
+  confirm = PasswordField('Confirm Password', [InputRequired()])
+  
+class LoginForm(Form):
+  username = TextField('Username', [InputRequired()])
+  password = PasswordField('Password', [InputRequired()])
+  
 '''
 class Comment(db.Model):
   __tablename__ = 'comments'
