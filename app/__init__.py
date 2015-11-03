@@ -12,6 +12,8 @@ app = Flask(__name__)
 app.config.from_object('config.BaseConfig')
 db = SQLAlchemy(app)
 
+print db
+
 # migrate = Migrate(app, db)
 
 # manager = Manager(app)
