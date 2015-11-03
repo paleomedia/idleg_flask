@@ -4,8 +4,9 @@ from app import app, db
 from app.auth.models import User, RegistrationForm, LoginForm
 
 idleg = Blueprint('idleg', __name__)
+auth = Blueprint('auth', __name__)
 
-# @idleg.route('/')
+@idleg.route('/')
 @idleg.route('/index')
 def home():
   return render_template('index.html')

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
+from flask.ext.login import LoginManager
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.wtf import Form
 from flask_wtf.csrf import CsrfProtect
@@ -25,6 +26,10 @@ app.register_blueprint(auth)
 db.create_all()
 
 CsrfProtect(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 ''' 
 oauth = OAuth()

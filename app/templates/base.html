@@ -94,8 +94,9 @@
         </ul>
       {% endif %}
     {% endwith %}
+    {% block dash %}{% endblock %}
     {% block content %}{% endblock %}
-
+    {% block footer %}{% endblock %}
     <!-- jQuery (for Bootstrap plugins) -->
     <script src="https://ajax.goggleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>

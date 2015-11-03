@@ -5,16 +5,16 @@ from app.auth.models import User, RegistrationForm, LoginForm
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/')
-@auth.route('/home')
-def home():
-  return render_template('home.html')
+# @auth.route('/')
+# @auth.route('/home')
+# def home():
+#  return render_template('home.html')
   
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
   if session.get('username'):
     flash('Your are already logged in.', 'info')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('idleg.index'))
 
   form = RegistrationForm(request.form)
       
@@ -29,7 +29,7 @@ def register():
     db.session.add(user)
     db.session.commit()
     flash('You are now registered. Please login.', 'success')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('idleg.index'))
   if form.errors:
       flash(form.errors, 'danger')
       
@@ -50,7 +50,7 @@ def login():
     
     session['username'] = username
     flash('You have successfully logged in.', 'success')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('idleg.index'))
     
   if form.errors:
     flash(form.errors, 'danger')
@@ -62,5 +62,5 @@ def logout():
   if 'username' in session:
     session.pop('username')
     flash('You have successfully logged out.', 'success')
-  return redirect(url_for('auth.home'))
+  return redirect(url_for('idelg.index'))
 

@@ -1,9 +1,9 @@
-{% extends 'home.html' %}
+{% extends 'base.html' %}
 
 {% block container %}
   <div class="top-pad">
     <form method="POST"action="{{ url_for('auth.login') }}"role="form">
-      {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <div class="form-group">{{ form.username.label }}: {{  
      form.username() }}</div>
       <div class="form-group">{{ form.password.label }}: {{  

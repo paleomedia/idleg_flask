@@ -24,6 +24,18 @@ def __init__(self, username, password):
                 
 def check_password(self, password):
   return check_password_hash(self.pwdhash, password)
+
+def is_authenticated(self):
+  return True
+  
+def is_active(self):
+  return True
+  
+def is_anonymous(self):
+  return False
+  
+def get_id(self):
+  return unicode(self.id)
                              
 #def __repr__(self):
 #  return '<User %r>' % (self.username)   
@@ -36,6 +48,8 @@ class RegistrationForm(Form):
 class LoginForm(Form):
   username = TextField('Username', [InputRequired()])
   password = PasswordField('Password', [InputRequired()])
+
+
   
 '''
 class Comment(db.Model):
