@@ -2,19 +2,19 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
+from flask.ext.wtf import Form
+from flask_wtf.csrf import CsrfProtect
 from flask_oauth import OAuth
 from config import basedir
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+app.config.from_object('config.BaseConfig')
 db = SQLAlchemy(app)
 
-app.config['SECRET_KEY'] = 'fdkja432Gd'
+# migrate = Migrate(app, db)
 
-migrate = Migrate(app, db)
-
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+# manager = Manager(app)
+# manager.add_command('db', MigrateCommand)
 
 from app.idleg.views import idleg
 app.register_blueprint(idleg)
@@ -23,6 +23,8 @@ from app.auth.views import auth
 app.register_blueprint(auth)
 
 db.create_all()
+
+CsrfProtect(app)
 
 ''' 
 oauth = OAuth()

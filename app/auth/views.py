@@ -15,17 +15,15 @@ def register():
   if session.get('username'):
     flash('Your are already logged in.', 'info')
     return redirect(url_for('auth.home'))
-  else:
-   form = RegistrationForm(request.form)
-   return render_template('register.html', form=form)  
-    
+
+  form = RegistrationForm(request.form)
+      
   if request.method == 'POST' and form.validate():
     username = request.form.get('username')
     password = request.form.get('password')
     existing_username = User.query.filter_by(username=username).first()
     if existing_username:
-      flash('This username has been already taken. Try another  one.',
-          'warning')
+      flash('This username has been already taken. Try another  one.','warning')
       return render_template('register.html', form=form)
     user = User(username, password)
     db.session.add(user)
@@ -45,6 +43,7 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     existing_user =  User.query.filter_by(username=username).first()
+    
     if not (existing_user and existing_user.check_password (password)):
       flash('Invalid username or password. Please try  again.', 'danger')
       return render_template('login.html', form=form)

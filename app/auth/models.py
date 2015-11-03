@@ -6,34 +6,31 @@ from app import db
 
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  social_id = db.Column(db.String(64), nullable=False, unique=True)
+#  social_id = db.Column(db.String(64), nullable=False, unique=True)
   username = db.Column(db.String(64), nullable=False)
   pwdhash= db.Column(db.String(100))
-  email = db.Column(db.String(64), nullable=True)
-  party = db.Column(db.String(12))
-  website = db.Column(db.String(64))
-  district_cong = db.Column(db.Integer)
-  district_leg = db.Column(db.Integer)
-  date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-  verified = db.Column(db.Boolean)
+#  email = db.Column(db.String(64), nullable=True)
+#  party = db.Column(db.String(12))
+#  website = db.Column(db.String(64))
+#  district_cong = db.Column(db.Integer)
+#  district_leg = db.Column(db.Integer)
+#  date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+#  verified = db.Column(db.Boolean)
 
 #New instance instantiation
 def __init__(self, username, password):
                 self.username = username
                 self.pwdhash = generate_password_hash(password)
+                
+def check_password(self, password):
+  return check_password_hash(self.pwdhash, password)
                              
-def __repr__(self):
-  return '<User %r>' % (self.username)   
-
-import sunlight
+#def __repr__(self):
+#  return '<User %r>' % (self.username)   
 
 class RegistrationForm(Form):
   username = TextField('Username', [InputRequired()])
-  password = PasswordField(
-    'Password', [
-      InputRequired(), EqualTo('confirm', message='Passwords must match')
-    ]
-  )
+  password = PasswordField('Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
   confirm = PasswordField('Confirm Password', [InputRequired()])
   
 class LoginForm(Form):

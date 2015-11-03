@@ -4,10 +4,9 @@
   <h1>Welcome to the Authentication Demo</h1>
   {% if session.username %}
     <h3>Hey {{ session.username }}!!</h3>
-    <a href="{{ url_for('auth.logout') }}">Click here to  logout</a>
+    <a href="{{ url_for('auth.logout') }}">Click here to logout</a>
   {% else %}
   Click here to <a href="{{ url_for('auth.login') }}">login</a> or
    <a href="{{ url_for('auth.register') }}">register</a>
   {% endif %}
 {% endblock %}
- 
