@@ -6,10 +6,10 @@ from app.auth.models import User, RegistrationForm, LoginForm
 idleg = Blueprint('idleg', __name__)
 # auth = Blueprint('auth', __name__)
 
-@idleg.route('/')
-@idleg.route('/index')
-def home():
-  return render_template('index.html')
+#@idleg.route('/')
+#@idleg.route('/index')
+#def home():
+#  return render_template('index.html')
 
 @app.errorhandler(404)
 def page_not_found(e):

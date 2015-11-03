@@ -12,15 +12,17 @@ app = Flask(__name__)
 app.config.from_object('config.BaseConfig')
 db = SQLAlchemy(app)
 
-print db
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 # migrate = Migrate(app, db)
 
 # manager = Manager(app)
 # manager.add_command('db', MigrateCommand)
 
-from app.idleg.views import idleg
-app.register_blueprint(idleg)
+# from app.idleg.views import idleg
+# app.register_blueprint(idleg)
 
 from app.auth.views import auth
 app.register_blueprint(auth)
@@ -28,10 +30,6 @@ app.register_blueprint(auth)
 db.create_all()
 
 CsrfProtect(app)
-
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
 
 ''' 
 oauth = OAuth()
