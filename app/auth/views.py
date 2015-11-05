@@ -19,7 +19,7 @@ def get_current_user():
 @auth.route('/')
 @auth.route('/home')
 def home():
-  return render_template('home.html')
+  return render_template('home.html', user=current_user)
   
 @auth.route('/register', methods=['GET', 'POST'])
 def register():

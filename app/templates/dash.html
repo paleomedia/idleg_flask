@@ -19,7 +19,7 @@
   {% if session.username %}
     <div class="loginbox">
       <div class="dashitem">
-        <h3>Hey {{ session.username }}!!</h3>
+        <h3>Hey {{ current.user }}!!</h3>
         <a href="{{ url_for('auth.logout') }}">Click here to logout</a></div></div>
   {% else %}
     <div class="dashitem">
