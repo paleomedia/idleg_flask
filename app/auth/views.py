@@ -39,7 +39,8 @@ def register():
     user = User(username, password)
     db.session.add(user)
     db.session.commit()
-    flash('You are now registered. Please login.', 'success')
+    login_user(user)
+    flash('You are now registered and logged in.', 'success')
     return redirect(url_for('auth.home'))
   if form.errors:
       flash(form.errors, 'danger')
