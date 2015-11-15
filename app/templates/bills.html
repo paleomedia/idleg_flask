@@ -10,7 +10,16 @@
   {% endif %}
 
   {% for bill in id_bills: %}
-    {% print bill['title'] %}
+    {% print bill %}
+  {% endfor %}
+  
+  {% for bill in id_bills: %}
+    <div class="active">
+    <p>Active Bills</p>
+    <div class="billimage"><span<>{% print bill["bill_id"] %}</span></div>
+    <div class="lastaction">Last Action: {% print bill["updated_at"] %}</div>
+    <div class="billsummary">{% print bill["title"] %}</div><br /><br />  
+    </div>
   {% endfor %}
   
 {% endblock %}
