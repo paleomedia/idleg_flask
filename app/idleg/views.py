@@ -30,7 +30,7 @@ def bills():
   id_bills = openstates.bills(
     state = 'id',
     search_window = 'session')  
-  return render_template('bills.html')
+  return render_template('bills.html', id_bills = id_bills)
 
 
 @app.errorhandler(404)
