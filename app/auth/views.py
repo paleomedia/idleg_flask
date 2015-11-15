@@ -17,16 +17,16 @@ def load_user(id):
 def get_current_user():
   g.user = current_user
 
-@auth.route('/')
-@auth.route('/home')
-def home():
-  return render_template('home.html', user=current_user)
+#@auth.route('/')
+#@auth.route('/home')
+#def home():
+#  return render_template('home.html', user=current_user)
   
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
   if session.get('username'):
     flash('Your are already logged in.', 'info')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('idleg.home'))
 
   form = RegistrationForm(request.form)
       
@@ -42,7 +42,7 @@ def register():
     db.session.commit()
     login_user(user)
     flash('You are now registered and logged in.', 'success')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('idleg.home'))
   if form.errors:
       flash(form.errors, 'danger')
   return render_template('register.html', form=form)
@@ -51,7 +51,7 @@ def register():
 def login():
   if current_user.is_authenticated:
     flash('You are already logged in.')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('idleg.home'))
 
   form = LoginForm(request.form)
     
@@ -66,7 +66,7 @@ def login():
 
     login_user(existing_user)    
     flash('You have successfully logged in.', 'success')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('idleg.home'))
     
   if form.errors:
     flash(form.errors, 'danger')
@@ -102,4 +102,4 @@ def get_facebook_oauth_token():
 @login_required
 def logout():
   logout_user()
-  return redirect(url_for('auth.home'))
+  return redirect(url_for('idleg.home'))

@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block container %}
-  <h1>Welcome to the Authentication Demo</h1>
+
+  {% include 'dash.html' %}
+
   {% if current_user.is_authenticated %}
      <h3>Hey {{ user.username }}!!</h3>
      <a href="{{ url_for('auth.logout') }}">Click here to  logout</a>
   {% else %}
   Click here to <a href="{{ url_for('auth.login') }}">login</a> or <a href="{{ url_for('auth.register') }}">register</a>
   
-<!--login modal-->
+<!--login modal
   <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -39,6 +41,6 @@
          </div>
        </div>
      </div>
-       
+       -->
   {% endif %}
 {% endblock %}

@@ -1,15 +1,27 @@
 from flask import render_template, request, Blueprint, jsonify, flash, redirect, url_for, session
+from flask import g, session
 from werkzeug import abort
 from app import app, db
+from app import login_manager
 from app.auth.models import User, RegistrationForm, LoginForm
+from flask.ext.login import current_user
 
 idleg = Blueprint('idleg', __name__)
 #auth = Blueprint('auth', __name__)
 
-#@idleg.route('/')
-#@idleg.route('/index')
-#def home():
-#  return render_template('index.html')
+@login_manager.user_loader
+def load_user(id):
+  return User.query.get(int(id))
+    
+@idleg.before_request
+def get_current_user():
+  g.user = current_user
+
+@idleg.route('/')
+@idleg.route('/index')
+@idleg.route('/home')
+def home():
+  return render_template('home.html', user=current_user)
 
 @idleg.route('/about')
 def about():
