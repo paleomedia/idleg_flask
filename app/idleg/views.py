@@ -5,6 +5,7 @@ from app import app, db
 from app import login_manager
 from app.auth.models import User, RegistrationForm, LoginForm
 from flask.ext.login import current_user
+#from app.auth.views import form
 
 idleg = Blueprint('idleg', __name__)
 #auth = Blueprint('auth', __name__)
@@ -21,7 +22,12 @@ def get_current_user():
 @idleg.route('/index')
 @idleg.route('/home')
 def home():
-  return render_template('home.html', user=current_user)
+  import sunlight
+  from sunlight import openstates
+  id_bills = openstates.bills(
+      state = 'id',
+      search_window = 'session') 
+  return render_template('home.html', user=current_user, id_bills=id_bills)
 
 @idleg.route('/about')
 def about():

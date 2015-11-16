@@ -2,28 +2,21 @@
   <div class="dashhead" id="dashtop">
     Legislative Dash
   </div>
-  <div id="search">
-    <form>
-      <input type="submit" value="Go">
-      <div>
-      <input type="search" name="search" placeholder="Search bills, legislators, etc...." autocomplete="on">
-      </div>
-    </form>
-  </div>   
 
   <div class="dashhead" id="login">Login</div>
-
-{% block container %}
-  {% if session.username %}
+ {% block container %}
+  
+  {% if current_user.is_authenticated %}
     <div class="loginbox">
       <div class="dashitem">
-        <h3>Hey {{ current.user }}!!</h3>
-        <a href="{{ url_for('auth.logout') }}">Click here to logout</a></div></div>
-  {% else %}
-    <div class="dashitem">
-    <div class="loginbox">
-    {% include 'login.html' %}
-    <p span id="newuser">or <a href="{{ url_for('auth.register') }}">create new account</a></p>
+        <h3>Hey {{ user.username }}!!</h3>
+         <a href="{{ url_for('auth.logout') }}">Click here to  logout</a>
+      </div>
+    </div>    
+    {% else %}
+     <div class="dashitem">
+     <div class="loginbox">
+     <p span id="newuser"><a href="{{ url_for('auth.login') }}">Login</a> or <a href="{{ url_for('auth.register') }}">create new account</a>.</p>
     </div></div>
   {% endif %}
 {% endblock %}
