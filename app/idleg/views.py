@@ -77,16 +77,16 @@ def facebook_authorized(resp):
   if resp is None:
     return 'Access denied: reason=%s error=%s' % (request.args['error_reason'], request.args['error_description'])
   session['facebook_oauth_token'] = (resp['access_token'], '')
-  me = facebook.get('/me')
+  me = facebook.get('/me?fields=id,name,email')
   user = User.query.filter_by(username=me.data['email']).first()
   if not user:
     user = User(me.data['email'], '')
     db.session.add(user)
     db.session.commit()
-                 
-    login_user(user)
-    flash('Logged in as id=%s name=%s' % (me.data['id'], me.data['name']),'success')
-    return redirect(request.args.get('next'))
+                     
+  login_user(user)
+  flash('Logged in as id=%s name=%s' % (me.data['id'], me.data['name']),'success')
+  return redirect(request.args.get('next'))
                          
 @facebook.tokengetter
 def get_facebook_oauth_token():
