@@ -7,7 +7,7 @@
       <li><a href="#social-logins" data-toggle="tab">Social Logins</a></li>
     </ul>
     <div class="tab-pane" id="simple-form">
-      <form method="POST" action="{{ url_for('auth.login') }}" role="form">
+      <form method="POST" action="{{ url_for('idleg.login') }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div class="form-group">{{ form.username.label }}: {{ form.username() }}</div>
         <div class="form-group">{{ form.password.label }}: {{ form.password() }}</div>
@@ -15,7 +15,7 @@
       </form>
     </div>
     <div class="tab-pane" id="social-logins">
-      <a href="{{ url_for('auth.facebook_login', next=url_for('idleg.home')) }}">Login via Facebook</a>
+      <a href="{{ url_for('idleg.facebook_login', next=url_for('idleg.home')) }}">Login via Facebook</a>
     </div>
   </div>
 {% endblock %}

@@ -10,13 +10,15 @@
     <div class="loginbox">
       <div class="dashitem">
         <h3>Hey {{ user.username }}!!</h3>
-         <a href="{{ url_for('auth.logout') }}">Click here to  logout</a>
+         <a href="{{ url_for('idleg.logout') }}">Click here to  logout</a>
       </div>
     </div>    
     {% else %}
      <div class="dashitem">
      <div class="loginbox">
-     <p span id="newuser"><a href="{{ url_for('auth.login') }}">Login</a> or <a href="{{ url_for('auth.register') }}">create new account</a>.</p>
+     {% include 'login_modal.html' %}
+     
+     <!--  <p span id="newuser"><a href="{{ url_for('idleg.login') }}">Login</a> or <a href="{{ url_for('idleg.register') }}">create new account</a>.</p> -->
     </div></div>
   {% endif %}
 {% endblock %}

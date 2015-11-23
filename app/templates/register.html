@@ -2,7 +2,7 @@
 
 {% block container %}
   <div class="top-pad">
-    <form method="POST" action="{{ url_for('auth.register') }}" role="form">
+    <form method="POST" action="{{ url_for('idleg.register') }}" role="form">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
       <div class="form-group">{{ form.username.label }}: {{  form.username() }}</div>
       <div class="form-group">{{ form.password.label }}: {{  form.password() }}</div>

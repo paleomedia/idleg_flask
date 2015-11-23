@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'auth.login'
+login_manager.login_view = 'idleg.login'
 
 oauth = OAuth()
 
@@ -39,8 +39,8 @@ facebook = oauth.remote_app('facebook', \
 from app.idleg.views import idleg
 app.register_blueprint(idleg)
 
-from app.auth.views import auth
-app.register_blueprint(auth)
+# from app.auth.views import auth
+# app.register_blueprint(auth)
 
 db.create_all()
 
