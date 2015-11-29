@@ -1,10 +1,10 @@
 from flask import render_template, request, Blueprint, jsonify, flash, redirect, url_for, session
-from flask import g, session
+from flask import g, session, json
 from werkzeug import abort
 from app import app, db
 from app import login_manager, facebook
 from flask.ext.login import current_user, login_user, logout_user, login_required
-from app.idleg.models import User, RegistrationForm, LoginForm
+from app.idleg.models import User, RegistrationForm, LoginForm, Bills
 
 idleg = Blueprint('idleg', __name__)
 
@@ -106,7 +106,7 @@ def home():
   from sunlight import openstates
   id_bills = openstates.bills(
       state = 'id',
-      search_window = 'session') 
+      search_window = 'session')
   
   form = RegistrationForm(request.form)
   
@@ -118,6 +118,12 @@ def about():
 
 @idleg.route('/legislators')
 def legislators():
+  import sunlight
+  from sunlight import openstates
+  id_bills = openstates.bills(
+    state = 'id',
+    search_window = 'session')
+  
   return render_template('lawmakers.html')
 
 @idleg.route('/topics')
@@ -128,9 +134,15 @@ def topics():
 def bills():
   import sunlight
   from sunlight import openstates
-  id_bills = openstates.bills(
+  id_bills_json = openstates.bills(
     state = 'id',
     search_window = 'session')  
+#  id_bills = json.loads(id_bills_json)
+  for bill in id_bills_json:
+    bill_adder = Bills(bill['bill_id'], bill['session'], bill['title'], bill['id'], bill['updated_at'])
+    db.session.add(bill_adder)
+    db.session.commit()
+   
   return render_template('bills.html', id_bills = id_bills)
 
 @idleg.errorhandler(404)
