@@ -137,9 +137,9 @@ def bills():
   id_bills_json = openstates.bills(
     state = 'id',
     search_window = 'session')  
-#  id_bills = json.loads(id_bills_json)
+  id_bills = json.loads('id_bills_json')
   for bill in id_bills_json:
-    bill_adder = Bills(bill['bill_id'], bill['session'], bill['title'], bill['id'], bill['updated_at'])
+    bill_adder = Bills(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
     db.session.add(bill_adder)
     db.session.commit()
    

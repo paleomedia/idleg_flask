@@ -70,3 +70,17 @@ class Bills(db.Model):
   
   def __repr__(self):
     return '<Bill %d>' % (self.bill_id)
+  
+  def from_json(self, source):
+    if 'bill_id' in source:
+      self.bill_id = source['bill_id']
+    if 'session' in source:
+      self.year = source['session']
+    if 'title' in source:
+      self.completed = source['title']
+    if 'bill_name' in source:
+      self.bill_name = source['bill_name']
+    if 'last_updated' in source:
+      self.last_updated = source['last_updated']
+      
+

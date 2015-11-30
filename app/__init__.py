@@ -9,7 +9,7 @@ from flask_oauth import OAuth
 from config import basedir
 
 app = Flask(__name__)
-app.config.from_object('config.BaseConfig')
+app.config.from_object('config')
 db = SQLAlchemy(app)
 
 #migrate = Migrate(app, db)
@@ -40,6 +40,8 @@ facebook = oauth.remote_app('facebook', \
     consumer_key='1172176769479154', \
     consumer_secret='789db0a5084f84ca460f66a9b44d2666', \
     request_token_params={'scope': 'email'})
+
+from app.idleg import views, models
 
 from app.idleg.views import idleg
 app.register_blueprint(idleg)
