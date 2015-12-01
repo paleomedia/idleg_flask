@@ -1,13 +1,18 @@
-{% block container %}
+\{% block container %}
 
   <div class="billmain">
 
     {% for bill in id_bills: %}
       <div class="activebills">
         <p>Active Bills</p>
-        <div class="billimage"><span>{% print bill["bill_id"] %}</span></div>
-        <div class="lastaction">Last Action: {% print bill["updated_at"] %}</div>
-        <div class="billsummary">{% print bill["title"] %}</div>
+        <div class="billimage"><span>{% print bill.bill_id %}</span></div>
+        <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
+        <div class="billsummary">{% print bill.title %}</div>
+        </div>
+  </div>     
+     {% endfor %}
+
+'''
 <!--       
         <div class="comments">
           <div class="commentbox">
@@ -22,7 +27,7 @@
             <input type="radio" name="vote" value="neutral" id="neutral" checked="checked" />?</label>
             <input type="submit" name="commentButton" value="Submit" />
             <input type="hidden" name="form" value="comment" />
-            <input type="hidden" name="bill" value="{% print bill["bill_id"] %}" /> 
+            # <input type="hidden" name="bill" value="print bill.bill_id" /> 
             </form>
           </div>
       
@@ -40,9 +45,9 @@
             <span>Mom says:</span> Nope <br />
             Tomorrow<br /> 
           </div>
-        </div> -->
+        </div>
       </div>
-    {% endfor %}
-  </div>
+  </div>  -->
+'''
 
 {% endblock %}

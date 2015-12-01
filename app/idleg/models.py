@@ -8,9 +8,9 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(100), unique=True)
   pwdhash= db.Column(db.String())
-#  social_id = db.Column(db.String(64), unique=True)
-#  email = db.Column(db.String(64), nullable=True)
-#  party = db.Column(db.String(12))
+  social_id = db.Column(db.String(64), unique=True)
+  email = db.Column(db.String(64), nullable=True)
+  party = db.Column(db.String(12))
 #  website = db.Column(db.String(64))
 #  district_cong = db.Column(db.Integer)
 #  district_leg = db.Column(db.Integer)
@@ -51,8 +51,8 @@ class LoginForm(Form):
   password = PasswordField('Password', [InputRequired()])
 
 class Bills(db.Model):
-  bill_id = db.Column(db.Integer, primary_key=True)
-  year = db.Column(db.Integer),
+  bill_id = db.Column(db.String(6), primary_key=True)
+  year = db.Column(db.String(4))
   title = db.Column(db.Text)
   bill_name = db.Column(db.String(6))
   last_updated = db.Column(db.Text)
@@ -71,16 +71,16 @@ class Bills(db.Model):
   def __repr__(self):
     return '<Bill %d>' % (self.bill_id)
   
-  def from_json(self, source):
-    if 'bill_id' in source:
-      self.bill_id = source['bill_id']
-    if 'session' in source:
-      self.year = source['session']
-    if 'title' in source:
-      self.completed = source['title']
-    if 'bill_name' in source:
-      self.bill_name = source['bill_name']
-    if 'last_updated' in source:
-      self.last_updated = source['last_updated']
+#  def from_json(self, source):
+#    if 'bill_id' in source:
+#      self.bill_id = source['bill_id']
+#    if 'session' in source:
+#      self.year = source['session']
+#    if 'title' in source:
+#      self.completed = source['title']
+#    if 'bill_name' in source:
+#      self.bill_name = source['bill_name']
+#    if 'last_updated' in source:
+#      self.last_updated = source['last_updated']
       
 

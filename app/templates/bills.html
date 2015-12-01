@@ -4,21 +4,17 @@
   <h1>Welcome to the Authentication Demo</h1>
   {% if current_user.is_authenticated %}
      <h3>Hey {{ user.username }}!!</h3>
-     <a href="{{ url_for('auth.logout') }}">Click here to  logout</a>
+     <a href="{{ url_for('idleg.logout') }}">Click here to  logout</a>
     {% else %}
-      Click here to <a href="{{ url_for('auth.login') }}">login</a> or <a href="{{ url_for('auth.register') }}">register</a>
+      Click here to <a href="{{ url_for('idleg.login') }}">login</a> or <a href="{{ url_for('idleg.register') }}">register</a>
   {% endif %}
 
   {% for bill in id_bills: %}
-    {% print bill %}
-  {% endfor %}
-  
-  {% for bill in id_bills: %}
     <div class="active">
     <p>Active Bills</p>
-    <div class="billimage"><span<>{% print bill["bill_id"] %}</span></div>
-    <div class="lastaction">Last Action: {% print bill["updated_at"] %}</div>
-    <div class="billsummary">{% print bill["title"] %}</div><br /><br />  
+    <div class="billimage"><span<>{% print bill.bill_id %}</span></div>
+    <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
+    <div class="billsummary">{% print bill.title %}</div><br /><br />  
     </div>
   {% endfor %}
   

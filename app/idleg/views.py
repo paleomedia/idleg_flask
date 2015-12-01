@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint, jsonify, flash, redirect, url_for, session
-from flask import g, session, json
+from flask import g, session
 from werkzeug import abort
 from app import app, db
 from app import login_manager, facebook
@@ -15,6 +15,16 @@ def load_user(id):
 @idleg.before_request
 def get_current_user():
   g.user = current_user
+
+def byteify(input):
+  if isinstance(input, dict):
+    return {byteify(key):byteify(value) for key,value in input.iteritems()}
+  elif isinstance(input, list):
+    return [byteify(element) for element in input]
+  elif isinstance(input, unicode):
+    return input.encode('utf-8')
+  else:
+    return input
 
 @idleg.route('/register', methods=['GET', 'POST'])
 def register():
@@ -77,10 +87,10 @@ def facebook_authorized(resp):
   if resp is None:
     return 'Access denied: reason=%s error=%s' % (request.args['error_reason'], request.args['error_description'])
   session['facebook_oauth_token'] = (resp['access_token'], '')
-  me = facebook.get('/me?fields=id,name,email')
-  user = User.query.filter_by(username=me.data['email']).first()
+  me = facebook.get('/me?fields=id,name,email,political')
+  user = User.query.filter_by(email=me.data['email']).first()
   if not user:
-    user = User(me.data['email'], '')
+    user = User(me.data['name'], me.data['email'], me.data['id'], me.data['political'])
     db.session.add(user)
     db.session.commit()
                      
@@ -102,14 +112,8 @@ def logout():
 @idleg.route('/index')
 @idleg.route('/home')
 def home():
-  import sunlight
-  from sunlight import openstates
-  id_bills = openstates.bills(
-      state = 'id',
-      search_window = 'session')
-  
   form = RegistrationForm(request.form)
-  
+  id_bills = Bills.query.all()
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form)
 
 @idleg.route('/about')
@@ -132,17 +136,22 @@ def topics():
 
 @idleg.route('/bills')
 def bills():
-  import sunlight
-  from sunlight import openstates
-  id_bills_json = openstates.bills(
-    state = 'id',
-    search_window = 'session')  
-  id_bills = json.loads('id_bills_json')
-  for bill in id_bills_json:
-    bill_adder = Bills(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
-    db.session.add(bill_adder)
-    db.session.commit()
-   
+#  Get bills from Sunlight and add to database Bills table
+#
+#  import sunlight
+#  import json
+#  from sunlight import openstates
+#  id_bills_json = openstates.bills(
+#    state = 'id',
+#    search_window = 'session')  
+#  id_bills = byteify(json.dumps(id_bills_json))
+#  for bill in id_bills_json:
+#    if #test if bill_id exists in table already
+#    bill_adder = Bills(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
+#    db.session.add(bill_adder)
+#    db.session.commit()
+  
+  id_bills = Bills.query.all() 
   return render_template('bills.html', id_bills = id_bills)
 
 @idleg.errorhandler(404)
