@@ -8,7 +8,7 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(100), unique=True)
   pwdhash= db.Column(db.String())
-  social_id = db.Column(db.String(64), unique=True)
+  socialid = db.Column(db.String(64), unique=True)
   email = db.Column(db.String(64), nullable=True)
   party = db.Column(db.String(12))
 #  website = db.Column(db.String(64))
@@ -19,9 +19,12 @@ class User(db.Model):
 
 
   #New instance instantiation
-  def __init__(self, username, password):
+  def __init__(self, username, password, socialid, email, party):
     self.username = username
     self.pwdhash = generate_password_hash(password)
+    self.socialid = socialid
+    self.email = email
+    self.party = party
     
   def check_password(self, password):
     return check_password_hash(self.pwdhash, password)

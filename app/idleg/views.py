@@ -90,7 +90,7 @@ def facebook_authorized(resp):
   me = facebook.get('/me?fields=id,name,email,political')
   user = User.query.filter_by(email=me.data['email']).first()
   if not user:
-    user = User(me.data['name'], me.data['email'], me.data['id'], me.data['political'])
+    user = User(username=me.data['name'], email=me.data['email'], socialid=me.data['id'], party=me.data['political',''])
     db.session.add(user)
     db.session.commit()
                      
