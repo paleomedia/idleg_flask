@@ -37,11 +37,12 @@ def register():
   if request.method == 'POST' and form.validate():
     username = request.form.get('username')
     password = request.form.get('password')
+    email= request.form.get('email')
     existing_username = User.query.filter_by(username=username).first()
     if existing_username:
       flash('This username has been already taken. Try another  one.','warning')
       return render_template('register.html', form=form)
-    user = User(username, password)
+    user = User(username, password, email)
     db.session.add(user)
     db.session.commit()
     login_user(user)
@@ -87,10 +88,10 @@ def facebook_authorized(resp):
   if resp is None:
     return 'Access denied: reason=%s error=%s' % (request.args['error_reason'], request.args['error_description'])
   session['facebook_oauth_token'] = (resp['access_token'], '')
-  me = facebook.get('/me?fields=id,name,email,political')
+  me = facebook.get('/me?fields=id,name,email')
   user = User.query.filter_by(email=me.data['email']).first()
   if not user:
-    user = User(username=me.data['name'], email=me.data['email'], socialid=me.data['id'], party=me.data['political',''])
+    user = User(username=me.data['name'], email=me.data['email'], password=me.data['id'])
     db.session.add(user)
     db.session.commit()
                      
@@ -113,7 +114,7 @@ def logout():
 @idleg.route('/home')
 def home():
   form = RegistrationForm(request.form)
-  id_bills = Bills.query.all()
+  id_bills = Bills.query.limit(25).all()
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form)
 
 @idleg.route('/about')
@@ -137,7 +138,6 @@ def topics():
 @idleg.route('/bills')
 def bills():
 #  Get bills from Sunlight and add to database Bills table
-#
 #  import sunlight
 #  import json
 #  from sunlight import openstates
@@ -146,7 +146,6 @@ def bills():
 #    search_window = 'session')  
 #  id_bills = byteify(json.dumps(id_bills_json))
 #  for bill in id_bills_json:
-#    if #test if bill_id exists in table already
 #    bill_adder = Bills(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
 #    db.session.add(bill_adder)
 #    db.session.commit()

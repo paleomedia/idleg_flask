@@ -8,9 +8,10 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(100), unique=True)
   pwdhash= db.Column(db.String())
-  socialid = db.Column(db.String(64), unique=True)
   email = db.Column(db.String(64), nullable=True)
-  party = db.Column(db.String(12))
+  
+#  socialid = db.Column(db.String(64), unique=True)
+#  party = db.Column(db.String(12))
 #  website = db.Column(db.String(64))
 #  district_cong = db.Column(db.Integer)
 #  district_leg = db.Column(db.Integer)
@@ -19,12 +20,10 @@ class User(db.Model):
 
 
   #New instance instantiation
-  def __init__(self, username, password, socialid, email, party):
+  def __init__(self, username, password, email):
     self.username = username
     self.pwdhash = generate_password_hash(password)
-    self.socialid = socialid
     self.email = email
-    self.party = party
     
   def check_password(self, password):
     return check_password_hash(self.pwdhash, password)
@@ -46,6 +45,7 @@ class User(db.Model):
   
 class RegistrationForm(Form):
   username = TextField('Username', [InputRequired()])
+  email = TextField('Email Address', [InputRequired()])
   password = PasswordField('Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
   confirm = PasswordField('Confirm Password', [InputRequired()])
   

@@ -1,18 +1,33 @@
-\{% block container %}
+{% block container %}
+  
+  <div id="billsSort" class="billmain">
+    
+     <input class="search" placeholder="Search" />
+       <button class="sort" data-sort="billsummary">
+         Sort by name
+       </button>
 
-  <div class="billmain">
-
+    <div class="list">  
     {% for bill in id_bills: %}
       <div class="activebills">
         <p>Active Bills</p>
         <div class="billimage"><span>{% print bill.bill_id %}</span></div>
         <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
         <div class="billsummary">{% print bill.title %}</div>
-        </div>
-  </div>     
-     {% endfor %}
+      </div>
+    {% endfor %}
+    </div>     
+  </div>
 
-'''
+    <script type="text/javascript">
+      var options = {
+        valueNames: [ 'billimage', 'lastaction', 'billsummary' ]
+      };
+  
+      var userList = new List('billsSort', options);
+    </script>
+
+{#
 <!--       
         <div class="comments">
           <div class="commentbox">
@@ -47,7 +62,8 @@
           </div>
         </div>
       </div>
-  </div>  -->
-'''
+  </div>  -->   
+  
+  #}
 
 {% endblock %}
