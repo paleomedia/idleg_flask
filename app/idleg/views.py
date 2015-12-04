@@ -114,7 +114,7 @@ def logout():
 @idleg.route('/home')
 def home():
   form = RegistrationForm(request.form)
-  id_bills = Bills.query.limit(25).all()
+  id_bills = Bills.query.all()
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form)
 
 @idleg.route('/about')
