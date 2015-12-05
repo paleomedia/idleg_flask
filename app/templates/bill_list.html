@@ -1,16 +1,15 @@
 {% block container %}
   
   <div id="billsSort" class="billmain">
-    
-     <input class="search" placeholder="Search bill summaries" />
-     <button class="sort" data-sort="billsummary">
-       Sort by name
-     </button>
-     <div class="filter">
-       <button class="btn" id="filter-none">Show all</button>
-       <button class="btn" id="filter-senate">Only show Senate bills</button>
-       <button class="btn" id="filter-house">Only show House bills</button>
-     </div>
+
+    <input class="search" placeholder="Search bill summaries" />
+      <button class="sort btn" data-sort="billsummary">Sort by name</button>
+    <div class="filter">
+      <button class="btn" id="filter-none">Show all</button>
+      <button class="btn" id="filter-senate">Only show Senate bills</button>
+      <button class="btn" id="filter-house">Only show House bills</button>
+    </div>
+
     <div class="list">  
     {% for bill in id_bills: %}
       <div class="activebills">
@@ -21,10 +20,11 @@
       </div>
     {% endfor %}
     </div>     
+
     <div class="pagination"></div>
   </div>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
       var options = {
         valueNames: [ 'billimage', 'lastaction', 'billsummary' ],
         page: 10,
@@ -35,7 +35,7 @@
     
       $('#filter-senate').click(function() {
         billsList.filter(function(item) {
-          if (item.values().billsummary.startsWith('S',0)) {
+          if (item.values().billimage.startsWith('S',1)) {
             return true;
           } else {
             return false;
@@ -46,7 +46,7 @@
 
       $('#filter-house').click(function() {
         billsList.filter(function(item) {
-          if (item.values().billsummary.startsWith('H',0)) {
+          if (item.values().billimage.startsWith('H',1)) {
             return true;
           } else {
             return false;
@@ -59,7 +59,7 @@
         billsList.filter();
         return false;
        });
-    </script>
+  </script>
 
 {#
 <!--       

@@ -15,7 +15,7 @@ def load_user(id):
 @idleg.before_request
 def get_current_user():
   g.user = current_user
-
+  
 def byteify(input):
   if isinstance(input, dict):
     return {byteify(key):byteify(value) for key,value in input.iteritems()}
@@ -152,6 +152,20 @@ def bills():
   
   id_bills = Bills.query.all() 
   return render_template('bills.html', id_bills = id_bills)
+
+
+"""
+@app.route('/search', methods=['POST'])
+def search():
+  if not g.search_form.validate_on_submit():
+    return redirect(url_for('home'))
+  return redirect(url_for('search_results', query=g.search_form.search.data))
+
+@app.route('/search_results/<query>')
+def search_results(query):
+  results = Bills.query.whoosh_search(query).all()
+  return render_template('search_results.html', query=query, results=results)
+"""
 
 @idleg.errorhandler(404)
 def page_not_found(e):

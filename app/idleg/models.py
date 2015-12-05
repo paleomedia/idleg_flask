@@ -54,6 +54,8 @@ class LoginForm(Form):
   password = PasswordField('Password', [InputRequired()])
 
 class Bills(db.Model):
+  __searchable__ = ['bill_name']
+
   bill_id = db.Column(db.String(6), primary_key=True)
   year = db.Column(db.String(4))
   title = db.Column(db.Text)
@@ -73,6 +75,7 @@ class Bills(db.Model):
   
   def __repr__(self):
     return '<Bill %d>' % (self.bill_id)
+  
   
 #  def from_json(self, source):
 #    if 'bill_id' in source:
