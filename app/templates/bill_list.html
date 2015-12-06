@@ -30,7 +30,7 @@
                   <h3 class="panel-title">Active Bills</h3>
                 </div>
                 <div class="panel-body">
-                  <div class="billimage"><span>{% print bill.bill_id %}</span></div>
+                  <div><span class="billimage">{% print bill.bill_id %}</span></div>
                   <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
                   <div class="billsummary">{% print bill.title %}</div>
                 </div>
@@ -78,7 +78,6 @@
     
       $('#filter-senate').click(function() {
         billsList.filter(function(item) {
-          console.log(item.values().billimage.item)
           if (item.values().billimage.substring(0,1) == "S") {
             return true;
           } else {
