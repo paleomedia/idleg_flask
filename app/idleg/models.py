@@ -9,6 +9,7 @@ class User(db.Model):
   username = db.Column(db.String(100), unique=True)
   pwdhash= db.Column(db.String())
   email = db.Column(db.String(64), nullable=True)
+  comments = db.relationship('Comment', backref='id', lazy='dynamic')
   
 #  socialid = db.Column(db.String(64), unique=True)
 #  party = db.Column(db.String(12))
@@ -39,9 +40,12 @@ class User(db.Model):
     
   def get_id(self):
     return unicode(self.id)
+    
+  def get_comments(self):
+    return Comment.query.filter_by(
   
 #  def __repr__(self):
-#   return '<User %r>' % (self.username)   
+#   return '<User %r>' % (self.username)
   
 class RegistrationForm(Form):
   username = TextField('Username', [InputRequired()])
@@ -75,6 +79,18 @@ class Bills(db.Model):
   
   def __repr__(self):
     return '<Bill %d>' % (self.bill_id)
+  
+class Comment(db.EmbeddedDocument):
+    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
+    body = db.StringField(verbose_name="Comment", required=True)
+    author = db.StringField(verbose_name="Name", max_length=255, required=True)
+    comment_type = db.StringField(vebose_name="Position", required=True)
+    bill_id = db.IntegerField(max_length=6, required=True)
+
+class CommentForm(Form):
+  comment = TextAreaField('comment', default="Write comments or testimony here, select pro, neutral or anti, and press Submit.")
+  position = RadioField('Yea, Nay or Neutral?', choices=[('value','description'),('value_two','whatever')])
+  
   
   
 #  def from_json(self, source):

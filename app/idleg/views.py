@@ -15,7 +15,8 @@ def load_user(id):
 @idleg.before_request
 def get_current_user():
   g.user = current_user
-  
+
+"""
 def byteify(input):
   if isinstance(input, dict):
     return {byteify(key):byteify(value) for key,value in input.iteritems()}
@@ -25,6 +26,7 @@ def byteify(input):
     return input.encode('utf-8')
   else:
     return input
+"""
 
 @idleg.route('/register', methods=['GET', 'POST'])
 def register():
@@ -69,12 +71,12 @@ def login():
       flash('Invalid username or password. Please try  again.', 'danger')
       return render_template('login.html', form=form)
             
-    login_user(existing_user)    
+    login_user(existing_user)
     flash('You have successfully logged in.', 'success')
     return redirect(url_for('idleg.home'))
         
     if form.errors:
-      flash(form.errors, 'danger')                 
+      flash(form.errors, 'danger')
 
     return render_template('login.html', form=form)
       
@@ -119,21 +121,18 @@ def home():
 
 @idleg.route('/about')
 def about():
-  return render_template('about.html')
+  form = RegistrationForm(request.form)
+  return render_template('about.html', user=current_user, form=form)
 
-@idleg.route('/legislators')
-def legislators():
-  import sunlight
-  from sunlight import openstates
-  id_bills = openstates.bills(
-    state = 'id',
-    search_window = 'session')
-  
-  return render_template('lawmakers.html')
+@idleg.route('/lawmakers')
+def lawmakers():
+  form = RegistrationForm(request.form)
+  return render_template('lawmakers.html', user=current_user, form=form)
 
 @idleg.route('/topics')
 def topics():
-  return render_template('topics.html')
+  form = RegistrationForm(request.form)
+  return render_template('topics.html', user=current_user, form=form)
 
 @idleg.route('/bills')
 def bills():
@@ -143,15 +142,15 @@ def bills():
 #  from sunlight import openstates
 #  id_bills_json = openstates.bills(
 #    state = 'id',
-#    search_window = 'session')  
+#    search_window = 'session')
 #  id_bills = byteify(json.dumps(id_bills_json))
 #  for bill in id_bills_json:
 #    bill_adder = Bills(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
 #    db.session.add(bill_adder)
 #    db.session.commit()
   
-  id_bills = Bills.query.all() 
-  return render_template('bills.html', id_bills = id_bills)
+  id_bills = Bills.query.all()
+  return render_template('bills.html', id_bills = id_bills, user=current_user)
 
 
 """

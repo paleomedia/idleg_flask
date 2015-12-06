@@ -3,8 +3,9 @@ from wtforms import StringField, BooleanField
 from wtforms.validators import DataRequired
 
 class LoginForm(Form):
-    openid = StringField('openid', validators=[DataRequired()])
-    remember_me = BooleanField('remember_me', default=False)
+  openid = StringField('openid', validators=[DataRequired()])
+  remember_me = BooleanField('remember_me', default=False)
+    
 
 class SearchForm(Form):
-    search = StringField('search', validators=[DataRequired()])
+  search = StringField('search', validators=[DataRequired()])
