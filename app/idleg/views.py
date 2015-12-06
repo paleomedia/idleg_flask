@@ -4,7 +4,7 @@ from werkzeug import abort
 from app import app, db
 from app import login_manager, facebook
 from flask.ext.login import current_user, login_user, logout_user, login_required
-from app.idleg.models import User, RegistrationForm, LoginForm, Bills
+from app.idleg.models import User, RegistrationForm, LoginForm, Bills, Comment, CommentForm
 
 idleg = Blueprint('idleg', __name__)
 
@@ -116,8 +116,9 @@ def logout():
 @idleg.route('/home')
 def home():
   form = RegistrationForm(request.form)
+  comment_form = CommentForm(request.form)
   id_bills = Bills.query.all()
-  return render_template('home.html', user=current_user, id_bills=id_bills, form=form)
+  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
 
 @idleg.route('/about')
 def about():

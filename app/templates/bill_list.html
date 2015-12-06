@@ -17,10 +17,35 @@
         <div class="billimage"><span>{% print bill.bill_id %}</span></div>
         <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
         <div class="billsummary">{% print bill.title %}</div>
+
+        <div class="comments">
+          <div class="commentbox">
+            <form name="commentForm" class="form-inline" role="form" action="{  url_for('idleg.comment') }}" method="POST">
+              <div class="form-group">
+                <input class="form-control">{{ comment_form.comment.label }}: {{ comment_form.comment() }}
+                <input class="form-control">{{ comment_form.position.label }}: {{ comment_form.position() }}
+              </div>
+              <div class="form-group">
+                <button class="btn btn-default">Add</button>
+              </div>
+            </form>
+          </div>
+          <div class="pro"><h3>Yea</h3>
+            <span>Joe  says:</span> Yep <br />
+            Today<br />
+          </div>
+      
+          <div class="neutral"><h3>Neutral</h3>
+            <span>Jill says:</span> Maybe <br />
+            Yesterday<br />
+          </div>
+      
+          <div class="anti"><h3>Nay</h3>
+            <span>Mom says:</span> Nope <br />
+            Tomorrow<br />
+          </div>
+        </div>
       </div>
-      
-      
-      
     {% endfor %}
     </div>
 
@@ -66,12 +91,8 @@
 
 {#
 <!--
-        <div class="comments">
-          <div class="commentbox">
-          
-            <form name="commentForm" action="lib/handler.php" method="POST">
-            <textarea name="comment" rows="4" id="comment" placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit."></textarea>
-          
+ 
+            
           
             <label>Yea, Nay or Neutral?</label>
             
@@ -87,21 +108,7 @@
             </form>
           </div>
       
-          <div class="pro"><h3>Yea</h3>
-            <span>Joe  says:</span> Yep <br />
-            Today<br />
-          </div>
-      
-          <div class="neutral"><h3>Neutral</h3>
-            <span>Jill says:</span> Maybe <br />
-            Yesterday<br />
-          </div>
-      
-          <div class="anti"><h3>Nay</h3>
-            <span>Mom says:</span> Nope <br />
-            Tomorrow<br />
-          </div>
-        </div>
+          
       </div>
   </div>  -->
   

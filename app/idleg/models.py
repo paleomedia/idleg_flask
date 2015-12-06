@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import Form
-from wtforms import TextField, PasswordField
+from wtforms import TextField, PasswordField, TextAreaField, RadioField
 from wtforms.validators import InputRequired, EqualTo
 from app import db
 
@@ -9,7 +9,7 @@ class User(db.Model):
   username = db.Column(db.String(100), unique=True)
   pwdhash= db.Column(db.String())
   email = db.Column(db.String(64), nullable=True)
-  comments = db.relationship('Comment', backref='id', lazy='dynamic')
+  comments = db.relationship('Comment', backref='username', lazy='dynamic')
   
 #  socialid = db.Column(db.String(64), unique=True)
 #  party = db.Column(db.String(12))
@@ -42,7 +42,7 @@ class User(db.Model):
     return unicode(self.id)
     
   def get_comments(self):
-    return Comment.query.filter_by(
+    return Comment.query.filter_by(user_id = user.id).order_by(Coment.timestamp.desc())
   
 #  def __repr__(self):
 #   return '<User %r>' % (self.username)
@@ -80,16 +80,17 @@ class Bills(db.Model):
   def __repr__(self):
     return '<Bill %d>' % (self.bill_id)
   
-class Comment(db.EmbeddedDocument):
-    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
-    body = db.StringField(verbose_name="Comment", required=True)
-    author = db.StringField(verbose_name="Name", max_length=255, required=True)
-    comment_type = db.StringField(vebose_name="Position", required=True)
-    bill_id = db.IntegerField(max_length=6, required=True)
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime)
+    author = db.Column(db.Integer, db.ForeignKey('user.id'))
+    comment_type = db.Column(db.String(8))
+    bill_id = db.Column(db.String(8))
 
 class CommentForm(Form):
   comment = TextAreaField('comment', default="Write comments or testimony here, select pro, neutral or anti, and press Submit.")
-  position = RadioField('Yea, Nay or Neutral?', choices=[('value','description'),('value_two','whatever')])
+  position = RadioField('Yea, Nay or Neutral?', choices=[('yea','Yea'),('nay','Nay'),('neutral','Neutral')])
   
   
   
