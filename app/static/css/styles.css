@@ -52,14 +52,14 @@ div#logo {
 	padding: 40
 	}
 	
-body {
+/* body {
 	font-family: 'Source Sans Pro', Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 1.3rem;
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
-}
+} */
 
 #topline {
 	width: 100%;
@@ -165,6 +165,7 @@ form {
 	width: 100%;
 	margin: 0px;
 }
+/*
 input[type=submit] {
 	float: right;
 	position: relative;
@@ -174,7 +175,7 @@ input[type=submit] {
 	background-color: #207cca;
 	color: white;
 }
-input[type=search],
+ input[type=search],
 input[type=email],
 input[type=text],
 input[type=password],
@@ -182,12 +183,15 @@ textarea {
 	width: 100%;
 	padding: 8px 15px;
 	background: rgba(239, 240, 242, 0.4);
-	/* border: 1px solid black; */
+  border: 1px solid black;
+
 }
 div {
 //	overflow: hidden;
 	padding-right: 0em;
 }
+*/
+
 #newuser {
 	text-align: right;
 	color: #3F5388;
@@ -228,6 +232,8 @@ label[for="rememberme"] {
 	margin: 1 0 ;
 	position: relative;
 }
+/*
+
 input {
   font: normal 12px/1.3 'helvetica neue', helvetica, arial;
   font-size: 20px;
@@ -273,7 +279,7 @@ input {
 	text-transform: uppercase;
 	font-style: italic;
 }
-
+*/
 .billimage {
 	background-image: url("../images/billpage.png");
 	position: relative;
@@ -326,12 +332,7 @@ h2 span {
    background: rgba(0, 0, 0, 0.7);
    padding: 10px;
 }
-.comments {
-	border-top: 1px gray solid;
-	width: 100%;
-	height: 100%;
-	padding: 5px 0px 5px 5px;
-}
+
 .pro h3, .neutral h3, .anti h3 {
 	color: black;
 	text-transform: uppercase;
@@ -363,6 +364,14 @@ h2 span {
 	min-height: 1px;
 	line-height: 1.2em;
 }
+
+/*
+.comments {
+  border-radius: 10px;
+	width: 50%;
+	height: 100%;
+	padding: 5px 0px 5px 5px;
+}
 .commentbox input[type=radio] {
 	margin: 0px 5px 0px 0px;
 	display: inline-block;
@@ -385,6 +394,7 @@ h2 span {
 	font-size: 1.2em;
 	line-height: 1.5em;
 }
+
 .prolabel {
 	background-size: 20px;
 	width: 20px;
@@ -399,6 +409,8 @@ h2 span {
 	background-repeat: no-repeat;
 	position: relative;
 }
+*/
+
 .footer {
 	width: 100%;
 	height: 100%x;
