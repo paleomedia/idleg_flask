@@ -124,12 +124,13 @@ div.socials {
 .modal-body-right {float:right; width:47%;}
 .login-link {padding:0 20%;}
 .modal-social-icons {padding:0 10%;}
-.facebook, .twitter, .google, .linkedin {width:100%;height:40px; padding-top:2%; margin-top:2%;}
+.facebook, .twitter, .google, .linkedin, .github {width:100%;height:40px; padding-top:2%; margin-top:2%;}
 .modal-icons {margin-left: -10px; margin-right: 20px;}
 .google, .google:hover {background-color:#dd4b39;border:2px solid #dd4b39;color:#fff;}
 .twitter, .twitter:hover { background-color: #00aced; border:2px solid #00aced;color: #fff;}
 .facebook, .facebook:hover {background-color: #3b5999; border:2px solid #3b5999;color:#fff;}
 .linkedin, .linkedin:hover {background-color: #007bb6; border: 2px solid #007bb6; color:#fff;}
+.github, .github:hover {background-color: black; border: 2px solid #fff; color:#fff;}
 #social-icons-conatainer {position: relative;}
 #center-line {position: absolute;  right: 265.7px;top: 80px;background:#ddd;  border: 4px solid #DDDDDD;border-radius: 20px;}
 .modal-login-btn {width:100%;height:40px; margin-bottom:10px;}
@@ -245,11 +246,12 @@ input {
   margin-left: 10px;
   margin-bottom: 15px;
   }
+  
+  */
 .btn {
   font: normal 12px/1.3 'helvetica neue', hevetica, arial;
   font-size: 20px;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin: 5px 5px 5px 0px;
   padding: 5px 10px;
   border-radius: 10px;
   border: solid 1px #666;
@@ -262,6 +264,7 @@ input {
 .btn:hover {
   background-color: rgba(255, 255, 255, 0.05);
   }
+/*
 .list {
   clear: both;
   }

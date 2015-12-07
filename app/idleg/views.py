@@ -134,34 +134,33 @@ def topics():
 @idleg.route('/bills')
 def bills():
 #  Get bills from Sunlight and add to database Bills table
-  import sunlight
-  import json
-  from sunlight import openstates
-  id_bills_json = openstates.bills(
-    state = 'id',
-    search_window = 'session')
-  id_bills = byteify(json.dumps(id_bills_json))
-  for bill in id_bills_json:
-    bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
-    db.session.add(bill_adder)
-    db.session.commit()
-
+#  import sunlight
+#  import json
+#  from sunlight import openstates
+#  id_bills_json = openstates.bills(
+#    state = 'id',
+#    search_window = 'session')
+#  id_bills = byteify(json.dumps(id_bills_json))
+#  for bill in id_bills_json:
+#    bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
+#    db.session.add(bill_adder)
+#    db.session.commit()
 
   id_bills = Bill.query.all()
   return render_template('bills.html', id_bills = id_bills, user=current_user)
 
-@app.route('/comment', methods=['POST'])
+@app.route('/comment', methods=['GET', 'POST'])
 @login_required
 def add_comment():
   if request.method == 'POST' and form.validate():
     comment = request.form.get('comment')
     position = request.form.get('position')
     new_comment = Comment(comment, position)
-    db.session.add(user)
+    db.session.add(comment)
     db.session.commit()
-    return new_comment
+    return jsonify(new_comment)
   flash(form.errors, 'danger')
-  return render_template('home.html', form=form)
+  return ""
 
 
 """

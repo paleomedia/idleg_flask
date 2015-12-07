@@ -93,7 +93,7 @@ class Comment(db.Model):
     bill_num = db.Column(db.String(8), db.ForeignKey('bill.bill_id'))
 
 class CommentForm(Form):
-  comment = TextAreaField('comment', default="Write comments or testimony here, select pro, neutral or anti, and press Submit.")
+  comment = TextAreaField('comment')
   position = RadioField('Yea, Nay or Neutral?', choices=[('yea','Yea'),('nay','Nay'),('neutral','Neutral')])
   
   

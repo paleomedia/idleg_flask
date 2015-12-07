@@ -2,137 +2,74 @@
   
   <div id="billsSort">
     <div class="col-md-8">
-      <div class="panel panel-warning">
-        <div class="panel-heading">Filter and sort bills</div>
+      <div class="panel panel-primary">
+        <h1 class="panel-heading">Bill List</h1>
         <div class="panel-body">
           <div class="search-filter">
-            <input class="search form-control" placeholder="Search bill summaries" />
-            <div class="btn-group" aria-label="Sort and filter bills">
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="basic-addon1">¿</span>
+              <input class="search form-control" type="text" placeholder="Search bill summaries" />
+            </div>
+            <div class="input-group" aria-label="Sort and filter bills">
               <button type="button" class="sort btn btn-default" data-sort="billsummary">Sort by name</button>
               <button type="button" class="btn btn-default" id="filter-none">Show all</button>
               <button type="button" class="btn btn-default" id="filter-senate">Only show Senate bills</button>
               <button type="button" class="btn btn-default" id="filter-house">Only show House bills</button>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-8">
-      <div class="panel panel-primary">
-        <div class="panel-heading">Bill List</div>
-        <div class="list panel-body">
-        {% for bill in id_bills: %}
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Active Bills</h3>
+          <div class="list">
+          {% for bill in id_bills: %}
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Active Bills</h3>
+                  </div>
+                  <div class="panel-body">
+                    <div><span class="billimage">{% print bill.bill_id %}</span></div>
+                    <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
+                    <div class="billsummary">{% print bill.title %}</div>
+                  </div>
                 </div>
-                <div class="panel-body">
-                  <div><span class="billimage">{% print bill.bill_id %}</span></div>
-                  <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
-                  <div class="billsummary">{% print bill.title %}</div>
+                <div class="form-group">
+                  <form role="form">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}
+                    <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio") }}
+                      <button id="submitcomment" type="submit" class="btn btn-success">Add testimony</button></div>
+                  </form>
                 </div>
+                <hr />
+                <div class="pro"><h3>Yea</h3>
+                  <span>Joe  says:</span> Yep <br />
+                  Today<br />
+                  {% if bill.comments %}
+                    {% for comment in bill.comments %}
+                      <p>{{ comment.body }}</p>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+            
+                <div class="neutral"><h3>Neutral</h3>
+                  <span>Jill says:</span> Maybe <br />
+                  Yesterday<br />
+                </div>
+            
+                <div class="anti"><h3>Nay</h3>
+                  <span>Mom says:</span> Nope <br />
+                  Tomorrow<br />
+                </div>
+                
               </div>
-              <div class="form-group">
-                <form method="POST" action="{{  url_for('idleg.home') }}" role="form">
-                  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-                  {{ comment_form.comment(rows="4", class="form-control") }}
-                  <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio") }}
-                    <button type="submit" class="btn btn-success">Add testimony</button></div>
-                </form>
-              </div>
-              <hr />
-              <div class="pro"><h3>Yea</h3>
-                <span>Joe  says:</span> Yep <br />
-                Today<br />
-                {% if bill.comments %}
-                  {% for comment in bill.comments %}
-                    <p>{{ comment.body }}</p>
-                  {% endfor %}
-                {% endif %}
-              </div>
-          
-              <div class="neutral"><h3>Neutral</h3>
-                <span>Jill says:</span> Maybe <br />
-                Yesterday<br />
-              </div>
-          
-              <div class="anti"><h3>Nay</h3>
-                <span>Mom says:</span> Nope <br />
-                Tomorrow<br />
-              </div>
-              
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
         </div>
         <div class="panel-footer pagination"></div>
       </div>
     </div>
   </div>
+</div>
 
-  <script type="text/javascript">
-      var options = {
-        valueNames: [ 'billimage', 'lastaction', 'billsummary' ],
-        page: 10,
-        plugins: [ ListPagination({}) ]
-      };
-  
-      var billsList = new List('billsSort', options);
-    
-      $('#filter-senate').click(function() {
-        billsList.filter(function(item) {
-          if (item.values().billimage.substring(0,1) == "S") {
-            return true;
-          } else {
-            return false;
-          }
-        });
-        return false;
-      });
-
-      $('#filter-house').click(function() {
-        billsList.filter(function(item) {
-          if (item.values().billimage.substring(0,1) == "H") {
-            return true;
-          } else {
-            return false;
-          }
-        });
-        return false;
-      });
-      
-      $('#filter-none').click(function() {
-        billsList.filter();
-        return false;
-       });
-  </script>
-
-{#
-<!--
- 
-            
-          
-            <label>Yea, Nay or Neutral?</label>
-            
-            <label><input type="radio" name="vote" value="pro" id="pro" /><img class="prolabel" src="{{ url_for('static', filename="images/thumbs_up.png") }} /></label>
-            <label><input type="radio" name="vote" value="anti" id="anti" /><img class="antilabel" src="{{ url_for('static', filename="images/thumbs_down.png") }} /></label>
-            <label class="neutrallabel">
-                  <input type="radio" name="vote" value="neutral" id="neutral" checked="checked" />?</label>
-           
-           
-            <input type="submit" name="commentButton" value="Submit" />
-            <input type="hidden" name="form" value="comment" />
-            # <input type="hidden" name="bill" value="print bill.bill_id" />
-            </form>
-          </div>
-      
-          
-      </div>
-  </div>  -->
-  
-  #}
+<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
 {% endblock %}
