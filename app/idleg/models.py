@@ -49,7 +49,7 @@ class User(db.Model):
   
 class RegistrationForm(Form):
   username = TextField('Username', [InputRequired()])
-  email = TextField('Email Address', [InputRequired()])
+# email = TextField('Email Address', [InputRequired()])
   password = PasswordField('Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
   confirm = PasswordField('Confirm Password', [InputRequired()])
   
@@ -57,7 +57,7 @@ class LoginForm(Form):
   username = TextField('Username', [InputRequired()])
   password = PasswordField('Password', [InputRequired()])
 
-class Bills(db.Model):
+class Bill(db.Model):
   __searchable__ = ['bill_name']
 
   bill_id = db.Column(db.String(6), primary_key=True)
@@ -67,6 +67,7 @@ class Bills(db.Model):
   last_updated = db.Column(db.Text)
   votes_for = db.Column(db.Integer)
   votes_against = db.Column(db.Integer)
+  comments = db.relationship('Comment', backref='bill_id', lazy='dynamic')
 
   def __init__(self, bill_id, year, title, bill_name, last_updated, votes_for=0, votes_against=0):
     self.bill_id = bill_id
@@ -79,6 +80,9 @@ class Bills(db.Model):
   
   def __repr__(self):
     return '<Bill %d>' % (self.bill_id)
+    
+  def get_comments(self):
+    return Comment.query.filter_by(bill_id = bill.id).order_by(Coment.timestamp.desc())
   
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -86,7 +90,7 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime)
     author = db.Column(db.Integer, db.ForeignKey('user.id'))
     comment_type = db.Column(db.String(8))
-    bill_id = db.Column(db.String(8))
+    bill_num = db.Column(db.String(8), db.ForeignKey('bill.bill_id'))
 
 class CommentForm(Form):
   comment = TextAreaField('comment', default="Write comments or testimony here, select pro, neutral or anti, and press Submit.")

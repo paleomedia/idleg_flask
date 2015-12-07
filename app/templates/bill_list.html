@@ -43,9 +43,15 @@
                     <button type="submit" class="btn btn-success">Add testimony</button></div>
                 </form>
               </div>
+              <hr />
               <div class="pro"><h3>Yea</h3>
                 <span>Joe  says:</span> Yep <br />
                 Today<br />
+                {% if bill.comments %}
+                  {% for comment in bill.comments %}
+                    <p>{{ comment.body }}</p>
+                  {% endfor %}
+                {% endif %}
               </div>
           
               <div class="neutral"><h3>Neutral</h3>

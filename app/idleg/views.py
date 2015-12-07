@@ -4,7 +4,7 @@ from werkzeug import abort
 from app import app, db
 from app import login_manager, facebook
 from flask.ext.login import current_user, login_user, logout_user, login_required
-from app.idleg.models import User, RegistrationForm, LoginForm, Bills, Comment, CommentForm
+from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm
 
 idleg = Blueprint('idleg', __name__)
 
@@ -15,8 +15,7 @@ def load_user(id):
 @idleg.before_request
 def get_current_user():
   g.user = current_user
-
-"""
+  
 def byteify(input):
   if isinstance(input, dict):
     return {byteify(key):byteify(value) for key,value in input.iteritems()}
@@ -26,7 +25,7 @@ def byteify(input):
     return input.encode('utf-8')
   else:
     return input
-"""
+    
 
 @idleg.route('/register', methods=['GET', 'POST'])
 def register():
@@ -66,19 +65,16 @@ def login():
     username = request.form.get('username')
     password = request.form.get('password')
     existing_user =  User.query.filter_by(username=username).first()
-  
     if not (existing_user and existing_user.check_password(password)):
       flash('Invalid username or password. Please try  again.', 'danger')
       return render_template('login.html', form=form)
-            
     login_user(existing_user)
     flash('You have successfully logged in.', 'success')
     return redirect(url_for('idleg.home'))
-        
-    if form.errors:
-      flash(form.errors, 'danger')
-
-    return render_template('login.html', form=form)
+  if form.errors:
+    flash(form.errors, 'danger')
+  return render_template('login.html',form=form)
+  
       
 @idleg.route('/facebook-login')
 def facebook_login():
@@ -117,7 +113,7 @@ def logout():
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
-  id_bills = Bills.query.all()
+  id_bills = Bill.query.all()
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
 
 @idleg.route('/about')
@@ -138,20 +134,34 @@ def topics():
 @idleg.route('/bills')
 def bills():
 #  Get bills from Sunlight and add to database Bills table
-#  import sunlight
-#  import json
-#  from sunlight import openstates
-#  id_bills_json = openstates.bills(
-#    state = 'id',
-#    search_window = 'session')
-#  id_bills = byteify(json.dumps(id_bills_json))
-#  for bill in id_bills_json:
-#    bill_adder = Bills(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
-#    db.session.add(bill_adder)
-#    db.session.commit()
-  
-  id_bills = Bills.query.all()
+  import sunlight
+  import json
+  from sunlight import openstates
+  id_bills_json = openstates.bills(
+    state = 'id',
+    search_window = 'session')
+  id_bills = byteify(json.dumps(id_bills_json))
+  for bill in id_bills_json:
+    bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
+    db.session.add(bill_adder)
+    db.session.commit()
+
+
+  id_bills = Bill.query.all()
   return render_template('bills.html', id_bills = id_bills, user=current_user)
+
+@app.route('/comment', methods=['POST'])
+@login_required
+def add_comment():
+  if request.method == 'POST' and form.validate():
+    comment = request.form.get('comment')
+    position = request.form.get('position')
+    new_comment = Comment(comment, position)
+    db.session.add(user)
+    db.session.commit()
+    return new_comment
+  flash(form.errors, 'danger')
+  return render_template('home.html', form=form)
 
 
 """
@@ -163,7 +173,7 @@ def search():
 
 @app.route('/search_results/<query>')
 def search_results(query):
-  results = Bills.query.whoosh_search(query).all()
+  results = Bill.query.whoosh_search(query).all()
   return render_template('search_results.html', query=query, results=results)
 """
 
