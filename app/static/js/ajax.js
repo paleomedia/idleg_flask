@@ -11,8 +11,7 @@ $("#form").submit(function(){
       url: "../lib/handler.php",
       data: values,
       success: function() {
-        $("sentiment h3").after("Your latest comment:
-          comment);
+        $("sentiment h3").after("Your latest comment:").comment);
         $("#comment").val("");
       },
       error: function () {

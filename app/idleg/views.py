@@ -131,23 +131,22 @@ def topics():
   form = RegistrationForm(request.form)
   return render_template('topics.html', user=current_user, form=form)
 
-@idleg.route('/bills')
-def bills():
+@idleg.route('/bills/<path:bill_id>')
+def bills(bill_id):
+#  bill_deets = Bill.query.bill_id.get_or_404(bill_name)
+  quotes = "'"
+  bill_id = quotes + bill_id + quotes
+  print bill_id
 #  Get bills from Sunlight and add to database Bills table
-#  import sunlight
-#  import json
-#  from sunlight import openstates
-#  id_bills_json = openstates.bills(
-#    state = 'id',
-#    search_window = 'session')
-#  id_bills = byteify(json.dumps(id_bills_json))
-#  for bill in id_bills_json:
-#    bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
-#    db.session.add(bill_adder)
-#    db.session.commit()
-
-  id_bills = Bill.query.all()
-  return render_template('bills.html', id_bills = id_bills, user=current_user)
+  import sunlight
+  import json
+  from sunlight import openstates
+  id_bill_json = openstates.bill_detail(
+    state = 'id',
+    session = '2014',
+    bill_id = 'H 469'
+    )
+  return render_template('bills.html', bill_id = bill_id, user=current_user, id_bill_json=id_bill_json)
 
 @app.route('/comment', methods=['GET', 'POST'])
 @login_required
@@ -155,6 +154,7 @@ def add_comment():
   if request.method == 'POST' and form.validate():
     comment = request.form.get('comment')
     position = request.form.get('position')
+    bill_num = request.form.get('bill_num')
     new_comment = Comment(comment, position)
     db.session.add(comment)
     db.session.commit()

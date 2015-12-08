@@ -2,7 +2,7 @@
   
   <div id="billsSort">
     <div class="col-md-8">
-      <div class="panel panel-primary">
+      <div id="main-bill-panel" class="panel panel-primary">
         <h1 class="panel-heading">Bill List</h1>
         <div class="panel-body">
           <div class="search-filter">
@@ -26,17 +26,18 @@
                     <h3 class="panel-title">Active Bills</h3>
                   </div>
                   <div class="panel-body">
-                    <div><span class="billimage">{% print bill.bill_id %}</span></div>
-                    <div class="lastaction">Last Action: {% print bill.updated_at %}</div>
+                    <div><span class="billimage"><a href={{ url_for('idleg.bills', bill_id=bill.bill_id) }}>{% print bill.bill_id %}</a></span></div>
+                    <div class="lastaction">Last Update: {% print bill.last_updated %}</div>
                     <div class="billsummary">{% print bill.title %}</div>
                   </div>
                 </div>
                 <div class="form-group">
                   <form role="form">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <input type="hidden" name="bill_num" value="{{ bill.bill_id }}" />
                     {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}
                     <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio") }}
-                      <button id="submitcomment" type="submit" class="btn btn-success">Add testimony</button></div>
+                      <button id="submitcomment" type="submit" class="btn btn-default">Add testimony</button></div>
                   </form>
                 </div>
                 <hr />

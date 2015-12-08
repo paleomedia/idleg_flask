@@ -35,19 +35,22 @@ $('#filter-none').click(function() {
  });
 
 $(function() {
-    $('#submitcomment').click(function() {
-        $.ajax({
-            url: '/comment',
-            data: $('form').serialize(),
-            type: 'POST',
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.log(error);
-            }
-        });
+  $('#submitcomment').click(function() {
+    $.ajax({
+      url: '/comment',
+      data: $('form').serialize(),
+      type: 'POST',
+      success: function(response) {
+        console.log(response);
+        $("sentiment h3").after("Your latest comment:").comment();
+        $("#comment").val("");
+      },
+      error: function(error) {
+        console.log(error);
+        alert("FAILURE");
+      }
     });
+  });
 });
 
 

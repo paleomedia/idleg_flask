@@ -52,14 +52,14 @@ div#logo {
 	padding: 40
 	}
 	
-/* body {
+body {
 	font-family: 'Source Sans Pro', Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 1.3rem;
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
-} */
+}
 
 #topline {
 	width: 100%;
@@ -165,6 +165,15 @@ div.socials {
 form {
 	width: 100%;
 	margin: 0px;
+}
+#main-bill-panel, h1 .panel- {
+  background: #e9eaed;
+}
+h1 > .panel-heading {
+  background: #7489B4;
+}
+.panel-success > h3.panel-title {
+  background: #DFF0A4;
 }
 /*
 input[type=submit] {
@@ -292,7 +301,7 @@ input {
 	margin: 0px 5px 0px 0px;
 	border: 1px solid gray;
 }
-.billimage span {
+span.billimage  {
 	font-size: 1.5em;
 	font-family: 'Source Sans Pro', Helvetica, sans-serif;
 	font-weight: bold;
@@ -305,8 +314,8 @@ input {
 	font-style: italic;
 }
 .billsummary {
-	font-size: 1.2rem;
-	line-height: 1.1rem;
+	font-size: 2.2rem;
+	line-height: 2.2rem;
 }
 .lawmaker {
 	position: relative;
