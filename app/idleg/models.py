@@ -88,9 +88,15 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime)
-    author = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author = db.Column(db.String, db.ForeignKey('user.id'))
     comment_type = db.Column(db.String(8))
     bill_num = db.Column(db.String(8), db.ForeignKey('bill.bill_id'))
+    
+    def __init__(self, comment, author, position, bill_num):
+      self.body = comment
+      self.author = author
+      self.comment_type = position
+      self.bill_num = bill_num
 
 class CommentForm(Form):
   comment = TextAreaField('comment')

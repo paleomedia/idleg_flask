@@ -35,7 +35,8 @@ $('#filter-none').click(function() {
  });
 
 $(function() {
-  $('#submitcomment').click(function() {
+  $('#submitcomment').click(function(e) {
+    e.preventDefault;
     $.ajax({
       url: '/comment',
       data: $('form').serialize(),

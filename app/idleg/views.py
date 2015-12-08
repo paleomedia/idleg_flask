@@ -131,31 +131,31 @@ def topics():
   form = RegistrationForm(request.form)
   return render_template('topics.html', user=current_user, form=form)
 
-@idleg.route('/bills/<path:bill_id>')
-def bills(bill_id):
+@idleg.route('/bills/<path:bill_deet>')
+def bills(bill_deet):
 #  bill_deets = Bill.query.bill_id.get_or_404(bill_name)
-  quotes = "'"
-  bill_id = quotes + bill_id + quotes
-  print bill_id
 #  Get bills from Sunlight and add to database Bills table
   import sunlight
   import json
   from sunlight import openstates
   id_bill_json = openstates.bill_detail(
     state = 'id',
-    session = '2014',
-    bill_id = 'H 469'
+    session = '2015',
+    bill_id = '%s' % bill_deet
     )
-  return render_template('bills.html', bill_id = bill_id, user=current_user, id_bill_json=id_bill_json)
+  return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json)
 
 @app.route('/comment', methods=['GET', 'POST'])
 @login_required
 def add_comment():
+  form = CommentForm(request.form)
   if request.method == 'POST' and form.validate():
     comment = request.form.get('comment')
+    print comment
+    author = current_user.id
     position = request.form.get('position')
     bill_num = request.form.get('bill_num')
-    new_comment = Comment(comment, position)
+    new_comment = Comment(comment, author, position, bill_num)
     db.session.add(comment)
     db.session.commit()
     return jsonify(new_comment)
