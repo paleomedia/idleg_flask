@@ -8,6 +8,10 @@
   {{ id_bill_json }}
   
   
+  <hr />
+  
+  {{ id_bill_json.votes }}
+  
   
   <div class="col-md-8">
     <div id="main-bill-panel" class="panel panel-primary">
@@ -17,19 +21,15 @@
         <div class="lastaction">Recent Action: {% print action.date %} - {% print action.action %}</div>
         {% endfor %}
         <div class="billsummary">{% print id_bill_json.title %}</div>
-        <div>
+      
         {% for vote in id_bill_json.votes %}
           {% for yes_vote in vote.yes_votes %}
-            {% for name in yes_vote.name %}
-              {% print name %} voted aye!
-            {% endfor %}
+            {% print yes_vote.name %} voted aye!
           {% endfor %}
           {% for no_vote in vote.no_votes %}
-            {% for name in no_vote.name %}
-              {% print name %} voted nay!
-            {% endfor %}
+            {% print no_vote.name %} voted nay!
           {% endfor %}
-        {% endfor %}</div>
+        {% endfor %}
       </div>
     </div>
   </div>
