@@ -89,7 +89,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime)
-    author = db.Column(db.String, db.ForeignKey('user.username'))
+    author = db.Column(db.String, db.ForeignKey('user.id'))
     comment_type = db.Column(db.String(8))
     bill_num = db.Column(db.String(8), db.ForeignKey('bill.bill_id'))
     
@@ -102,7 +102,7 @@ class Comment(db.Model):
 
 class CommentForm(Form):
   comment = TextAreaField('comment')
-  position = RadioField('Yea, Nay or Neutral?', choices=[('yea','Yea'),('nay','Nay'),('neutral','Neutral')])
+  position = RadioField('Yea, Neutral or Nay?', choices=[('yea','Yea'),('neutral','Neutral'),('nay','Nay')])
   
   
   

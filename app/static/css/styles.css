@@ -305,16 +305,22 @@ input {
 	font-style: italic;
 }
 */
+#position label {
+  padding:7px;
+  font-weight: 200;
+  margin: 3px 30px;
+}
+
 #position li {
   display: inline;
   font: normal 12px/1.3 'helvetica neue', hevetica, arial;
   font-size: 20px;
-  padding:15px;
 }
 #position input[type=radio] {
   border: 20px;
-  width: 100%;
-  height: 1.6em;
+  width: 24px;
+  height: 24px;
+  margin: 12px;
 }
 
 .billimage {
@@ -410,7 +416,7 @@ Styles for comments
 } */
 .detailBox {
     border:1px solid #bbb;
-    margin:50px;
+    margin:5px;
 }
 .titleBox {
     background-color:#fdfdfd;
@@ -436,8 +442,18 @@ Styles for comments
 .commentList li > div {
     display:table-cell;
 }
+.commenterImage {
+    width:30px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
 .commenterName p {
-    margin:0;
+    margin:0 3px;
     font-size: 1.5em;
     color: blue;
 }
