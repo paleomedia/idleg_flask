@@ -104,6 +104,12 @@ div.socials {
 	padding: 25px 0px 0px 0px;
 }
 
+/*
+
+Styles for login
+
+*/
+
 .login_modal_footer {margin-top:5px;}
 .login_modal_header .modal-title {text-align: center;font-family:'Philosopher',sans-serif; }
 .form-group {position: relative;}
@@ -140,6 +146,13 @@ div.socials {
 	clear: both;
 	width: 100%;
 }
+
+/*
+
+Dashboard styles
+
+*/
+
 .dashboard {
 	width: 20%;
 	height: 100%;
@@ -162,10 +175,10 @@ div.socials {
 	padding: 10px;
 	line-height: 1em;
 }
-form {
+/* form {
 	width: 100%;
 	margin: 0px;
-}
+} */
 #main-bill-panel, h1 .panel- {
   background: #e9eaed;
 }
@@ -292,6 +305,18 @@ input {
 	font-style: italic;
 }
 */
+#position li {
+  display: inline;
+  font: normal 12px/1.3 'helvetica neue', hevetica, arial;
+  font-size: 20px;
+  padding:15px;
+}
+#position input[type=radio] {
+  border: 20px;
+  width: 100%;
+  height: 1.6em;
+}
+
 .billimage {
 	background-image: url("../images/billpage.png");
 	position: relative;
@@ -346,6 +371,12 @@ h2 span {
    padding: 10px;
 }
 
+/*
+
+Styles for comments
+
+*/
+/*
 .pro h3, .neutral h3, .anti h3 {
 	color: black;
 	text-transform: uppercase;
@@ -376,7 +407,53 @@ h2 span {
 	padding-left: 5px;
 	min-height: 1px;
 	line-height: 1.2em;
+} */
+.detailBox {
+    border:1px solid #bbb;
+    margin:50px;
 }
+.titleBox {
+    background-color:#fdfdfd;
+    padding:10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.titleBox label{
+  color:#444;
+  margin:0;
+  display:inline-block;
+  
+}
+.commentList {
+    padding:0;
+    list-style:none;
+    overflow:visible;
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+.commentList li > div {
+    display:table-cell;
+}
+.commenterName p {
+    margin:0;
+    font-size: 1.5em;
+    color: blue;
+}
+.commentText p {
+    margin:0;
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+}
+
 
 /*
 .comments {

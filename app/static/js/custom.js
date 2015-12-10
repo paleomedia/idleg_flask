@@ -9,7 +9,11 @@ var billsList = new List('billsSort', options);
 
 $('#filter-senate').click(function() {
   billsList.filter(function(item) {
-    if (item.values().billimage.substring(0,1) == "S") {
+    var html = item.values().billimage;
+    var div = document.createElement("div");
+    div.innerHTML = html;
+    var billimage = div.textContent || div.innerText || "";
+    if (billimage.substring(0,1) == "S") {
       return true;
     } else {
       return false;
@@ -20,7 +24,11 @@ $('#filter-senate').click(function() {
 
 $('#filter-house').click(function() {
   billsList.filter(function(item) {
-    if (item.values().billimage.substring(0,1) == "H") {
+    var html = item.values().billimage;
+    var div = document.createElement("div");
+    div.innerHTML = html;
+    var billimage = div.textContent || div.innerText || "";
+    if (billimage.substring(0,1) == "H") {
       return true;
     } else {
       return false;
@@ -36,19 +44,18 @@ $('#filter-none').click(function() {
 
 $(function() {
   $('#submitcomment').click(function(e) {
-    e.preventDefault;
+    e.preventDefault();
     $.ajax({
       url: '/comment',
-      data: $('form').serialize(),
+      data: $('#xyz').serialize(),
       type: 'POST',
       success: function(response) {
-        console.log(response);
-        $("sentiment h3").after("Your latest comment:").comment();
-        $("#comment").val("");
+      /*  $("sentiment h3").after("Your latest comment:")response.comment;
+        $("#comment").val("");  */
       },
       error: function(error) {
         console.log(error);
-        alert("FAILURE");
+        console.log("FAILURE");
       }
     });
   });

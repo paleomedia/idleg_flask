@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <form role="form">
+                  <form role="form" id='xyz'>
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                     <input type="hidden" name="bill_num" value="{{ bill.bill_id }}" />
                     {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}
@@ -41,26 +41,81 @@
                   </form>
                 </div>
                 <hr />
-                <div class="pro"><h3>Yea</h3>
-                  <span>Joe  says:</span> Yep <br />
-                  Today<br />
-                  {% if bill.comments %}
-                    {% for comment in bill.comments %}
-                      <p>{{ comment.body }}</p>
-                    {% endfor %}
-                  {% endif %}
-                </div>
-            
-                <div class="neutral"><h3>Neutral</h3>
-                  <span>Jill says:</span> Maybe <br />
-                  Yesterday<br />
-                </div>
-            
-                <div class="anti"><h3>Nay</h3>
-                  <span>Mom says:</span> Nope <br />
-                  Tomorrow<br />
+                
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="detailBox">
+                      <div class="titleBox">
+                        <label>Proponents</label>
+                      </div>
+                     <div class="actionBox">
+                      <ul class="pro commentList">
+                      {% if bill.comments %}
+                        {% for comment in bill.comments %}
+                        <li>
+                          <div class="commenterName">
+                            <p>{{ comment.author }}</p>
+                          </div>
+                         <div class="commentText">
+                          <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
+                          </div>
+                        </li>
+                        {% endfor %}
+                      {% endif %}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
                 
+                  <div class="col-md-4">
+                    <div class="detailBox">
+                      <div class="titleBox">
+                        <label>Neutral</label>
+                      </div>
+                     <div class="actionBox">
+                      <ul class="neutral commentList">
+                      {% if bill.comments %}
+                        {% for comment in bill.comments %}
+                        <li>
+                          <div class="commenterName">
+                            <p>{{ comment.author }}</p>
+                          </div>
+                         <div class="commentText">
+                          <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
+                          </div>
+                        </li>
+                        {% endfor %}
+                      {% endif %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                  <div class="col-md-4">
+                    <div class="detailBox">
+                      <div class="titleBox">
+                        <label>Opponents</label>
+                      </div>
+                     <div class="actionBox">
+                      <ul class="anti commentList">
+                      {% if bill.comments %}
+                        {% for comment in bill.comments %}
+                        <li>
+                          <div class="commenterName">
+                            <p>{{ comment.author }}</p>
+                          </div>
+                         <div class="commentText">
+                          <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
+                          </div>
+                        </li>
+                        {% endfor %}
+                      {% endif %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               </div>
             </div>
           {% endfor %}

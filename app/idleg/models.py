@@ -2,6 +2,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, TextAreaField, RadioField
 from wtforms.validators import InputRequired, EqualTo
+import datetime
 from app import db
 
 class User(db.Model):
@@ -88,15 +89,16 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime)
-    author = db.Column(db.String, db.ForeignKey('user.id'))
+    author = db.Column(db.String, db.ForeignKey('user.username'))
     comment_type = db.Column(db.String(8))
     bill_num = db.Column(db.String(8), db.ForeignKey('bill.bill_id'))
     
-    def __init__(self, comment, author, position, bill_num):
+    def __init__(self, comment, author, position, bill_num, timestamp=datetime.datetime.utcnow()):
       self.body = comment
       self.author = author
       self.comment_type = position
       self.bill_num = bill_num
+      self.timestamp = timestamp
 
 class CommentForm(Form):
   comment = TextAreaField('comment')

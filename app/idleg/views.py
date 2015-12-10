@@ -151,14 +151,13 @@ def add_comment():
   form = CommentForm(request.form)
   if request.method == 'POST' and form.validate():
     comment = request.form.get('comment')
-    print comment
     author = current_user.id
     position = request.form.get('position')
     bill_num = request.form.get('bill_num')
     new_comment = Comment(comment, author, position, bill_num)
-    db.session.add(comment)
+    db.session.add(new_comment)
     db.session.commit()
-    return jsonify(new_comment)
+    return jsonify({'comment': comment, 'author': author, 'position' : position, 'bill_num': bill_num})
   flash(form.errors, 'danger')
   return ""
 
