@@ -45,12 +45,15 @@ $('#filter-none').click(function() {
 $(function() {
   $('#submitcomment').click(function(e) {
     e.preventDefault();
+    //var comment_id = '#comment-' + form.bill_num;
+    //console.log(comment_id);
+    console.log(bill.bill_id);
     $.ajax({
       url: '/comment',
-      data: $('#xyz').serialize(),
+      data: $('#comment_id').serialize(),
       type: 'POST',
       success: function(response) {
-      /*  $("sentiment h3").after("Your latest comment:")response.comment;
+      /*$("sentiment h3").after("Your latest comment:")response.comment;
         $("#comment").val("");  */
       },
       error: function(error) {

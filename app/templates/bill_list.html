@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <form role="form" id='xyz'>
+                  <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                     <input type="hidden" name="bill_num" value="{{ bill.bill_id }}" />
                     {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}

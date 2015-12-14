@@ -133,6 +133,7 @@ def topics():
 
 @idleg.route('/bills/<path:bill_deet>')
 def bills(bill_deet):
+  form = RegistrationForm(request.form)
 #  bill_deets = Bill.query.bill_id.get_or_404(bill_name)
 #  Get bills from Sunlight and add to database Bills table
   import sunlight
@@ -143,9 +144,9 @@ def bills(bill_deet):
     session = '2015',
     bill_id = '%s' % bill_deet
     )
-  return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json)
+  return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json, form=form)
 
-@app.route('/comment', methods=['GET', 'POST'])
+@app.route('/comment', methods=['POST'])
 @login_required
 def add_comment():
   form = CommentForm(request.form)
