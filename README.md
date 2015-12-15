@@ -14,3 +14,16 @@ This project is part of a master's degree in "Data Journalism" at Boise State Un
 - In this idleg_flask repo, I'm refactoring and building out the project with Python Flask
 
 You can read more about my [MA project on my blog] (http://www.paleomedia.org/2013/09/30/data-journalism/) and look for updates [here](http://idleg.info/).
+
+# Setup for Developers
+
+## What you need
+- Python 2.6 or higher 
+- [virtualenv](http://flask.pocoo.org/docs/0.10/installation/)
+
+## How to run
+- idk..., but probably 
+
+```
+python run.py
+```
