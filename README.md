@@ -11,6 +11,6 @@ This project is part of a master's degree in "Data Journalism" at Boise State Un
 - Demonstrates the type of information that hacker-journalists can access
 - Demonstrates the cross-over between "open government" and "open news" initiatives
 
-- In this idleg_flask repo, I'm refactoring the project with Python Flask
+- In this idleg_flask repo, I'm refactoring and building out the project with Python Flask
 
 You can read more about my [MA project on my blog] (http://www.paleomedia.org/2013/09/30/data-journalism/) and look for updates [here](http://idleg.info/).
