@@ -1,6 +1,8 @@
-# idleg_flask
+# IDleg
+Being a spinoff of the #idleg Twitter hashtag, pronounced by some as Idle-G.
 
-# Interactive Portal to Idaho Legislature - Under Construction / In development, i.e. use at your own risk
+## Interactive Portal to Idaho Legislature - Under Construction
+### In development, i.e. use at your own risk
 
 This project is part of a master's degree in "Data Journalism" at Boise State University. I'm building an alternative legislative portal for the state of Idaho that:
 
@@ -15,9 +17,9 @@ This project is part of a master's degree in "Data Journalism" at Boise State Un
 
 You can read more about my [MA project on my blog] (http://www.paleomedia.org/2013/09/30/data-journalism/) and look for beta releases and other updates [at idleg.info](http://idleg.info/) soon.
 
-# Setup for Developers
+## Setup for Developers
 
-## Requirements
+### Requirements
 - Python 2.6 or higher
 - A [Sunlight Labs API Key](http://sunlightfoundation.com/api/accounts/register/) - Read their instructions to [install the key and use the Python library](http://python-sunlight.readthedocs.org/en/latest/#usage)
 - Recommend installing in [virtualenv](http://flask.pocoo.org/docs/0.10/installation/)
@@ -35,7 +37,7 @@ You can read more about my [MA project on my blog] (http://www.paleomedia.org/20
 
 I think that will work... but please let us know if you run into problems getting it running. And remember, the app is still in development...
 
-## How to run
+### How to run
     python run.py
 or
     ./run.py
