@@ -3,7 +3,9 @@
     Legislative Dash
   </div>
 
-  <div class="dashhead" id="login">Login</div>
+{#
+
+<div class="dashhead" id="login">Login</div>
  {% block container %}
   
   {% if current_user.is_authenticated %}
@@ -21,6 +23,7 @@
   {% endif %}
 {% endblock %}
 
+#}
 
   <div class="dashhead" id="bills">Bills</div>
   <div class="dashitem">LOGIN...to load your bills.</div>

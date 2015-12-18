@@ -47,15 +47,12 @@ $('#filter-none').click(function() {
 $(function() {
   $('#submitcomment').click(function(e) {
     e.preventDefault();
-    //var comment_id = $(this).attr('form')
-    // console.log(comment_data);
-    // console.log(bill.bill_id);
-    console.log("#"+e.toElement.form.id);
     $.ajax({
       url: '/comment',
       data: $("#"+(e.toElement.form.id)).serialize(),
       type: 'POST',
       success: function(response) {
+      console.log(response.comment);
       /*$("sentiment h3").after("Your latest comment:")response.comment;
         $("#comment").val("");  */
       },
