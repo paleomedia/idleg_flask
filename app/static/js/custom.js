@@ -42,15 +42,18 @@ $('#filter-none').click(function() {
   return false;
  });
 
+//can't figure out how to pass specific, dynamic id to this...
+
 $(function() {
   $('#submitcomment').click(function(e) {
     e.preventDefault();
-    //var comment_id = '#comment-' + form.bill_num;
-    //console.log(comment_id);
-    console.log(bill.bill_id);
+    //var comment_id = $(this).attr('form')
+    // console.log(comment_data);
+    // console.log(bill.bill_id);
+    console.log("#"+e.toElement.form.id);
     $.ajax({
       url: '/comment',
-      data: $('#comment_id').serialize(),
+      data: $("#"+(e.toElement.form.id)).serialize(),
       type: 'POST',
       success: function(response) {
       /*$("sentiment h3").after("Your latest comment:")response.comment;

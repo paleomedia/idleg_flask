@@ -1,4 +1,5 @@
-#  Get current bills from Sunlight and add to database Bills table
+#  Get current session bills from Sunlight and add to database Bills table, then return
+def getBills():
   import sunlight
   import json
   from sunlight import openstates
@@ -10,8 +11,17 @@
     bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
     db.session.add(bill_adder)
     db.session.commit()
+  return id_bills
+    
+# Get lawmakers from Sunlight
 
-# Strip html tags (from milkypostman on stackoverflow
+# Get topics by bill from Sunlight
+
+# Get comments by bill by sentiment from database
+
+
+
+# Strip html tags (from milkypostman on stackoverflow)
 from BeautifulSoup import BeautifulSoup
 
 def removeTags(html, *tags):
