@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .c9
 /lib/sql_logins.php
 =======
@@ -26,6 +25,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+flask/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
