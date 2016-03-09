@@ -106,6 +106,24 @@ def get_facebook_oauth_token():
 def logout():
   logout_user()
   return redirect(url_for('idleg.home'))
+  
+@idleg.route('/populateBills')
+def populateBills():
+  import sunlight
+  import json
+  from sunlight import openstates
+  id_bill_json = openstates.bills(
+    state = 'id'
+#    search_window = 'session',
+#    updated_since = '2016-03-08'
+    )
+  id_bills = byteify(json.dumps(id_bill_json))
+  for bill in id_bill_json:
+    bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
+    db.session.add(bill_adder)
+    db.session.commit()
+  return id_bills
+  
 
 @idleg.route('/')
 @idleg.route('/index')

@@ -61,10 +61,10 @@ class LoginForm(Form):
 class Bill(db.Model):
   __searchable__ = ['bill_name']
 
-  bill_id = db.Column(db.String(6), primary_key=True)
+  bill_id = db.Column(db.String(6))
   year = db.Column(db.String(4))
   title = db.Column(db.Text)
-  bill_name = db.Column(db.String(6))
+  bill_name = db.Column(db.String(9), primary_key=True)
   last_updated = db.Column(db.Text)
   votes_for = db.Column(db.Integer)
   votes_against = db.Column(db.Integer)

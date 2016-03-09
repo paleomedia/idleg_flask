@@ -30,13 +30,11 @@ coverage==4.0.1
 decorator==4.0.4
 distribute==0.6.24
 docopt==0.6.2
-facebook-sdk==1.0.0-alpha
 flipflop==1.0
 google-api-python-client==1.4.2
 guess-language==0.2
 httplib2==0.9.2
 itsdangerous==0.24
-my-app==1.0
 ndg-httpsclient==0.4.0
 oauth==1.0.1
 oauth2==1.9.0.post1
