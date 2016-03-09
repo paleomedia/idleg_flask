@@ -1,6 +1,6 @@
 .c9
 /lib/sql_logins.php
-=======
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -59,4 +59,3 @@ docs/_build/
 
 # PyBuilder
 target/
->>>>>>> 06a15a3dc90416104262cbfbfe088d3ec02504c1
