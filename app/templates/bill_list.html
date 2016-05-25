@@ -1,10 +1,13 @@
 {% block container %}
+
+  <div class="col-md-3">
+    
+    
+  </div>
   
   <div id="billsSort">
-    <div class="col-md-8">
-      <div id="main-bill-panel" class="panel panel-primary">
-        <h1 class="panel-heading">Bill List</h1>
-        <div class="panel-body">
+    <div class="col-md-5">
+          
           <div class="search-filter">
             <div class="input-group input-group-lg">
               <span class="input-group-addon" id="basic-addon1">¿</span>
@@ -17,20 +20,17 @@
               <button type="button" class="btn btn-default" id="filter-house">Only show House bills</button>
             </div>
           </div>
+          
           <div class="list">
           {% for bill in id_bills: %}
             <div class="panel panel-default">
               <div class="panel-body">
-                <div class="panel panel-success">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Active Bills</h3>
-                  </div>
-                  <div class="panel-body">
+                  
                     <div><span class="billimage"><a href={{ url_for('idleg.bills', bill_deet=bill.bill_name) }}>{% print bill.bill_id %}</a></span></div>
                     <div class="lastaction">Last Update: {% print bill.last_updated %}</div>
                     <div class="billsummary">{% print bill.title %}</div>
-                  </div>
-                </div>
+                  
+                
                 <div class="form-group">
                   <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
@@ -40,7 +40,6 @@
                       <button id="submitcomment" type="submit" class="btn btn-default">Add testimony</button></div>
                   </form>
                 </div>
-                <hr />
                 
                 <div class="row">
                   <div class="col-md-4">
@@ -128,10 +127,10 @@
               </div>
             </div>
           {% endfor %}
-        </div>
+        
         <div class="panel-footer pagination"></div>
       </div>
-    </div>
+    
   </div>
 </div>
 

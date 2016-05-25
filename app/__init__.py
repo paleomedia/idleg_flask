@@ -2,7 +2,6 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.login import LoginManager
-#from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.wtf import Form
 from flask_wtf.csrf import CsrfProtect
 from flask_oauth import OAuth
@@ -10,12 +9,9 @@ from config import basedir
 
 app = Flask(__name__)
 app.config.from_object('config')
+
+
 db = SQLAlchemy(app)
-
-#migrate = Migrate(app, db)
-
-#manager= Manager(app)
-#manager.add_command('db', MigrateCommand)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -42,8 +38,13 @@ facebook = oauth.remote_app('facebook', \
     request_token_params={'scope': 'email'})
 
 from app.idleg import views, models
-
 from app.idleg.views import idleg
+from flask.ext.cache import Cache
+
+#  Configuring Flask-Cache
+app.config['CACHE_TYPE'] = 'simple'
+cache.init_app(app)
+
 app.register_blueprint(idleg)
 
 # from app.auth.views import auth
