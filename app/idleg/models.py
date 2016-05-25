@@ -80,7 +80,7 @@ class Bill(db.Model):
     self.votes_against = votes_against
   
   def __repr__(self):
-    return '<Bill %d>' % (self.bill_id)
+    return '<Bill %s>' % (self.bill_id)
     
   def get_comments(self):
     return Comment.query.filter_by(bill_id = bill.id).order_by(Coment.timestamp.desc())

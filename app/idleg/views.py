@@ -117,6 +117,7 @@ def populateBills():
 #    search_window = 'session',
 #    updated_since = '2016-03-08'
     )
+  print id_bill_json
   id_bills = byteify(json.dumps(id_bill_json))
   for bill in id_bill_json:
     bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
@@ -152,15 +153,16 @@ def topics():
 @idleg.route('/bills/<path:bill_deet>')
 def bills(bill_deet):
   form = RegistrationForm(request.form)
-#  bill_deets = Bill.query.bill_id.get_or_404(bill_name)
-#  Get bills from Sunlight and add to database Bills table
+  bill_deets = Bill.query.filter_by(bill_name=bill_deet).first_or_404()
+  print bill_deets
+# Get bills from Sunlight and add to database Bills table
   import sunlight
   import json
   from sunlight import openstates
   id_bill_json = openstates.bill_detail(
     state = 'id',
-    session = '2015',
-    bill_id = '%s' % bill_deet
+    session = '%s' % bill_deets.year,
+    bill_id = '%s' % bill_deets.bill_id
     )
   return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json, form=form)
 
