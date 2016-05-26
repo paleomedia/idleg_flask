@@ -7,6 +7,7 @@ from flask_wtf.csrf import CsrfProtect
 from flask_oauth import OAuth
 from config import basedir
 
+
 app = Flask(__name__)
 app.config.from_object('config')
 
@@ -39,11 +40,6 @@ facebook = oauth.remote_app('facebook', \
 
 from app.idleg import views, models
 from app.idleg.views import idleg
-from flask.ext.cache import Cache
-
-#  Configuring Flask-Cache
-app.config['CACHE_TYPE'] = 'simple'
-cache.init_app(app)
 
 app.register_blueprint(idleg)
 

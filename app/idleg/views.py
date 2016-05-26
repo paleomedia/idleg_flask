@@ -3,7 +3,7 @@ from flask import g, session
 from werkzeug import abort
 from app import app, db
 from app import login_manager, facebook
-from cache import cache
+from app.cache import cache
 from flask.ext.login import current_user, login_user, logout_user, login_required
 from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm
 
