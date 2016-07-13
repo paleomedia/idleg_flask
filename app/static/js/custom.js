@@ -2,7 +2,11 @@
 var options = {
   valueNames: [ 'billimage', 'lastaction', 'billsummary' ],
   page: 10,
-  plugins: [ ListPagination({}) ]
+  plugins: [
+    ListPagination({
+      outerWindow: 2
+    })
+  ]
 };
 
 var billsList = new List('billsSort', options);
