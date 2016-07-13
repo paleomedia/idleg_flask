@@ -46,8 +46,27 @@ $('#filter-none').click(function() {
   return false;
  });
 
+$(function() {
+  $('#submitcomment').click(function() {
+    
+    $.ajax({
+      url: '/comment',
+      data: $('form').serialize(),
+      type: 'POST',
+      success: function(response) {
+        console.log(response);
+      },
+      error: function(error) {
+        console.log(error);
+        console.log("FAILURE");
+      }
+    });
+  });
+});
+
 //can't figure out how to pass specific, dynamic id to this...
 
+/*
 $(function() {
   $('#submitcomment').click(function(e) {
     e.preventDefault();
@@ -59,7 +78,7 @@ $(function() {
       console.log(response.comment);
       /*$("sentiment h3").after("Your latest comment:")response.comment;
         $("#comment").val("");  */
-      },
+/*      },
       error: function(error) {
         console.log(error);
         console.log("FAILURE");
@@ -67,6 +86,8 @@ $(function() {
     });
   });
 });
+
+*/
 
 
 /*

@@ -130,7 +130,7 @@ def populateBills():
 @idleg.route('/')
 @idleg.route('/index')
 @idleg.route('/home')
-@cache.cached(timeout=5000)
+@cache.cached(timeout=50)
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
@@ -156,7 +156,6 @@ def topics():
 def bills(bill_deet):
   form = RegistrationForm(request.form)
   bill_deets = Bill.query.filter_by(bill_name=bill_deet).first_or_404()
-  print bill_deets
 # Get bills from Sunlight and add to database Bills table
   import sunlight
   import json
