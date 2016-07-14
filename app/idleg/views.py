@@ -130,7 +130,7 @@ def populateBills():
 @idleg.route('/')
 @idleg.route('/index')
 @idleg.route('/home')
-@cache.cached(timeout=50)
+@cache.cached(timeout=5000)
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)

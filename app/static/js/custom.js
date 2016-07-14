@@ -47,14 +47,16 @@ $('#filter-none').click(function() {
  });
 
 $(function() {
-  $('#submitcomment').click(function() {
-    
+  $('#submitcomment').click(function(e) {
+    e.preventDefault();
     $.ajax({
       url: '/comment',
       data: $('form').serialize(),
       type: 'POST',
       success: function(response) {
-        console.log(response);
+        console.log(response.comment);
+        var $newComment = $('<p>').text(response.comment);
+        $('#comment').append($newComment);
       },
       error: function(error) {
         console.log(error);
