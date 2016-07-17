@@ -4,7 +4,7 @@ var options = {
   page: 10,
   plugins: [
     ListPagination({
-      outerWindow: 2
+      innerWindow: 2
     })
   ]
 };

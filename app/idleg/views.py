@@ -134,7 +134,7 @@ def populateBills():
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
-  id_bills = Bill.query.all()
+  id_bills = Bill.query.filter_by(year='2016')
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
 
 @idleg.route('/about')
