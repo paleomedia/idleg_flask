@@ -127,9 +127,9 @@ def populateBills():
   return id_bills
   
 
-@idleg.route('/')
-@idleg.route('/index')
-@idleg.route('/home')
+@idleg.route('/', methods=['GET', 'POST'])
+@idleg.route('/index', methods=['GET', 'POST'])
+@idleg.route('/home', methods=['GET', 'POST'])
 @cache.cached(timeout=5000)
 def home():
   form = RegistrationForm(request.form)
@@ -171,6 +171,7 @@ def bills(bill_deet):
 @login_required
 def add_comment():
   form = CommentForm(request.form)
+  print(form)
   if request.method == 'POST' and form.validate():
     comment = request.form.get('comment')
     author = current_user.id

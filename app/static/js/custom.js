@@ -4,7 +4,8 @@ var options = {
   page: 10,
   plugins: [
     ListPagination({
-      innerWindow: 2
+      innerWindow: 2,
+      ourterWindow: 1
     })
   ]
 };
@@ -46,6 +47,7 @@ $('#filter-none').click(function() {
   return false;
  });
 
+/*
 $(function() {
   $('#submitcomment').click(function(e) {
     e.preventDefault();
@@ -65,6 +67,35 @@ $(function() {
     });
   });
 });
+*/
+
+(function () {
+
+  'use strict';
+
+  angular.module('idLegApp', [])
+
+  .controller('idLegController', ['$scope', '$log', '$http',
+    function($scope, $log, $http) {
+      
+    $scope.getComment = function() {
+      $log.log("test");
+      
+      //get comment
+      var newComment = $scope.comment;
+      
+      // fire the API request
+      $http.post('/comment', {"comment": newComment}).
+        success(function(results) {
+          $log.log(results);
+        }).
+        error(function(error) {
+          $log.log(error);
+        });
+    };
+    }
+  ]);
+})();
 
 //can't figure out how to pass specific, dynamic id to this...
 

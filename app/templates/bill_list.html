@@ -1,5 +1,6 @@
 {% block container %}
 
+  
   <div class="col-md-3">
     
     
@@ -31,11 +32,11 @@
                     <div class="billsummary">{% print bill.title %}</div>
                   
                 
-                <div class="form-group">
-                  <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}">
+                <div ng-app="newComment" ng-controller="newCommentController" class="form-group">
+                  <form role="form" ng-submit="getComment()"id="comment-{{ bill.bill_id|replace(" ","") }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                     <input type="hidden" name="bill_num" value="{{ bill.bill_id }}" />
-                    {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}
+                    {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control", **{'ng-model':'comment'}) }}
                     <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio") }}
                       <button id="submitcomment" type="submit" class="btn btn-default">Add testimony</button></div>
                   </form>
@@ -48,27 +49,29 @@
                       <div class="titleBox">
                         <label>Proponents</label>
                       </div>
-                     <div class="actionBox">
-                      <ul class="pro commentList">
-                      {% if bill.comments %}
-                        {% for comment in bill.comments %}
-                        <li>
-                          <div class="commenterImage">
-                            <img src="" />
-                          </div>
-                          <div class="commenterName">
-                            <p>{{ comment.author }}</p>
-                          </div>
-                         <div class="commentText">
-                          <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
-                          </div>
-                        </li>
-                        {% endfor %}
-                      {% endif %}
-                      </ul>
+                      
+                       <div class="actionBox">
+                        <ul class="pro commentList">
+                          <new-comment></new-comment>
+                          {% if bill.comments %}
+                            {% for comment in bill.comments %}
+                            <li>
+                              <div class="commenterImage">
+                                <img src="" />
+                              </div>
+                              <div class="commenterName">
+                                <p>{{ comment.author }}</p>
+                              </div>
+                             <div class="commentText">
+                              <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
+                              </div>
+                            </li>
+                            {% endfor %}
+                          {% endif %}
+                        </ul>
+                      </div>
                     </div>
                   </div>
-                </div>
                 
                   <div class="col-md-4">
                     <div class="detailBox">
