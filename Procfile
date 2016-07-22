@@ -1,1 +1,1 @@
-web: gunicorn idleg:app
+web: gunicorn app:run
