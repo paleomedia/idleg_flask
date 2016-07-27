@@ -1,9 +1,9 @@
 #!./flask/bin/python
 from app import app
-app.run(debug=True, threaded=True)
+#app.run(debug=True, threaded=True)
 
-# if __name__ == "__main__":
-#    app.run(host='0.0.0.0')
+if __name__ == "__main__":
+  app.run()
 
 #from app import manager
 #manager.run()
