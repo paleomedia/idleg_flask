@@ -14,8 +14,6 @@
     <meta name="keywords" content="Idaho, legislature, bills, laws, legislation" />
     <meta name="author" content="Nathaniel Hoffman" />  <!-- Note: Make dynamic based on page author -->
     <!-- {#  <meta name="revised" content="<?php filemtime('index.php'); ?>  last mod of index.html #} -->
-    
-     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
 
     <!-- Load fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" type="text/css">
@@ -31,13 +29,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
     
     <!-- Load list.js for sorting and searching bills -->
     <script src="{{ url_for('static', filename='js/List.pagination.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
     
     
-       <script src="{{ url_for('static', filename='js/custom.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script> -->
 
   </header>
 
@@ -128,8 +127,8 @@
     
     {% block footer %}{% endblock %}
 
-    <!-- Latest compiled and minified Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified Bootstrap JavaScript
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>    -->
 
   </body>
 </html>

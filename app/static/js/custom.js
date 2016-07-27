@@ -73,10 +73,27 @@ $(function() {
 
   'use strict';
 
-  angular.module('idLegApp', [])
+  angular.module('newComment').
+  component('newComment', {
+    template:
+      '<li>' +
+        '<div class="commenterImage">
+          <img src="" />
+        </div>
+        <div class="commenterName">
+          <p>{{ comment.author }}</p>
+        </div>
+       <div class="commentText">
+        <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
+        </div>
+      </li>
+    
+    
+    
+  })
 
-  .controller('idLegController', ['$scope', '$log', '$http',
-    function($scope, $log, $http) {
+  .controller('idLegController', ['$scope',
+    function($scope) {
       
     $scope.getComment = function() {
       $log.log("test");
