@@ -68,7 +68,7 @@ class Bill(db.Model):
   last_updated = db.Column(db.Text)
   votes_for = db.Column(db.Integer)
   votes_against = db.Column(db.Integer)
-  comments = db.relationship('Comment', backref='bill_id', lazy='dynamic')
+  comments = db.relationship('Comment', backref='bill_id')
 
   def __init__(self, bill_id, year, title, bill_name, last_updated, votes_for=0, votes_against=0):
     self.bill_id = bill_id

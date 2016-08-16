@@ -469,17 +469,18 @@ Styles for comments
     border-radius:50%;
 }
 .commenterName p {
-    margin:0 3px;
-    font-size: 1.5em;
+    margin:0 5px;
     color: blue;
 }
 .commentText p {
     margin:0;
+    clear: left;
 }
 .sub-text {
     color:#aaa;
     font-family:verdana;
     font-size:11px;
+    margin:0 5px;
 }
 .actionBox {
     border-top:1px dotted #bbb;

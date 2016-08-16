@@ -1,4 +1,3 @@
-
 var options = {
   valueNames: [ 'billimage', 'lastaction', 'billsummary' ],
   page: 10,

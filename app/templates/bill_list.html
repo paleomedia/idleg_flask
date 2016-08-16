@@ -52,17 +52,18 @@
                       <ul class="pro commentList">
                       {% if bill.comments %}
                         {% for comment in bill.comments %}
-                        <li>
-                          <div class="commenterImage">
-                            <img src="" />
-                          </div>
-                          <div class="commenterName">
-                            <p>{{ comment.author }}</p>
-                          </div>
-                         <div class="commentText">
-                          <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
-                          </div>
-                        </li>
+                          {% if comment.comment_type == "yea" %}
+                            <li>
+                              <span class="commentText">
+                              <p>{{ comment.body }}</p>
+                              </span>
+                              <span class="commenterName">
+                                <p>{{ comment.username.username }}</p>
+                              </span>
+                              <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
+                              </span>
+                            </li>
+                          {% endif %}
                         {% endfor %}
                       {% endif %}
                       </ul>
@@ -79,17 +80,18 @@
                       <ul class="neutral commentList">
                       {% if bill.comments %}
                         {% for comment in bill.comments %}
-                        <li>
-                          <div class="commenterImage">
-                            <img src="" />
-                          </div>
-                          <div class="commenterName">
-                            <p>{{ comment.author }}</p>
-                          </div>
-                         <div class="commentText">
-                          <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
-                          </div>
-                        </li>
+                          {% if comment.comment_type == "neutral" %}
+                              <li>
+                              <span class="commentText">
+                              <p>{{ comment.body }}</p>
+                              </span>
+                              <span class="commenterName">
+                                <p>{{ comment.username.username }}</p>
+                              </span>
+                              <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
+                              </span>
+                            </li>
+                            {% endif %}
                         {% endfor %}
                       {% endif %}
                       </ul>
@@ -106,17 +108,18 @@
                       <ul class="anti commentList">
                       {% if bill.comments %}
                         {% for comment in bill.comments %}
-                        <li>
-                          <div class="commenterImage">
-                            <img src="" />
-                          </div>
-                          <div class="commenterName">
-                            <p>{{ comment.author }}</p>
-                          </div>
-                         <div class="commentText">
-                          <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
-                          </div>
-                        </li>
+                          {% if comment.comment_type == "nay" %}
+                              <li>
+                              <span class="commentText">
+                              <p>{{ comment.body }}</p>
+                              </span>
+                              <span class="commenterName">
+                                <p>{{ comment.username.username }}</p>
+                              </span>
+                              <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
+                              </span>
+                            </li>
+                            {% endif %}
                         {% endfor %}
                       {% endif %}
                       </ul>
