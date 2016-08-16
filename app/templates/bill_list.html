@@ -22,7 +22,7 @@
           </div>
           
           <div class="list">
-          {% for bill in id_bills: %}
+          {% for bill in id_bills %}
             <div class="panel panel-default">
               <div class="panel-body">
                   
@@ -32,7 +32,7 @@
                   
                 
                 <div class="form-group">
-                  <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}">
+                  <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}" class="commentForm">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
                     <input type="hidden" name="bill_num" value="{{ bill.bill_id }}" />
                     {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}
@@ -40,10 +40,6 @@
                       <button id="submitcomment" type="submit" class="btn btn-default">Add testimony</button></div>
                   </form>
                 </div>
-                
-                {% print bill %}
-                
-                {% print bill.comments %}
                 
                 <div class="row">
 
@@ -60,7 +56,7 @@
                             <li>
                               <span class="commentText">
                               <p>{{ comment.body }}</p>
-                              </span> {{ comment.bill_num }}
+                              </span>
                               <span class="commenterName">
                                 <p>{{ comment.username.username }}</p>
                               </span>

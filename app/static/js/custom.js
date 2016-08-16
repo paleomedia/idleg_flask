@@ -46,14 +46,17 @@ $('#filter-none').click(function() {
  });
 
 $(function() {
-  $('#submitcomment').click(function(e) {
+  $('.commentForm').submit(function(e) {
     e.preventDefault();
+    console.log($(this));
+    
     $.ajax({
       url: '/comment',
-      data: $('form').serialize(),
+      data: $(this).serialize(),
       type: 'POST',
       success: function(response) {
         console.log(response.comment);
+        console.log(response.position);
         var $newComment = $('<p>').text(response.comment);
         $('#comment').append($newComment);
       },
@@ -65,7 +68,6 @@ $(function() {
   });
 });
 
-//can't figure out how to pass specific, dynamic id to this...
 
 /*
 $(function() {
