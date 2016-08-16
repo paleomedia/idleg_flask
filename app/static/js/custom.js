@@ -47,64 +47,42 @@ $('#filter-none').click(function() {
   return false;
  });
 
-/*
-$(function() {
-  $('#submitcomment').click(function(e) {
-    e.preventDefault();
-    $.ajax({
-      url: '/comment',
-      data: $('form').serialize(),
-      type: 'POST',
-      success: function(response) {
-        console.log(response.comment);
-        var $newComment = $('<p>').text(response.comment);
-        $('#comment').append($newComment);
-      },
-      error: function(error) {
-        console.log(error);
-        console.log("FAILURE");
-      }
-    });
-  });
+
+//Start Angular functions
+var app = angular.module('newComment', []);
+
+app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('//');
+    $interpolateProvider.endSymbol('//');
 });
-*/
 
-(function () {
+  app.controller('newCommentController', ['$scope', '$log', '$http',
+    function($scope, $log, $http) {
 
-  'use strict';
+    $scope.getComment = function(comment) {
+      $scope.master = angular.copy(comment);
+        $log.log("test");
+        console.log("controller");
+        cosole.dir($scope);
+      //get new comment
+      var newComment = $scope.comment.text;
+      //var csrfToken = document.getElementsByName('csrf_token')[0].value
+      var csrfToken = $scope.comment.csrf;
+      var billNum = $scope.comment.bill;
+      var position = $scope.comment.position;
+      $log.log(newComment);
+      $log.log(billNum);
 
-  angular.module('newComment').
-  component('newComment', {
-    template:
-      '<li>' +
-        '<div class="commenterImage">
-          <img src="" />
-        </div>
-        <div class="commenterName">
-          <p>{{ comment.author }}</p>
-        </div>
-       <div class="commentText">
-        <p>{{ comment.body }}</p> <span class="date sub-text">{{ comment.timestamp }}</span>
-        </div>
-      </li>
-    
-    
-    
-  })
-
-  .controller('idLegController', ['$scope',
-    function($scope) {
-      
-    $scope.getComment = function() {
-      $log.log("test");
-      
-      //get comment
-      var newComment = $scope.comment;
-      
-      // fire the API request
-      $http.post('/comment', {"comment": newComment}).
-        success(function(results) {
-          $log.log(results);
+      //add comment to database
+      $http({
+        method: 'POST',
+        url: '/comment',
+        data: $.param({"comment": newComment, "csrfToken": csrfToken, "billNum": billNum, "position": position}),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+      }).
+        
+        success(function(comment) {
+          $log.log(comment);
         }).
         error(function(error) {
           $log.log(error);
@@ -112,7 +90,9 @@ $(function() {
     };
     }
   ]);
-})();
+
+
+
 
 //can't figure out how to pass specific, dynamic id to this...
 
@@ -126,28 +106,14 @@ $(function() {
       type: 'POST',
       success: function(response) {
       console.log(response.comment);
-      /*$("sentiment h3").after("Your latest comment:")response.comment;
-        $("#comment").val("");  */
-/*      },
+      $("sentiment h3").after("Your latest comment:")response.comment;
+        $("#comment").val("");
+      },
       error: function(error) {
         console.log(error);
         console.log("FAILURE");
       }
     });
-  });
-});
-
-*/
-
-
-/*
-Not sure what this function was for...
-
-$(document).ready(function () {
-  $('ul.nav > li').click(function (e) {
-   e.preventDefault();
-   $('ul.nav > li').removeClass('active');
-   $(this).addClass('active');
   });
 });
 

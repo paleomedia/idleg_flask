@@ -184,7 +184,6 @@ def add_comment():
   flash(form.errors, 'danger')
   return ""
 
-
 """
 @app.route('/search', methods=['POST'])
 def search():

@@ -31,18 +31,24 @@
                     <div class="lastaction">Last Update: {% print bill.last_updated %}</div>
                     <div class="billsummary">{% print bill.title %}</div>
                   
-                
-                <div ng-app="newComment" ng-controller="newCommentController" class="form-group">
-                  <form role="form" ng-submit="getComment()"id="comment-{{ bill.bill_id|replace(" ","") }}">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-                    <input type="hidden" name="bill_num" value="{{ bill.bill_id }}" />
-                    {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control", **{'ng-model':'comment'}) }}
-                    <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio") }}
-                      <button id="submitcomment" type="submit" class="btn btn-default">Add testimony</button></div>
+            <!--
+                <div ng-app="newComment" ng-controller="newCommentController as newComment" class="form-group">
+                  <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}">
+                    <input type="hidden" name="csrf_token" ng-model="comment.csrf" value="{{ csrf_token() }}" />
+                    <input type="hidden" name="bill_num" ng-model="comment.bill" value="{{ bill.bill_id }}" />
+                    {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control", **{'ng-model': 'comment.text'}) }}
+                    <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio", **{'ng-model': 'comment.position'}) }}
+                      <button id="submitcomment" type="submit" class="btn btn-default" ng-click="newComment(comment)">Add testimony</button></div>
                   </form>
                 </div>
-                
+              -->
+              <!-- testing the angular here -->
+              <form ng-app="newComment" ng-controller="newCommentController">
+                <input type="text" ng-model="comment">
+                 <p> new comment = //comment//</p>
+              </form>
                 <div class="row">
+
 
                   <div class="col-md-4">
                     <div class="detailBox">
@@ -51,8 +57,8 @@
                       </div>
                       
                        <div class="actionBox">
-                        <ul class="pro commentList">
-                          <new-comment></new-comment>
+                        <ul class="pro commentList" ng-controller="newCommentController as new">
+                        
                           {% if bill.comments %}
                             {% for comment in bill.comments %}
                             <li>
@@ -137,6 +143,5 @@
   </div>
   </div>
 
-<script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
 {% endblock %}
