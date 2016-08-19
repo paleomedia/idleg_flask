@@ -44,21 +44,34 @@ $('#filter-none').click(function() {
   billsList.filter();
   return false;
  });
+ 
+$("#submitcomment").click(function (event) {
+  if (!$("input:radio[name='position']:checked").val()>0) {
+    alert('Please select your position on the bill before submitting comment.');
+    event.preventDefault();
+  } });
 
 $(function() {
   $('.commentForm').submit(function(e) {
     e.preventDefault();
-    console.log($(this));
+    //console.log($(this));
+    var parent = $(this).parent().parent();
+    
+    var input = $(this).find("input[type=radio]:checked").val();
+    var position = "." + input;
+    var commentBox = parent.find(position);
     
     $.ajax({
       url: '/comment',
       data: $(this).serialize(),
       type: 'POST',
       success: function(response) {
-        console.log(response.comment);
-        console.log(response.position);
-        var $newComment = $('<p>').text(response.comment);
-        $('#comment').append($newComment);
+        var newComment = response.comment;
+        console.log(commentBox);
+        console.log(newComment);
+
+        commentBox.append('<li>' + newComment + '</li>');
+        $('input[type=text], textarea').val('');
       },
       error: function(error) {
         console.log(error);
