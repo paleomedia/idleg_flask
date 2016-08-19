@@ -54,11 +54,8 @@ $("#submitcomment").click(function (event) {
 $(function() {
   $('.commentForm').submit(function(e) {
     e.preventDefault();
-    //console.log($(this));
     var parent = $(this).parent().parent();
-    
-    var input = $(this).find("input[type=radio]:checked").val();
-    var position = "." + input;
+    var position = "." + $(this).find("input[type=radio]:checked").val();
     var commentBox = parent.find(position);
     
     $.ajax({
@@ -67,10 +64,7 @@ $(function() {
       type: 'POST',
       success: function(response) {
         var newComment = response.comment;
-        console.log(commentBox);
-        console.log(newComment);
-
-        commentBox.append('<li>' + newComment + '</li>');
+        commentBox.append('<li><span class="commentText"><p>' + newComment + '</p></span><span class="commenterName"><p>You</p></span><span class="date sub-text">Just now</span></li>');
         $('input[type=text], textarea').val('');
       },
       error: function(error) {
