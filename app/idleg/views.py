@@ -210,8 +210,9 @@ class commentsApi(Resource):
           "commentBody": comment.body,
           "timeStamp": comment.timestamp,
           "author": comment.author,
-          "commentType": comment.comment_type
-          #"bill": comment.bill_id
+          "commentType": comment.comment_type,
+          "bill": comment.bill_num,
+          "bill_id": bill_deet
         })
     return jsonify(results=result)
     
