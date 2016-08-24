@@ -1,4 +1,4 @@
-from flask import render_template, request, Blueprint, jsonify, flash, redirect, url_for, session
+from flask import render_template, request, Blueprint, jsonify, json, flash, redirect, url_for, session
 from flask import g, session
 from werkzeug import abort
 from app import app, db
@@ -6,8 +6,11 @@ from app import login_manager, facebook
 from app.cache import cache
 from flask.ext.login import current_user, login_user, logout_user, login_required
 from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm
+from flask_restful import Resource, Api
+from json import dumps
 
 idleg = Blueprint('idleg', __name__)
+api = Api(app)
 
 @login_manager.user_loader
 def load_user(id):
@@ -120,6 +123,7 @@ def populateBills():
     )
   print id_bill_json
   id_bills = byteify(json.dumps(id_bill_json))
+#  db.session.query(Bill).update({Bill.bill_id:id_bills["bill_id"], Bill.session: id_bills["session"], Bill.title: id_bills["title"], Bill.id: id_bills["id"], Bill.updated_at: id_bills["updated_at"]})
   for bill in id_bill_json:
     bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
     db.session.add(bill_adder)
@@ -179,10 +183,39 @@ def add_comment():
     new_comment = Comment(comment, author, position, bill_num)
     db.session.add(new_comment)
     db.session.commit()
+    cache.clear()
     return jsonify({'comment': comment, 'author': author, 'position' : position, 'bill_num': bill_num})
   flash(form.errors, 'danger')
   return ""
 
+
+""" API SECTIONS """
+
+class commentsApi(Resource):
+  def get(self, bill_deet=None):
+    if not bill_deet:
+      billComments = 'No comments yet'
+    else:
+     #query for comments on current bill
+     billComments = [Bill.query.get(bill_deet)]
+    if not billComments:
+      abort(404)
+
+    #return json sting of comment for current bill
+    result = []
+    for billComment in billComments:
+      for comment in billComment.comments:
+        result.append({
+          "commentId": comment.id,
+          "commentBody": comment.body,
+          "timeStamp": comment.timestamp,
+          "author": comment.author,
+          "commentType": comment.comment_type
+          #"bill": comment.bill_id
+        })
+    return jsonify(results=result)
+    
+api.add_resource(commentsApi, '/comments/<string:bill_deet>')
 
 """
 @app.route('/search', methods=['POST'])

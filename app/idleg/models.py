@@ -61,14 +61,14 @@ class LoginForm(Form):
 class Bill(db.Model):
   __searchable__ = ['bill_name']
 
-  bill_id = db.Column(db.String(6))
+  bill_id = db.Column(db.String(6)) #i.e. H 572
   year = db.Column(db.String(4))
-  title = db.Column(db.Text)
-  bill_name = db.Column(db.String(9), primary_key=True)
+  title = db.Column(db.Text) #Title and Descrip
+  bill_name = db.Column(db.String(9), primary_key=True) #unique bill ID from Sunlight
   last_updated = db.Column(db.Text)
   votes_for = db.Column(db.Integer)
   votes_against = db.Column(db.Integer)
-  comments = db.relationship('Comment', backref='bill_id')
+  comments = db.relationship('Comment', backref='bill_id', lazy='dynamic')
 
   def __init__(self, bill_id, year, title, bill_name, last_updated, votes_for=0, votes_against=0):
     self.bill_id = bill_id
