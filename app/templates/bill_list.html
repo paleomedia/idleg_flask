@@ -121,7 +121,7 @@
               <div class="form-group">
                   <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}" class="commentForm">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-                    <input type="hidden" name="bill_num" value="{{ bill.bill_id }}" />
+                    <input type="hidden" name="bill_num" value="{{ bill.bill_name }}" />
                     {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}
                     <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio") }}
                       <button id="submitcomment" type="submit" class="btn btn-default">Add testimony</button></div>

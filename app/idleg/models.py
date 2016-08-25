@@ -10,7 +10,7 @@ class User(db.Model):
   username = db.Column(db.String(100), unique=True)
   pwdhash= db.Column(db.String())
   email = db.Column(db.String(64), nullable=True)
-  comments = db.relationship('Comment', backref='username', lazy='dynamic')
+  comments = db.relationship('Comment', backref='commenter', lazy='dynamic')
   
 #  socialid = db.Column(db.String(64), unique=True)
 #  party = db.Column(db.String(12))
@@ -68,7 +68,7 @@ class Bill(db.Model):
   last_updated = db.Column(db.Text)
   votes_for = db.Column(db.Integer)
   votes_against = db.Column(db.Integer)
-  comments = db.relationship('Comment', backref='bill_id', lazy='dynamic')
+  comments = db.relationship('Comment', backref='bill_name', lazy='dynamic')
 
   def __init__(self, bill_id, year, title, bill_name, last_updated, votes_for=0, votes_against=0):
     self.bill_id = bill_id
@@ -91,7 +91,7 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime)
     author = db.Column(db.String, db.ForeignKey('user.id'))
     comment_type = db.Column(db.String(8))
-    bill_num = db.Column(db.String(8), db.ForeignKey('bill.bill_id'))
+    bill_num = db.Column(db.String(8), db.ForeignKey('bill.bill_name'))
     
     def __init__(self, comment, author, position, bill_num, timestamp=datetime.datetime.utcnow()):
       self.body = comment

@@ -7,6 +7,7 @@ from app.cache import cache
 from flask.ext.login import current_user, login_user, logout_user, login_required
 from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm
 from flask_restful import Resource, Api
+from flask.ext.restful import reqparse
 from json import dumps
 
 idleg = Blueprint('idleg', __name__)
@@ -191,8 +192,35 @@ def add_comment():
 
 """ API SECTIONS """
 
+parser = reqparse.RequestParser()
+parser.add_argument('comment', type=str)
+parser.add_argument('position', type=str)
+
+class commentApi(Resource):
+#@login_required
+  def get(self, id):
+    if not id:
+      abort(404)
+    comment = [Comment.query.get(id)]
+    result = []
+    for c in comment:
+      result.append({
+      'comment': c.body,
+      'timestamp': c.timestamp,
+      'author': c.commenter.username,
+      'position': c.comment_type,
+      'bill': c.bill_num
+    })
+    return jsonify(results=result)
+    
+#  def put(self, id):
+    
+api.add_resource(commentApi, '/comment','/comment/<int:id>')
+
+
+#add optional position parameter
 class commentsApi(Resource):
-  def get(self, bill_deet=None):
+  def get(self, bill_deet):
     if not bill_deet:
       billComments = 'No comments yet'
     else:
@@ -216,7 +244,7 @@ class commentsApi(Resource):
         })
     return jsonify(results=result)
     
-api.add_resource(commentsApi, '/comments/<string:bill_deet>')
+api.add_resource(commentsApi, '/comments/<string:bill_deet>', '/comments/<string:position>')
 
 """
 @app.route('/search', methods=['POST'])
