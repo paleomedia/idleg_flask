@@ -1,16 +1,18 @@
 from flask import Flask, Blueprint, jsonify, g, session
-from app import app, api, db
+from app import app,api, db, csrf
 from app.idleg.models import User, Bill, Comment
 from flask_restful import Resource, Api, reqparse, fields
-#from flask.ext.restful import
-from flask_wtf import csrf
+from app.cache import cache
+
+
 from flask.views import MethodView
 
 apiModule = Blueprint('apiModule', __name__)
-api = Api(app)
+api = Api(app, decorators=[csrf.exempt])
 
 parser = reqparse.RequestParser()
 parser.add_argument('comment', type=str)
+parser.add_argument('author', type=int)
 parser.add_argument('position', type=str)
 parser.add_argument('bill', type=str)
 
@@ -34,17 +36,18 @@ class commentApi(Resource):
   def post(self):
     args = parser.parse_args()
     comment = args['comment']
-    author = args['current_user.id']
+    #author = args['current_user.id'] - need to authenticate API caller
+    author = args['author']
     position = args['position']
     bill = args['bill']
     newComment = Comment(comment, author, position, bill)
     db.session.add(newComment)
-    dbsession.commit()
+    db.session.commit()
     cache.clear()
     
     return jsonify({'comment': comment, 'author': author, 'position' : position, 'bill': bill})
     
-api.add_resource(commentApi, '/comment','/comment/<int:id>')
+api.add_resource(commentApi, '/api/comment','/api/comment/<int:id>')
 
 
 #add optional position parameter

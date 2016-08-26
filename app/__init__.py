@@ -48,9 +48,6 @@ app.register_blueprint(apiModule)
 app.register_blueprint(idleg)
 
 
-csrf.exempt(apiModule)
-
-
 # from app.auth.views import auth
 # app.register_blueprint(auth)
 
