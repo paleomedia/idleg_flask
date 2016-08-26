@@ -7,12 +7,14 @@ from flask.ext.wtf import Form
 from flask_wtf.csrf import CsrfProtect
 from flask_oauth import OAuth
 from config import basedir
-
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
+csrf = CsrfProtect(app)
 
 db = SQLAlchemy(app)
+csrf.init_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -40,12 +42,20 @@ facebook = oauth.remote_app('facebook', \
 
 from app.idleg import views, models
 from app.idleg.views import idleg
+from app.idleg import views
+from app.api.views import apiModule
 
+app.register_blueprint(apiModule)
 app.register_blueprint(idleg)
+
+
+csrf.exempt(apiModule)
+
 
 # from app.auth.views import auth
 # app.register_blueprint(auth)
 
 db.create_all()
 
-CsrfProtect(app)
+
+
