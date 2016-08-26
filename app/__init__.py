@@ -14,7 +14,6 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 csrf = CsrfProtect(app)
 
 db = SQLAlchemy(app)
-csrf.init_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
