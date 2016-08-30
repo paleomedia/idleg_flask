@@ -52,14 +52,14 @@ api.add_resource(commentApi, '/api/comment','/api/comment/<int:id>')
 
 #add optional position parameter
 class commentsApi(Resource):
-  def get(self, bill_deet):
+  def get(self, bill_deet, position=None):
     if not bill_deet:
-      billComments = 'No comments yet'
+      abort(404)
     else:
      #query for comments on current bill
      billComments = [Bill.query.get(bill_deet)]
     if not billComments:
-      abort(404)
+      billComments = 'No comments yet'
 
     #return json sting of comment for current bill
     result = []
@@ -74,6 +74,15 @@ class commentsApi(Resource):
           "bill": comment.bill_num,
           "bill_id": bill_deet
         })
-    return jsonify(results=result)
+    if not position:
+      return jsonify(results=result)
+    else:
+      filtered_result = []
+      for i in result:
+        if i['commentType'] == position:
+          filtered_result.append(i)
+          print i['commentType']
+          print position
+    return jsonify(results=filtered_result)
     
-api.add_resource(commentsApi, '/comments/<string:bill_deet>', '/comments/<string:position>')
+api.add_resource(commentsApi, '/api/comments/<string:bill_deet>', '/api/comments/<string:bill_deet>/<string:position>')
