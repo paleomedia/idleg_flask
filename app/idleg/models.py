@@ -104,6 +104,31 @@ class CommentForm(Form):
   comment = TextAreaField('comment')
   position = RadioField('Yea, Neutral or Nay?', choices=[('yea','Yea'),('neutral','Neutral'),('nay','Nay')])
   
+class Lawmaker(db.Model):
+  leg_id = db.Column(db.String, primary_key = True)
+  first_name = db.Column(db.String)
+  last_name = db.Column(db.String)
+  middle_name = db.Column(db.String)
+  district = db.Column(db.String)
+  chamber = db.Column(db.String)
+  url = db.Column(db.String)
+  email = db.Column(db.String)
+  party = db.Column(db.String)
+  photo_url = db.Column(db.String)
+  
+  def __init__(self, leg_id, first_name, last_name, middle_name, district, chamber, url, email, party, photo_url):
+    self.leg_id = leg_id
+    self.first_name = first_name
+    self.last_name = last_name
+    self.middle_name = middle_name
+    self.district = district
+    self.chamber = chamber
+    self.url = url
+    self.email = email
+    self.party = party
+    self.photo_url = photo_url
+  
+  
   
   
 #  def from_json(self, source):

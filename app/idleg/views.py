@@ -5,7 +5,7 @@ from app import app, db
 from app import login_manager, facebook
 from app.cache import cache
 from flask.ext.login import current_user, login_user, logout_user, login_required
-from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm
+from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm, Lawmaker
 #from flask_restful import Resource, Api
 #from flask.ext.restful import reqparse
 from json import dumps
@@ -131,6 +131,23 @@ def populateBills():
     db.session.commit()
   return id_bills
   
+@idleg.route('/populateLawmakers')
+def populateLawmakers():
+  import sunlight
+  import json
+  from sunlight import openstates
+  id_lm_json = openstates.legislators(
+    state = 'id',
+    active = 'true'
+    )
+  print id_lm_json
+  id_lm = byteify(json.dumps(id_lm_json))
+  for lm in id_lm_json:
+    lm_adder = Lawmaker(lm["leg_id"], lm["first_name"], lm["last_name"], lm["middle_name"], lm["district"], lm["chamber"], lm["url"], lm["email"], lm["party"], lm["photo_url"])
+    db.session.add(lm_adder)
+    db.session.commit()
+  return id_lm
+  
 
 @idleg.route('/')
 @idleg.route('/index')
@@ -150,7 +167,21 @@ def about():
 @idleg.route('/lawmakers')
 def lawmakers():
   form = RegistrationForm(request.form)
-  return render_template('lawmakers.html', user=current_user, form=form)
+  lawmakers = Lawmaker.query.all()
+  return render_template('lawmakers.html', user=current_user, form=form, lawmakers=lawmakers)
+  
+@idleg.route('/lawmaker/<path:lm_deet>')
+def leg_deet(lm_deet):
+  form = RegistrationForm(request.form)
+# Get lawmaker detail from Sunlight
+  import sunlight
+  import json
+  from sunlight import openstates
+  id_lm_json = openstates.legislators(
+    leg_id = '%s' % lm_deet
+    )
+  return render_template('leg_detail.html', lm_deet = lm_deet, id_lm_json=id_lm_json, user=current_user, form=form)
+  
 
 @idleg.route('/topics')
 def topics():
