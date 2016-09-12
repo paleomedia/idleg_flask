@@ -4,7 +4,10 @@
 
 
   
- {% print id_lm_json %}
-  
+ {% print id_lm_json.full_name %}<br />
+ {% print id_lm_json.party %}<br />
+ District: {% print id_lm_json.district %}<br />
+ <img src="{% print id_lm_json.photo_url %}"><br />
+ 
  
 {% endblock %}

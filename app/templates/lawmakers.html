@@ -6,7 +6,7 @@
   
   {% for lm in lawmakers%}
   <li>
-  <a href="{{ url_for('idleg.lawmaker', lm_deet=lm.leg_id) }}">{% print lm.first_name %} {% print lm.last_name %}</a>, {% print lm.party %}  (District {% print lm.district %})
+  <a href="{{ url_for('idleg.lawmaker', legid=lm.leg_id) }}">{% print lm.first_name %} {% print lm.last_name %}</a>, {% print lm.party %}  (District {% print lm.district %})
   <br />
   </li>
   {% endfor %}

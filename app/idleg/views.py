@@ -170,17 +170,16 @@ def lawmakers():
   lawmakers = Lawmaker.query.all()
   return render_template('lawmakers.html', user=current_user, form=form, lawmakers=lawmakers)
   
-@idleg.route('/lawmaker/<path:lm_deet>')
-def leg_deet(lm_deet):
+@idleg.route('/lawmaker/<path:legid>')
+def lawmaker(legid):
   form = RegistrationForm(request.form)
 # Get lawmaker detail from Sunlight
   import sunlight
   import json
   from sunlight import openstates
-  id_lm_json = openstates.legislators(
-    leg_id = '%s' % lm_deet
-    )
-  return render_template('leg_detail.html', lm_deet = lm_deet, id_lm_json=id_lm_json, user=current_user, form=form)
+  id_lm_json = openstates.legislator_detail(legid)
+
+  return render_template('leg_detail.html', legid=legid, id_lm_json=id_lm_json, user=current_user, form=form)
   
 
 @idleg.route('/topics')
