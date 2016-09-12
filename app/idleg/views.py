@@ -6,6 +6,7 @@ from app import login_manager, facebook
 from app.cache import cache
 from flask.ext.login import current_user, login_user, logout_user, login_required
 from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm, Lawmaker
+from sqlalchemy import cast, Integer
 #from flask_restful import Resource, Api
 #from flask.ext.restful import reqparse
 from json import dumps
@@ -167,7 +168,7 @@ def about():
 @idleg.route('/lawmakers')
 def lawmakers():
   form = RegistrationForm(request.form)
-  lawmakers = Lawmaker.query.all()
+  lawmakers = Lawmaker.query.order_by(cast(Lawmaker.district, Integer)).all()
   return render_template('lawmakers.html', user=current_user, form=form, lawmakers=lawmakers)
   
 @idleg.route('/lawmaker/<path:legid>')

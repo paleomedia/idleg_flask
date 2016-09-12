@@ -3,11 +3,19 @@
 {% block container %}
 
 
-  
- {% print id_lm_json.full_name %}<br />
- {% print id_lm_json.party %}<br />
- District: {% print id_lm_json.district %}<br />
- <img src="{% print id_lm_json.photo_url %}"><br />
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="{% print id_lm_json.photo_url %}" width="250" alt="{print id_lm_json.full_name %}">
+      <div class="caption">
+        <h3>{% print id_lm_json.full_name %}</h3>
+        <p>{% print id_lm_json.party %}</p>
+        <p>District: {% print id_lm_json.district %}</p>
+      </div>
+    </div>
+  </div>
+</div>
+ 
  
  
 {% endblock %}
