@@ -2,13 +2,50 @@
 
 {% block container %}
 
-<ul class="billsummary">
+<div class='sidebar pad2'>
+  <ul class="billsummary">
+    {% for lm in lawmakers%}
+    <li>
+      <a href="{{ url_for('idleg.lawmaker', legid=lm.leg_id) }}">{% print lm.first_name %} {% print lm.last_name %}</a>, {% print lm.party %}  (District {% print lm.district %})
+      <br />
+    </li>
+    {% endfor %}
+  </ul>
   
-  {% for lm in lawmakers%}
-  <li>
-  <a href="{{ url_for('idleg.lawmaker', legid=lm.leg_id) }}">{% print lm.first_name %} {% print lm.last_name %}</a>, {% print lm.party %}  (District {% print lm.district %})
-  <br />
-  </li>
-  {% endfor %}
-</ul>
+  
+  
+</div>
+<div id='map' class='map pad2'>Map</div>
+
+
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicGFsZW9tZWRpYSIsImEiOiI2Mzh4TzZjIn0.MOyDXCf9tvBQT7RHJRma7w';
+// This adds the map to your page
+var map = new mapboxgl.Map({
+  // container id specified in the HTML
+  container: 'map',
+  // style URL
+  style: 'mapbox://styles/mapbox/light-v9',
+  // initial position in [long, lat] format
+  center: [-114.143,45.495],
+  // initial zoom
+  zoom: 6
+});
+</script>
+
+<!--
+
+<script type="text/javascript">
+var mapboxAccessToken = 'pk.eyJ1IjoicGFsZW9tZWRpYSIsImEiOiI2Mzh4TzZjIn0.MOyDXCf9tvBQT7RHJRma7w'
+var map = L.map('map').setView([45.49454649999987,-114.14326099999998], 6);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/paleomedia/cit9ma02500152hp6lk4voi04/tiles/256/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
+  id: 'mapbox.light',
+  attribution: 'Mapbox Studio Test'}).addTo(map);
+ 
+</script>
+
+-->
+
 {% endblock %}

@@ -3,7 +3,8 @@ var options = {
   page: 10,
   plugins: [
     ListPagination({
-      innerWindow: 2
+      innerWindow: 2,
+      outerWindow: 1
     })
   ]
 };
@@ -74,6 +75,9 @@ $(function() {
     });
   });
 });
+
+
+
 
 
 /*

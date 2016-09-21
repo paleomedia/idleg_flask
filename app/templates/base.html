@@ -32,20 +32,30 @@
      <!-- Load list.js for sorting and searching bills -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
     <script src="{{ url_for('static', filename='js/List.pagination.js') }}"></script>
+    
+    <!-- Add leaflet.js for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+    
+    <!-- Add mapbox-gl library and styles -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.css' rel='stylesheet' />
 
     <script src="{{ url_for('static', filename='js/custom.js') }}"></script> -->
-    
-   
-    
 
   </header>
 
   <body>
-    <header>
       <div class="tops">
 
 	<!-- Logo and branding -->
         <div class="page-header">
+            <div class="btn-toolbar pull-right">
+              <div class="btn-group">
+                <a href="https://github.com/paleomedia/idleg_flask" role="button" class="btn btn-success">About this BETA</a>
+                <a href="https://github.com/paleomedia/idleg_flask/issues/new" role="button" class="btn btn-primary">Submit Github issue</a>
+              </div>
+            </div>
           <h1><small>An Idaho social-political network</small></h1>
         </div>
 
@@ -88,7 +98,7 @@
                 </li>
                 {% if current_user.is_authenticated %}
                   <li class="dropdown">
-                    <button type="button" class="btn btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button type="button" class="btn btn-xs dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                       Hi {{ user.username }}
                       <span class="caret" aria-hidden="true"></span>
                     </button>
@@ -107,8 +117,9 @@
     	 </div><!-- /.container -->
   </nav>
 
+
   	</div><!-- /.tops -->
-    </header>
+
 
     {% block container %} {% endblock %}
 

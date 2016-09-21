@@ -157,7 +157,7 @@ def populateLawmakers():
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
-  id_bills = Bill.query.filter_by(year='2016')
+  id_bills = Bill.query.order_by(desc(Bill.last_updated)).all()
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
 
 @idleg.route('/about')

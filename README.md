@@ -1,7 +1,7 @@
 # IDleg
 Being a spinoff of the #idleg Twitter hashtag, pronounced by some as Idle-G.
 
-## Interactive Portal to Idaho Legislature - Under Construction
+## Interactive Portal to Idaho Legislature - BETA RELEASE
 ### In development, i.e. use at your own risk
 
 This project is part of a master's degree in "Data Journalism" at Boise State University. I'm building an alternative legislative portal for the state of Idaho that:
@@ -22,7 +22,7 @@ You can read more about my [MA project on my blog] (http://www.paleomedia.org/20
 ### Requirements
 - Python 2.6 or higher
 - A [Sunlight Labs API Key](http://sunlightfoundation.com/api/accounts/register/) - Read their instructions to [install the key and use the Python library](http://python-sunlight.readthedocs.org/en/latest/#usage)
-- Recommend installing in [virtualenv](http://flask.pocoo.org/docs/0.10/installation/)
+- Recommend installing in [virtualenv](http://flask.pocoo.org/docs/0.10/installation/) and [virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/install.html)
 
 ```python
     $ pip install virtualenv
@@ -57,4 +57,7 @@ or
 ```
 ## Contributors
 [@paleomedia](http://twitter.com/paleomdia)
+
+##Technical Advisors
 [@nilabmm](http://twitter.com/nilabmm)
+[@jwoodsy1](http://twitter.com/jwoodsy1)
