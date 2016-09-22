@@ -6,7 +6,7 @@ from app import login_manager, facebook
 from app.cache import cache
 from flask.ext.login import current_user, login_user, logout_user, login_required
 from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm, Lawmaker
-from sqlalchemy import cast, Integer
+from sqlalchemy import cast, Integer, desc
 #from flask_restful import Resource, Api
 #from flask.ext.restful import reqparse
 from json import dumps
