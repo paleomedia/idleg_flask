@@ -22,6 +22,7 @@ def load_user(id):
 def get_current_user():
   g.user = current_user
   
+# function to convert json for sqlite database
 def byteify(input):
   if isinstance(input, dict):
     return {byteify(key):byteify(value) for key,value in input.iteritems()}
@@ -32,7 +33,7 @@ def byteify(input):
   else:
     return input
     
-
+# routes for login and registrations --------------
 @idleg.route('/register', methods=['GET', 'POST'])
 def register():
   if session.get('username'):
@@ -81,7 +82,6 @@ def login():
     flash(form.errors, 'danger')
   return render_template('login.html',form=form)
   
-      
 @idleg.route('/facebook-login')
 def facebook_login():
   return facebook.authorize(callback=url_for('idleg.facebook_authorized', next=request.args.get('next') or request.referrer or None, _external=True))
@@ -112,7 +112,8 @@ def get_facebook_oauth_token():
 def logout():
   logout_user()
   return redirect(url_for('idleg.home'))
-  
+
+# routes to download data from Sunlight <---- to be automated later
 @idleg.route('/populateBills')
 def populateBills():
   import sunlight
@@ -149,7 +150,7 @@ def populateLawmakers():
     db.session.commit()
   return id_lm
   
-
+# main app routes --------------
 @idleg.route('/')
 @idleg.route('/index')
 @idleg.route('/home')
@@ -157,8 +158,19 @@ def populateLawmakers():
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
-  id_bills = Bill.query.order_by(desc(Bill.last_updated)).all()
+  id_bills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year='2016')
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
+
+# route gets more bills by year by AJAX
+@idleg.route('/loadBills', methods=['POST'])
+@cache.cached(timeout=5000)
+def loadBills():
+  year="2016"
+  if request.method == 'POST':
+    year=str(request.data)
+    print(year)
+  moreBills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year=year)
+  return moreBills
 
 @idleg.route('/about')
 def about():
@@ -181,7 +193,6 @@ def lawmaker(legid):
   id_lm_json = openstates.legislator_detail(legid)
 
   return render_template('leg_detail.html', legid=legid, id_lm_json=id_lm_json, user=current_user, form=form)
-  
 
 @idleg.route('/topics')
 def topics():
@@ -219,7 +230,6 @@ def add_comment():
     return jsonify({'comment': comment, 'author': author, 'position' : position, 'bill_num': bill_num})
   flash(form.errors, 'danger')
   return ""
-
 
 
 """

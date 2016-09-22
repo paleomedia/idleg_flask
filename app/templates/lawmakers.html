@@ -2,7 +2,7 @@
 
 {% block container %}
 
-<div class='sidebar pad2'>
+<div class="col-md-3 pad2">
   <ul class="billsummary">
     {% for lm in lawmakers%}
     <li>
@@ -11,11 +11,9 @@
     </li>
     {% endfor %}
   </ul>
-  
-  
-  
 </div>
-<div id='map' class='map pad2'>Map</div>
+
+<div id='map' class='col-md-5 map pad2'>Map</div>
 
 
 
@@ -26,11 +24,11 @@ var map = new mapboxgl.Map({
   // container id specified in the HTML
   container: 'map',
   // style URL
-  style: 'mapbox://styles/mapbox/light-v9',
+  style: 'mapbox://styles/mapbox/outdoors-v9',
   // initial position in [long, lat] format
   center: [-114.143,45.495],
   // initial zoom
-  zoom: 6
+  zoom: 5
 });
 </script>
 

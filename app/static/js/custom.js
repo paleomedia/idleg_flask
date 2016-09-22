@@ -76,7 +76,35 @@ $(function() {
   });
 });
 
-
+$(function() {
+  $('#filter-year').change(function(e) {
+    // e.preventDefault();
+    var year = $(this).val();
+    var csrftoken = $('meta[name=csrf-token]').attr('content')
+    console.log(year);
+    
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken)
+            }
+        }
+    })
+    
+    $.ajax({
+      url: '/loadBills',
+      data: year,
+      type: 'POST',
+      success: function(response) {
+        console.log(moreBills);
+      },
+      error: function(error) {
+        console.log(error);
+        console.log("FAILURE");
+      }
+      });
+    });
+  });
 
 
 

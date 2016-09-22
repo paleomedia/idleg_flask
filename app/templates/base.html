@@ -14,7 +14,7 @@
     <meta name="keywords" content="Idaho, legislature, bills, laws, legislation" />
     <meta name="author" content="Nathaniel Hoffman" />  <!-- Note: Make dynamic based on page author -->
     <!-- {#  <meta name="revised" content="<?php filemtime('index.php'); ?>  last mod of index.html #} -->
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
     <!-- Load fonts -->
