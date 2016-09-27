@@ -79,9 +79,9 @@ $(function() {
 $(function() {
   $('#filter-year').change(function(e) {
     // e.preventDefault();
-    var year = $(this).val();
+    var billyear = $(this).val();
     var csrftoken = $('meta[name=csrf-token]').attr('content')
-    console.log(year);
+    console.log(billyear);
     
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
@@ -93,7 +93,7 @@ $(function() {
     
     $.ajax({
       url: '/loadBills',
-      data: year,
+      data: {'billyear':billyear},
       type: 'POST',
       success: function(response) {
         console.log(moreBills);

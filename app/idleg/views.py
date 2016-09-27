@@ -165,11 +165,11 @@ def home():
 @idleg.route('/loadBills', methods=['POST'])
 @cache.cached(timeout=5000)
 def loadBills():
-  year="2016"
+  # year="2016"
   if request.method == 'POST':
-    year=str(request.data)
-    print(year)
-  moreBills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year=year)
+    billyear=request.json['billyear']
+    print type(billyear)
+  moreBills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year=billyear)
   return moreBills
 
 @idleg.route('/about')
