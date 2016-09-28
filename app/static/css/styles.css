@@ -575,3 +575,58 @@ Styles for comments
 	width: 40%;
 	line-height: 1rem;
 }
+
+.roll-call-table-outer {
+    width: 32%;
+}
+.roll-call-table-outer h4 {
+    padding: 10px 0;
+}
+.yes-votes, .no-votes {
+    padding-right: 8px;
+    margin-right: 8px;
+}
+.yes-votes, .no-votes, .other-votes {
+    width: 233px;
+    float: left;
+    display: inline;
+}
+
+/* Adapted from Propublica styles for votes */
+table.roll-call-table {
+    width: 100%;
+    font-size: 12px;
+}
+table {
+    border-left: 0px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table.roll-call-table th.member {
+    width: 116px;
+}
+table.roll-call-table thead th {
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #E2E2E2;
+    border-top: 1px solid #E2E2E2;
+}
+table tr td:first-child, table tr th:first-child {
+    padding-left: 10px;
+}
+table.roll-call-table th.party {
+    width: 36px;
+}
+table.roll-call-table td, table.roll-call-table th {
+    border-bottom: solid 1px #E2E2E2;
+    padding: 4px;
+    vertical-align: top;
+    background-color: inherit;
+}
+.lower:before {
+    content: "House Motion: ";
+}
+.upper:before {
+    content: "Senate Motion: ";
+}

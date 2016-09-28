@@ -158,10 +158,11 @@ def populateLawmakers():
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
-  id_bills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year='2016')
+  id_bills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year="2016")
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
 
 # route gets more bills by year by AJAX
+'''
 @idleg.route('/loadBills', methods=['POST'])
 @cache.cached(timeout=5000)
 def loadBills():
@@ -171,6 +172,7 @@ def loadBills():
     print type(billyear)
   moreBills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year=billyear)
   return moreBills
+'''
 
 @idleg.route('/about')
 def about():

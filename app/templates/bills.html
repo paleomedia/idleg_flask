@@ -2,9 +2,12 @@
 
 {% block container %}
 
-  {% include 'dash.html' %}
+<!-- {% include 'dash.html' %} -->
+<div class="col-md-3">
+    
+</div>
   
-  <div class="col-md-8">
+  <div class="col-md-5">
     <div id="main-bill-panel" class="panel panel-primary">
       <h1 class="panel-heading">Details for {% print id_bill_json.bill_id %}</h1>
       <div class="panel-body">
@@ -29,21 +32,78 @@
         <div panel-group>
           <div class="panel panel-info">
             <div class="panel-heading">Votes on {% print id_bill_json.bill_id %}</div>
-              <ul calss="list-group">
-    
-      
-              {% for vote in id_bill_json.votes %}
-                {% for yes_vote in vote.yes_votes %}
-                  <li class="list-group-item info">{% print yes_vote.name %} voted aye!</li>
+              <div id="roll-call-tables">
+                {% for vote in id_bill_json.votes %}
+                <div class="roll-call-table-outer yes-votes">
+                  <h4>Aye Votes<span class="vote-count"> ({% print vote.yes_count %})</span><br /> <span class="{% print vote.chamber %}">{% print vote.motion %}</span></h4>
+
+                  <table class="roll-call">
+                    <thead>
+                      <th class="member">Member</th>
+                      <th class="party">Party</th>
+                    </thead>
+                    <tbody>
+                    {% for yes_vote in vote.yes_votes %}
+                      <tr><td>
+                        {% if yes_vote.leg_id %}
+                        <a href="{{ url_for('idleg.lawmaker', legid=yes_vote.leg_id) }}">{% print yes_vote.name %}</a>
+                        {% else %}
+                        {% print yes_vote.name %}
+                        {% endif %}
+                        </td><td>?</td></tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                  
+                <div class="roll-call-table-outer no-votes">
+                  <h4>Nay Votes<span class="vote-count">({% print vote.no_count %})</span></h4>
+                  
+                  <table class="roll-call">
+                    <thead>
+                      <th class="member">Member</th>
+                      <th class="party">Party</th>
+                    </thead>
+                    <tbody>
+                    {% for no_vote in vote.no_votes %}
+                      <tr><td>
+                        {% if no_vote.leg_id %}
+                        <a href="{{ url_for('idleg.lawmaker', legid=no_vote.leg_id) }}">{% print no_vote.name %}</a>
+                        {% else %}
+                        {% print no_vote.name %}
+                        {% endif %}
+                        </td><td>?</td></tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div class="roll-call-table-outer other-votes">
+                  <h4>Did Not Vote<span class="vote-count">({% print vote.other_count %})</span></h4>
+                  
+                  <table class="roll-call">
+                    <thead>
+                      <th class="member">Member</th>
+                      <th class="party">Party</th>
+                    </thead>
+                    <tbody>
+                    {% for other_vote in vote.other_votes %}
+                     <tr><td>
+                       {% if other_vote.leg_id %}
+                       <a href="{{ url_for('idleg.lawmaker', legid=other_vote.leg_id) }}">{% print other_vote.name %}</a>
+                       {% else %}
+                       {% print other_vote.name %}
+                       {% endif %}
+                       </td><td>?</td></tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                
                 {% endfor %}
-                {% for no_vote in vote.no_votes %}
-                  <li class="list-group-item alert">{% print no_vote.name %} voted nay!</li>
-                {% endfor %}
-              {% endfor %}
-            
-              </ul>
+              </div>
             </div>
-        </div>
+          </div>
       </div>
     </div>
   </div>

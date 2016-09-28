@@ -1,38 +1,40 @@
-<div class="dashboard">
-  <div class="dashhead" id="dashtop">
-    Legislative Dash
-  </div>
-
-{#
-
-<div class="dashhead" id="login">Login</div>
- {% block container %}
-  
-  {% if current_user.is_authenticated %}
-    <div class="loginbox">
-      <div class="dashitem">
-        <h3>Hey {{ user.username }}!!</h3>
-         <a href="{{ url_for('idleg.logout') }}">Click here to logout</a>
-      </div>
+<div class="col-md-3">
+  <div class="dashboard">
+    <div class="dashhead" id="dashtop">
+      <h3>Legislative Dash  <span class="label label-primary">Coming Soon!</span></h3>
     </div>
-    {% else %}
-     <div class="dashitem">
-     <div class="loginbox">
-     {% include 'login_modal.html' %}
-     </div></div>
-  {% endif %}
-{% endblock %}
-
-#}
-
-  <div class="dashhead" id="bills">Bills</div>
-  <div class="dashitem">LOGIN...to load your bills.</div>
-
-  <div class="dashhead" id="testimony">Comments</div>
-  <div class="dashitem">... to loa comments </div>
-  <div class="dashhead" id="lawmakers">Lawmakers</div>
-  <div class="dashitem">...to load your legislators.</div>
-  <div class="dashhead" id="topics">Topics</div>
-  <div class="dashitem">...to load your topics.</div>
   
+  {#
+  
+  <div class="dashhead" id="login">Login</div>
+   {% block container %}
+    
+    {% if current_user.is_authenticated %}
+      <div class="loginbox">
+        <div class="dashitem">
+          <h3>Hey {{ user.username }}!!</h3>
+           <a href="{{ url_for('idleg.logout') }}">Click here to logout</a>
+        </div>
+      </div>
+      {% else %}
+       <div class="dashitem">
+       <div class="loginbox">
+       {% include 'login_modal.html' %}
+       </div></div>
+    {% endif %}
+  {% endblock %}
+  
+  #}
+  
+    <div class="dashhead" id="bills">Bills</div>
+    <div class="dashitem">LOGIN...to load your bills.</div>
+  
+    <div class="dashhead" id="testimony">Comments</div>
+    <div class="dashitem">... to loa comments </div>
+    <div class="dashhead" id="lawmakers">Lawmakers</div>
+    <div class="dashitem">...to load your legislators.</div>
+    <div class="dashhead" id="topics">Topics</div>
+    <div class="dashitem">...to load your topics.</div>
+    
+  </div>
 </div>

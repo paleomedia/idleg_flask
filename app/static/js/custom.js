@@ -76,6 +76,7 @@ $(function() {
   });
 });
 
+/*
 $(function() {
   $('#filter-year').change(function(e) {
     // e.preventDefault();
@@ -105,7 +106,7 @@ $(function() {
       });
     });
   });
-
+*/
 
 
 /*
