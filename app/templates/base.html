@@ -25,6 +25,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
     
+     <!-- jQuery (for Bootstrap plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
      <!-- Load list.js for sorting and searching bills -->
     <script src="{{ url_for('static', filename='js/list.js') }}"></script>
     <script src="{{ url_for('static', filename='js/List.pagination.js') }}"></script>
@@ -32,6 +35,7 @@
     <!-- Add leaflet and mapbox-gl styles for maps -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
     <link rel="stylesheet" href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.css'  />
+    
   </head>
 
   <body>
@@ -128,8 +132,6 @@
     {% block content %}{% endblock %}
     
     {% block footer %}{% endblock %}
-    <!-- jQuery (for Bootstrap plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     <!-- Latest compiled and minified Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
