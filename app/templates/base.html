@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <header>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,11 +15,11 @@
     <meta name="author" content="Nathaniel Hoffman" />  <!-- Note: Make dynamic based on page author -->
     <!-- {#  <meta name="revised" content="<?php filemtime('index.php'); ?>  last mod of index.html #} -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="shortcut icon" href="/favicon.ico"/>
 
     <!-- Load fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" type="text/css">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     
     <!-- jQuery (for Bootstrap plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -30,7 +30,7 @@
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
     
      <!-- Load list.js for sorting and searching bills -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
+    <script src="{{ url_for('static', filename='js/list.js') }}"></script>
     <script src="{{ url_for('static', filename='js/List.pagination.js') }}"></script>
     
     <!-- Add leaflet.js for maps -->
@@ -41,11 +41,12 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.css' rel='stylesheet' />
 
-    <script src="{{ url_for('static', filename='js/custom.js') }}"></script> -->
+<!--    <script src="{{ url_for('static', filename='js/custom.js') }}"></script> -->
 
-  </header>
+  </head>
 
   <body>
+    <header>
       <div class="tops">
 
 	<!-- Logo and branding -->
@@ -119,6 +120,7 @@
 
 
   	</div><!-- /.tops -->
+	</header>
 
 
     {% block container %} {% endblock %}
@@ -138,8 +140,8 @@
     
     {% block footer %}{% endblock %}
 
-    <!-- Latest compiled and minified Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified Bootstrap JavaScript
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
 
   </body>
 </html>

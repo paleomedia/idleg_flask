@@ -112,6 +112,11 @@ def get_facebook_oauth_token():
 def logout():
   logout_user()
   return redirect(url_for('idleg.home'))
+  
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
+                               'favicon.ico', mimetype='image/png')
 
 # routes to download data from Sunlight <---- to be automated later
 @idleg.route('/populateBills')
