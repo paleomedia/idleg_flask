@@ -1,30 +1,31 @@
-<button id='modal-launcher' class="btn btn-primary btn-sm" data-toggle="modal" data-target="#login-modal">Sign in or register</button>
-
-<div class="modal1">
-
-  <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal2">
+  <div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header login_modal_header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
+          <h2 class="modal-title" id="myModalLabel">Register for an Account</h2>
         </div>
         <div class="modal-body login-modal">
           <p>Idleg.info provides open Idaho legislative information to the public. Login to track bills, comment and access other features.</p><br/>
           <div class="clearfix"></div>
           <div id='social-icons-conatainer'>
             <div class='modal-body-left'>
-              <form method="POST" action="{{ url_for('idleg.login') }}" role="form">
+              
+              <form method="POST" action="{{ url_for('idleg.register') }}" role="form">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                <div class="form-group login-field">{{ form.username.label }}: {{ form.username() }}
+                <div class="form-group">{{ form.username.label }}: {{  form.username() }}
                   <i class="fa fa-user login-field-icon"></i>
                 </div>
-                <div class="form-group login-field">{{ form.password.label }}: {{ form.password() }}
+                <div class="form-group">{{ form.email.label }}: {{ form.email() }}</div>
+                <div class="form-group">{{ form.password.label }}: {{  form.password() }}
                   <i class="fa fa-lock login-field-icon"></i>
                 </div>
-                <button type="submit" class="btn btn-success modal-login-btn">Submit</button>
+                <div class="form-group">{{ form.confirm.label }}: {{ form.confirm() }}
+                  <i class="fa fa-lock login-field-icon"></i>
+                </div>
+                <button type="submit" class="btn btn-success modal-register-brn"> Submit</button>
               </form>
-              <a href="#" class="login-link text-center">Lost your password?</a>
             </div>
   
             <div class='modal-body-right'>
@@ -39,16 +40,14 @@
             <div id='center-line'> OR </div>
           </div>
           <div class="clearfix"></div>
-        <div class="form-group modal-register-btn">
-          <button id="register-launcher" class="btn btn-primary btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#registration-modal">New User Please Register</button>
+  
+          <div class="form-group modal-register-btn">
+            Already have an account? <button id='modal-launcher' class="btn btn-primary btn-sm" data-dismiss="modal" data-toggle="modal" data-target="#login-modal">Sign in</button>
           </div>
-          </div>
+        </div>
         <div class="clearfix"></div>
         <div class="modal-footer login_modal_footer"></div>
       </div>
     </div>
   </div>
 </div>
-  
-{% include 'registration_modal.html' %}
-

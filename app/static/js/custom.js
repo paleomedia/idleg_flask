@@ -76,6 +76,18 @@ $(function() {
   });
 });
 
+
+/* Hide the Modals
+$(document).ready(function () {
+  $("#register-launcher").click(function(){
+    $("#login-modal").modal("hide");
+  });
+  $("#modal-launcher").click(function(){
+    $(".modal.in").modal("hide");
+  });
+});
+*/
+
 /*
 $(function() {
   $('#filter-year').change(function(e) {

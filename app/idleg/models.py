@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, TextAreaField, RadioField
+from wtforms import TextField, PasswordField, TextAreaField, RadioField, StringField, validators
 from wtforms.validators import InputRequired, EqualTo
 import datetime
 from app import db
@@ -50,8 +50,8 @@ class User(db.Model):
   
 class RegistrationForm(Form):
   username = TextField('Username', [InputRequired()])
-# email = TextField('Email Address', [InputRequired()])
-  password = PasswordField('Password', [InputRequired(), EqualTo('confirm', message='Passwords must match')])
+  email = StringField('Email Address', [InputRequired()])
+  password = PasswordField('Password', [validators.DataRequired(), validators.EqualTo('confirm', message='Passwords must match')])
   confirm = PasswordField('Confirm Password', [InputRequired()])
   
 class LoginForm(Form):
