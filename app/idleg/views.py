@@ -140,8 +140,7 @@ def logout():
   
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static', 'images'),
-                               'favicon.ico', mimetype='image/png')
+    return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'favicon.ico', mimetype='image/png')
 
 # routes to download data from Sunlight <---- to be automated later
 @idleg.route('/populateBills')
@@ -245,6 +244,15 @@ def bills(bill_deet):
     bill_id = '%s' % bill_deets.bill_id
     )
   return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json, form=form)
+  
+@idleg.route('/billyear/<path:year>')
+@cache.cached(timeout=5000)
+def billyear(year):
+  form = RegistrationForm(request.form)
+  comment_form = CommentForm(request.form)
+  id_bills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year=year)
+  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
+      
 
 @app.route('/comment', methods=['POST'])
 @login_required

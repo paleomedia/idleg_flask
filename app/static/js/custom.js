@@ -77,17 +77,15 @@ $(function() {
 });
 
 
-/* Hide the Modals
-$(document).ready(function () {
-  $("#register-launcher").click(function(){
-    $("#login-modal").modal("hide");
-  });
-  $("#modal-launcher").click(function(){
-    $(".modal.in").modal("hide");
-  });
-});
+/*
+$('#filter-year').change( function() {
+  var billyear = $(this).val();
+  var csrftoken = $('meta[name=csrf-token]').attr('content')
+  })
+  
+  
+})
 */
-
 /*
 $(function() {
   $('#filter-year').change(function(e) {

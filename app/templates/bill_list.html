@@ -18,15 +18,18 @@
               <button type="button" class="btn btn-default" id="filter-senate">Only show Senate bills</button>
               <button type="button" class="btn btn-default" id="filter-house">Only show House bills</button>
               
-              <!--
-              <select class="selectpicker btn btn-default" id="filter-year">
+              
+              
+      <!--      <form action="{{ url_for('idleg.home') }}" method="POST">
+              <select class="selectpicker btn btn-default" name="yearpicker" id="filter-year" selected="{% print year %}" onchange="this.form.submit();">
                 <option>2016</option>
                 <option>2015</option>
                 <option>2014</option>
                 <option>2013</option>
                 <option>2012</option>
               </select>
-              -->
+            </form>
+        -->
               
             </div>
           </div>
