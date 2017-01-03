@@ -4,7 +4,7 @@ from werkzeug import abort
 from app import app, db
 from app import login_manager, facebook
 from app.cache import cache
-from flask.ext.login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required
 from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm, Lawmaker
 from sqlalchemy import cast, Integer, desc
 #from flask_restful import Resource, Api
@@ -140,6 +140,7 @@ def logout():
   
 @app.route('/favicon.ico')
 def favicon():
+    import os
     return send_from_directory(os.path.join(app.root_path, 'static', 'images'), 'favicon.ico', mimetype='image/png')
 
 # routes to download data from Sunlight <---- to be automated later
@@ -187,7 +188,8 @@ def populateLawmakers():
 def home():
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
-  id_bills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year="2016")
+  id_bills = Bill.query.order_by(desc(Bill.last_updated))
+  #.filter_by(year="2016")
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
 
 # route gets more bills by year by AJAX
