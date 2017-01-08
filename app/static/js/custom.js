@@ -1,4 +1,4 @@
-var options = {
+/*var options = {
   valueNames: [ 'billimage', 'lastaction', 'billsummary' ],
   page: 10,
   plugins: [
@@ -45,6 +45,7 @@ $('#filter-none').click(function() {
   billsList.filter();
   return false;
  });
+ */
  
 $("#submitcomment").click(function (event) {
   if (!$("input:radio[name='position']:checked").val()>0) {

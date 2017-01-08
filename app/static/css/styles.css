@@ -321,21 +321,21 @@ input {
 	font-style: italic;
 }
 */
-#position label {
+#position label, #house label {
   padding:7px;
   font-weight: 200;
   margin: 3px 30px;
 }
 
-#position li {
+#position li, #house li {
   display: inline;
   font: normal 12px/1.3 'helvetica neue', hevetica, arial;
-  font-size: 20px;
+  font-size: 16px;
 }
-#position input[type=radio] {
+#position input[type=radio], #house input[type=radio] {
   border: 20px;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   margin: 12px;
 }
 

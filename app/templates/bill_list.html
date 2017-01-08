@@ -4,21 +4,28 @@
     
   </div>
   
-  <div id="billsSort">
+ <!-- <div id="billsSort"> -->
     <div class="col-md-5">
-          
-          <div class="search-filter">
-            <div class="input-group input-group-lg">
-              <span class="input-group-addon" id="basic-addon1">¿</span>
-              <input class="search form-control" type="text" placeholder="Search bill summaries" />
+      <div class="form-group">
+        <form role="form" id="searchTerm" class="commentForm">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <div class="input-group">
+            {{ search_form.search(placeholder="Full text bill search", class="form-control") }}
+            <span class="input-group-btn">
+              <button id="submitsearch" type="button" class="btn btn-default">Search</button>
+            </span>
+          </div>
+          <div class="form-group">{{ search_form.house(class="radio-inline", type="radio") }}
+            <div class="btn-group btn-small" role="group" aria-label="Year selector">
+              {{ search_form.year(class="selectpicker", type="dropdown", title="Select year(s)) }}
+              
             </div>
-            <div class="input-group" aria-label="Sort and filter bills">
-              <button type="button" class="sort btn btn-default" data-sort="billsummary">Sort by name</button>
-              <button type="button" class="btn btn-default" id="filter-none">Show all</button>
-              <button type="button" class="btn btn-default" id="filter-senate">Only show Senate bills</button>
-              <button type="button" class="btn btn-default" id="filter-house">Only show House bills</button>
-              
-              
+          </div>
+        </form>
+      </div>
+
+
+     <!--
               
             <form action="{{ url_for('idleg.home') }}" method="POST">
               <select class="selectpicker btn btn-default" name="yearpicker" id="filter-year" selected="{% print year %}" onchange="this.form.submit();">
@@ -29,13 +36,13 @@
                 <option>2012</option>
               </select>
             </form>
-        
+       -->
               
-            </div>
-          </div>
+            
+          
           
           <div class="list">
-          {% for bill in id_bills %}
+          {% for bill in id_bills.items %}
             <div class="panel panel-default">
               <div class="panel-body">
                   
@@ -137,7 +144,7 @@
                     <input type="hidden" name="bill_num" value="{{ bill.bill_name }}" />
                     {{ comment_form.comment(rows="4", placeholder="Write comments or testimony here, select pro, neutral or anti, and press Submit.", class="form-control") }}
                     <div class="form-group">{{ comment_form.position(class="radio-inline", type="radio") }}
-                      <button id="submitcomment" type="submit" class="btn btn-default">Add testimony</button></div>
+                      <button id="submitcomment" type="submit" class="btn pull-right btn-default">Add testimony</button></div>
                   </form>
               </div>
               
@@ -147,7 +154,8 @@
           {% endfor %}
 
       </div>
-    <div class="panel-footer pagination"></div>
+    {% if id_bills.has_prev %}<a href="{{ url_for('idleg.home', page=id_bills.prev_num) }}">&lt;&lt; Newer bills</a>{% else %}&lt;&lt; Newer bills{% endif %} |
+    {% if id_bills.has_next %}<a href="{{ url_for('idleg.home', page=id_bills.next_num) }}">Older bills &gt;&gt;</a>{% else %}Older bills &gt;&gt;{% endif %}
   </div>
   </div>
 

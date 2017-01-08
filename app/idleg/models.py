@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import Form
-from wtforms import TextField, PasswordField, TextAreaField, RadioField, StringField, validators
+from wtforms import TextField, PasswordField, TextAreaField, RadioField, StringField, SelectMultipleField, validators
 from wtforms.validators import InputRequired, EqualTo
 import datetime
 from app import db
@@ -59,7 +59,7 @@ class LoginForm(Form):
   password = PasswordField('Password', [InputRequired()])
 
 class Bill(db.Model):
-  __searchable__ = ['bill_name']
+  __searchable__ = ['bill_name','title','bill_id']
 
   bill_id = db.Column(db.String(6)) #i.e. H 572
   year = db.Column(db.String(4))
@@ -102,8 +102,15 @@ class Comment(db.Model):
 
 class CommentForm(Form):
   comment = TextAreaField('comment')
-  position = RadioField('Yea, Neutral or Nay?', choices=[('yea','Yea'),('neutral','Neutral'),('nay','Nay')])
+  position = RadioField(
+    'Yea, Neutral or Nay?',
+    choices=[('yea','Yea'),('neutral','Neutral'),('nay','Nay')])
   
+class SearchForm(Form):
+  search = TextField('search')
+  house = RadioField('houses', choices=[('house','House only'),('senate','Senate only'),('allBills','All bills')])
+  year = SelectMultipleField('years', choices=[('2016','2016'),('2015','2015'),('2014','2014'),('2013','2013'),('2012','2012')], default='2016')
+
 class Lawmaker(db.Model):
   leg_id = db.Column(db.String, primary_key = True)
   first_name = db.Column(db.String)
@@ -127,7 +134,6 @@ class Lawmaker(db.Model):
     self.email = email
     self.party = party
     self.photo_url = photo_url
-  
   
   
   

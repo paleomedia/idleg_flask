@@ -5,7 +5,7 @@ from app import app, db
 from app import login_manager, facebook
 from app.cache import cache
 from flask_login import current_user, login_user, logout_user, login_required
-from app.idleg.models import User, RegistrationForm, LoginForm, Bill, Comment, CommentForm, Lawmaker
+from app.idleg.models import User, RegistrationForm, LoginForm, SearchForm, Bill, Comment, CommentForm, Lawmaker
 from sqlalchemy import cast, Integer, desc
 #from flask_restful import Resource, Api
 #from flask.ext.restful import reqparse
@@ -181,16 +181,19 @@ def populateLawmakers():
   return id_lm
   
 # main app routes --------------
-@idleg.route('/')
-@idleg.route('/index')
-@idleg.route('/home')
+@idleg.route('/', methods=['GET','POST'])
+@idleg.route('/index', methods=['GET','POST'])
+@idleg.route('/home', methods=['GET','POST'])
+@idleg.route('/index/<int:page>', methods=['GET','POST'])
 @cache.cached(timeout=5000)
-def home():
+def home(page=1):
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
-  id_bills = Bill.query.order_by(desc(Bill.last_updated))
+  search_form = SearchForm(request.form)
+  search_form.house.data = "2016"
+  id_bills = Bill.query.order_by(desc(Bill.last_updated)).paginate(page, 10, False)
   #.filter_by(year="2016")
-  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
+  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form, search_form=search_form)
 
 # route gets more bills by year by AJAX
 '''
