@@ -12,6 +12,7 @@ Flask-Script==2.0.5
 Flask-SQLAlchemy==2.1
 Flask-WhooshAlchemy==0.56
 Flask-WTF==0.13.1
+gunicorn==19.4.5
 httplib2==0.9.2
 itsdangerous==0.24
 Jinja2==2.8.1
