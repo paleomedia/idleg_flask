@@ -82,30 +82,6 @@ def login():
   if form.errors:
     flash(form.errors, 'danger')
   return render_template('login.html',form=form)
-
-'''
-@idleg.route('/login', methods=['GET', 'POST'])
-def login():
-    # Here we use a class of some kind to represent and validate our
-    # client-side form data. For example, WTForms is a library that will
-    # handle this for us, and we use a custom LoginForm to validate.
-    form = LoginForm()
-    if form.validate_on_submit():
-        # Login and validate the user.
-        # user should be an instance of your `User` class
-        login_user(current_user)
-
-        flash('Logged in successfully.')
-
-        next = request.args.get('next')
-        # next_is_valid should check if the user has valid
-        # permission to access the `next` url
-        if not next_is_valid(next):
-            return flask.abort(400)
-
-        return flask.redirect(next or flask.url_for('index'))
-    return flask.render_template('login_modal.html', form=form)
-'''
   
 @idleg.route('/facebook-login')
 def facebook_login():
@@ -185,14 +161,14 @@ def populateLawmakers():
 @idleg.route('/index', methods=['GET','POST'])
 @idleg.route('/home', methods=['GET','POST'])
 @idleg.route('/index/<int:page>', methods=['GET','POST'])
-@cache.cached(timeout=5000)
+@cache.cached(timeout=60)
 def home(page=1):
   form = RegistrationForm(request.form)
   comment_form = CommentForm(request.form)
   search_form = SearchForm(request.form)
-  search_form.house.data = "2016"
+      
   id_bills = Bill.query.order_by(desc(Bill.last_updated)).paginate(page, 10, False)
-  #.filter_by(year="2016")
+
   return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form, search_form=search_form)
 
 # route gets more bills by year by AJAX
@@ -207,6 +183,41 @@ def loadBills():
   moreBills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year=billyear)
   return moreBills
 '''
+
+@idleg.route('/search', methods=['POST', 'GET'])
+def search(page=1):
+  import sunlight
+  import json
+  from sunlight import openstates
+  #if request.method == 'POST':
+  searchTerm = request.form.get('search')
+  year = request.form.get('year')
+  year = 'session:'+year
+  house = request.form.get('house')
+  if house == 'all':
+    house = ''
+
+  searchResult_json = openstates.bills(
+    state = 'id',
+    active = 'true',
+    chamber = '%s' % house,
+    search_window = '%s' % year,
+    q = '%s' % searchTerm,
+    fields='bill_id'
+    )
+  
+  idList = []
+  for bill in searchResult_json:
+    idList.append(bill['id'])
+  #idList = json.dumps(idList)
+  
+  form = RegistrationForm(request.form)
+  comment_form = CommentForm(request.form)
+  search_form = SearchForm(request.form)
+      
+  id_bills = Bill.query.filter(Bill.bill_name.in_(idList)).order_by(desc(Bill.last_updated)).paginate(page, 10, False)
+
+  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form, search_form=search_form)
 
 @idleg.route('/about')
 def about():
@@ -275,20 +286,6 @@ def add_comment():
     return jsonify({'comment': comment, 'author': author, 'position' : position, 'bill_num': bill_num})
   flash(form.errors, 'danger')
   return ""
-
-
-"""
-@app.route('/search', methods=['POST'])
-def search():
-  if not g.search_form.validate_on_submit():
-    return redirect(url_for('home'))
-  return redirect(url_for('search_results', query=g.search_form.search.data))
-
-@app.route('/search_results/<query>')
-def search_results(query):
-  results = Bill.query.whoosh_search(query).all()
-  return render_template('search_results.html', query=query, results=results)
-"""
 
 @idleg.errorhandler(404)
 def page_not_found(e):

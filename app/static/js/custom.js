@@ -47,6 +47,18 @@ $('#filter-none').click(function() {
  });
  */
  
+ 
+/* $(function() {}
+  $('.submitsearch').submit(function(e) {
+    var
+    
+    
+  }).click(function)
+
+)
+*/
+
+ 
 $("#submitcomment").click(function (event) {
   if (!$("input:radio[name='position']:checked").val()>0) {
     alert('Please select your position on the bill before submitting comment.');

@@ -338,6 +338,9 @@ input {
   height: 20px;
   margin: 12px;
 }
+.radio-inline {
+  padding-left: 0px;
+}
 
 .billimage {
 	background-image: url("../images/billpage.png");

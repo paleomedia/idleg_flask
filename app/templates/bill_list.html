@@ -1,142 +1,120 @@
 {% block container %}
 
-  <div class="col-md-3">
-    
-  </div>
-  
- <!-- <div id="billsSort"> -->
+    <div class="col-md-3"></div>
     <div class="col-md-5">
-      <div class="form-group">
-        <form role="form" id="searchTerm" class="commentForm">
+      <form action="http://127.0.0.1:5000/search" method="POST" role="search" id="searchTerm">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-          <div class="input-group">
-            {{ search_form.search(placeholder="Full text bill search", class="form-control") }}
-            <span class="input-group-btn">
-              <button id="submitsearch" type="button" class="btn btn-default">Search</button>
-            </span>
-          </div>
-          <div class="form-group">{{ search_form.house(class="radio-inline", type="radio") }}
-            <div class="btn-group btn-small" role="group" aria-label="Year selector">
-              {{ search_form.year(class="selectpicker", type="dropdown", title="Select year(s)) }}
-              
+            <div class="input-group">
+              {{ search_form.search(placeholder="Full text Idaho state legislation search", class="form-control") }}
+              <span class="input-group-btn">
+                <button id="submitsearch" type="submit" value="submit" class="btn btn-default">Search</button>
+              </span>
+            </div>
+
+          <div class="form-group">
+            <div>{{ search_form.house(class="radio-inline", type="radio") }}</div>
+            <div class="btn-group btn-small pull-right" role="group" aria-label="Year selector">
+              {{ search_form.year(class="selectpicker", type="dropdown", title="Select years") }}
             </div>
           </div>
-        </form>
-      </div>
+      </form>
 
+      <div class="list">
+      {% for bill in id_bills.items %}
+        <div class="panel panel-default">
+          <div class="panel-body">
+              
+                <div><span class="billimage"><a href={{ url_for('idleg.bills', bill_deet=bill.bill_name) }}>{% print bill.bill_id %}</a></span></div>
+                <div class="lastaction">Last Update: {% print bill.last_updated %}</div>
+                <div class="billsummary">{% print bill.title %}</div>
 
-     <!--
-              
-            <form action="{{ url_for('idleg.home') }}" method="POST">
-              <select class="selectpicker btn btn-default" name="yearpicker" id="filter-year" selected="{% print year %}" onchange="this.form.submit();">
-                <option>2016</option>
-                <option>2015</option>
-                <option>2014</option>
-                <option>2013</option>
-                <option>2012</option>
-              </select>
-            </form>
-       -->
-              
             
-          
-          
-          <div class="list">
-          {% for bill in id_bills.items %}
-            <div class="panel panel-default">
-              <div class="panel-body">
-                  
-                    <div><span class="billimage"><a href={{ url_for('idleg.bills', bill_deet=bill.bill_name) }}>{% print bill.bill_id %}</a></span></div>
-                    <div class="lastaction">Last Update: {% print bill.last_updated %}</div>
-                    <div class="billsummary">{% print bill.title %}</div>
+            <div class="row">
 
-                
-                <div class="row">
-
-                  <div class="col-md-4">
-                    <div class="detailBox">
-                      <div class="titleBox">
-                        <label>Proponents</label>
-                      </div>
-                     <div class="actionBox">
-                      <ul class="yea commentList">
-                      {% if bill.comments %}
-                        {% for comment in bill.comments %}
-                          {% if comment.comment_type == "yea" %}
-                            <li>
-                              <span class="commentText">
-                              <p>{{ comment.body }}</p>
-                              </span>
-                              <span class="commenterName">
-                                <p>{{ comment.commenter.username }}</p>
-                              </span>
-                              <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
-                              </span>
-                            </li>
-                          {% endif %}
-                        {% endfor %}
-                      {% endif %}
-                      </ul>
-                    </div>
+              <div class="col-md-4">
+                <div class="detailBox">
+                  <div class="titleBox">
+                    <label>Proponents</label>
                   </div>
-                </div>
-                
-                  <div class="col-md-4">
-                    <div class="detailBox">
-                      <div class="titleBox">
-                        <label>Neutral</label>
-                      </div>
-                     <div class="actionBox">
-                      <ul class="neutral commentList">
-                      {% if bill.comments %}
-                        {% for comment in bill.comments %}
-                          {% if comment.comment_type == "neutral" %}
-                              <li>
-                              <span class="commentText">
-                              <p>{{ comment.body }}</p>
-                              </span>
-                              <span class="commenterName">
-                                <p>{{ comment.commenter.username }}</p>
-                              </span>
-                              <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
-                              </span>
-                            </li>
-                            {% endif %}
-                        {% endfor %}
+                 <div class="actionBox">
+                  <ul class="yea commentList">
+                  {% if bill.comments %}
+                    {% for comment in bill.comments %}
+                      {% if comment.comment_type == "yea" %}
+                        <li>
+                          <span class="commentText">
+                          <p>{{ comment.body }}</p>
+                          </span>
+                          <span class="commenterName">
+                            <p>{{ comment.commenter.username }}</p>
+                          </span>
+                          <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
+                          </span>
+                        </li>
                       {% endif %}
-                      </ul>
-                    </div>
-                  </div>
+                    {% endfor %}
+                  {% endif %}
+                  </ul>
                 </div>
-                
-                  <div class="col-md-4">
-                    <div class="detailBox">
-                      <div class="titleBox">
-                        <label>Opponents</label>
-                      </div>
-                     <div class="actionBox">
-                      <ul class="nay commentList">
-                      {% if bill.comments %}
-                        {% for comment in bill.comments %}
-                          {% if comment.comment_type == "nay" %}
-                              <li>
-                              <span class="commentText">
-                              <p>{{ comment.body }}</p>
-                              </span>
-                              <span class="commenterName">
-                                <p>{{ comment.commenter.username }}</p>
-                              </span>
-                              <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
-                              </span>
-                            </li>
-                            {% endif %}
-                        {% endfor %}
-                      {% endif %}
-                      </ul>
-                    </div>
+              </div>
+            </div>
+            
+              <div class="col-md-4">
+                <div class="detailBox">
+                  <div class="titleBox">
+                    <label>Neutral</label>
                   </div>
+                 <div class="actionBox">
+                  <ul class="neutral commentList">
+                  {% if bill.comments %}
+                    {% for comment in bill.comments %}
+                      {% if comment.comment_type == "neutral" %}
+                          <li>
+                          <span class="commentText">
+                          <p>{{ comment.body }}</p>
+                          </span>
+                          <span class="commenterName">
+                            <p>{{ comment.commenter.username }}</p>
+                          </span>
+                          <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
+                          </span>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                  </ul>
                 </div>
-              </div> <!-- close comment area -->
+              </div>
+            </div>
+            
+              <div class="col-md-4">
+                <div class="detailBox">
+                  <div class="titleBox">
+                    <label>Opponents</label>
+                  </div>
+                 <div class="actionBox">
+                  <ul class="nay commentList">
+                  {% if bill.comments %}
+                    {% for comment in bill.comments %}
+                      {% if comment.comment_type == "nay" %}
+                          <li>
+                          <span class="commentText">
+                          <p>{{ comment.body }}</p>
+                          </span>
+                          <span class="commenterName">
+                            <p>{{ comment.commenter.username }}</p>
+                          </span>
+                          <span class="date sub-text">{{ comment.timestamp.strftime('%Y-%m-%d') }}
+                          </span>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div> <!-- close comment area -->
               
               <div class="form-group">
                   <form role="form" id="comment-{{ bill.bill_id|replace(" ","") }}" class="commentForm">
@@ -156,7 +134,6 @@
       </div>
     {% if id_bills.has_prev %}<a href="{{ url_for('idleg.home', page=id_bills.prev_num) }}">&lt;&lt; Newer bills</a>{% else %}&lt;&lt; Newer bills{% endif %} |
     {% if id_bills.has_next %}<a href="{{ url_for('idleg.home', page=id_bills.next_num) }}">Older bills &gt;&gt;</a>{% else %}Older bills &gt;&gt;{% endif %}
-  </div>
   </div>
 
 <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
