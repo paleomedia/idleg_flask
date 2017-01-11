@@ -2,7 +2,7 @@
 
     <div class="col-md-3"></div>
     <div class="col-md-5">
-      <form action="http://127.0.0.1:5000/search" method="POST" role="search" id="searchTerm">
+      <form action="{{ url_for('idleg.search') }}" method="POST" role="search" id="searchTerm">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             <div class="input-group">
               {{ search_form.search(placeholder="Full text Idaho state legislation search", class="form-control") }}
