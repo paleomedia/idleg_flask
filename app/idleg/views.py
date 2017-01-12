@@ -204,13 +204,12 @@ def search(page=1):
       house = ''
     
     year = form.year.data
-    
     print year
+    if year == []:
+      year = [2016]
    
     searchResults = []
     for session in year:
-      
-      print 'session:%s' % session
   
       searchResult_json = openstates.bills(
         state = 'id',
@@ -221,8 +220,6 @@ def search(page=1):
         fields='bill_id'
         )
       searchResults.extend(searchResult_json)
-      
-      print searchResults
     
     idList = []
     for bill in searchResults:

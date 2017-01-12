@@ -109,7 +109,7 @@ class CommentForm(Form):
 class SearchForm(Form):
   search = TextField('search')
   house = RadioField('houses', choices=[('lower','House only'),('upper','Senate only'),('all','All bills')], default='all', validators=[Required()])
-  year = SelectMultipleField('years', choices=[('2016','2016'),('2015','2015'),('2014','2014'),('2013','2013'),('2012','2012')], default='2016', validators=[Required()])
+  year = SelectMultipleField('years', choices=[('2016','2016'),('2015','2015'),('2014','2014'),('2013','2013'),('2012','2012')], default='2016')
 
 class Lawmaker(db.Model):
   leg_id = db.Column(db.String, primary_key = True)
