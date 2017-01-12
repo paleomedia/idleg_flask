@@ -58,7 +58,8 @@ $('#filter-none').click(function() {
 )
 */
 
- 
+/* $("select#selForm").val("2016") */
+
 $("#submitcomment").click(function (event) {
   if (!$("input:radio[name='position']:checked").val()>0) {
     alert('Please select your position on the bill before submitting comment.');

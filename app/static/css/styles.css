@@ -289,6 +289,10 @@ input {
   }
   
   */
+  
+.form-inline .form-group {
+  display: flex;
+  }
 .btn {
   margin: 10px 5px 10px 5px;
   padding: 5px 10px;
@@ -321,6 +325,7 @@ input {
 	font-style: italic;
 }
 */
+
 #position label, #house label {
   padding:7px;
   font-weight: 200;
@@ -562,6 +567,13 @@ Styles for comments
 	position: relative;
 }
 */
+
+.pager {
+  font-size: 2.2rem;
+  line-height: 2.2rem;
+  padding: 10px;
+  text-align: center;
+}
 
 .footer {
 	width: 100%;

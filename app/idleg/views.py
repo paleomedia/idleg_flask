@@ -189,35 +189,53 @@ def search(page=1):
   import sunlight
   import json
   from sunlight import openstates
-  #if request.method == 'POST':
-  searchTerm = request.form.get('search')
-  year = request.form.get('year')
-  year = 'session:'+year
-  house = request.form.get('house')
-  if house == 'all':
-    house = ''
-
-  searchResult_json = openstates.bills(
-    state = 'id',
-    active = 'true',
-    chamber = '%s' % house,
-    search_window = '%s' % year,
-    q = '%s' % searchTerm,
-    fields='bill_id'
-    )
+  form=SearchForm(request.form)
   
-  idList = []
-  for bill in searchResult_json:
-    idList.append(bill['id'])
-  #idList = json.dumps(idList)
-  
-  form = RegistrationForm(request.form)
-  comment_form = CommentForm(request.form)
-  search_form = SearchForm(request.form)
+  if request.method == 'POST' and form.validate():
+    searchTerm = request.form.get('search')
+    
+#    if len(year)==1:
+#      year = 'session:'+year
+#    else:
+#      year = 'session:'+year[-1]+'-'+year[0]
+    
+    house = request.form.get('house')
+    if house == 'all':
+      house = ''
+    
+    year = form.year.data
+    
+    print year
+   
+    searchResults = []
+    for session in year:
       
-  id_bills = Bill.query.filter(Bill.bill_name.in_(idList)).order_by(desc(Bill.last_updated)).paginate(page, 10, False)
+      print 'session:%s' % session
+  
+      searchResult_json = openstates.bills(
+        state = 'id',
+        active = 'true',
+        chamber = '%s' % house,
+        search_window = 'session:%s' % session,
+        q = '%s' % searchTerm,
+        fields='bill_id'
+        )
+      searchResults.extend(searchResult_json)
+      
+      print searchResults
+    
+    idList = []
+    for bill in searchResults:
+      idList.append(bill['id'])
+    #idList = json.dumps(idList)
+    
+    form = RegistrationForm(request.form)
+    comment_form = CommentForm(request.form)
+    search_form = SearchForm(request.form)
+        
+    id_bills = Bill.query.filter(Bill.bill_name.in_(idList)).order_by(desc(Bill.last_updated)).paginate(page, 10, False)
 
-  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form, search_form=search_form)
+    return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form, search_form=search_form)
 
 @idleg.route('/about')
 def about():

@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import Form
 from wtforms import TextField, PasswordField, TextAreaField, RadioField, StringField, SelectMultipleField, validators
-from wtforms.validators import InputRequired, EqualTo
+from wtforms.validators import InputRequired, EqualTo, Required
 import datetime
 from app import db
 
@@ -108,8 +108,8 @@ class CommentForm(Form):
   
 class SearchForm(Form):
   search = TextField('search')
-  house = RadioField('houses', choices=[('lower','House only'),('upper','Senate only'),('all','All bills')])
-  year = SelectMultipleField('years', choices=[('2016','2016'),('2015','2015'),('2014','2014'),('2013','2013'),('2012','2012')], default='2016')
+  house = RadioField('houses', choices=[('lower','House only'),('upper','Senate only'),('all','All bills')], default='all', validators=[Required()])
+  year = SelectMultipleField('years', choices=[('2016','2016'),('2015','2015'),('2014','2014'),('2013','2013'),('2012','2012')], default='2016', validators=[Required()])
 
 class Lawmaker(db.Model):
   leg_id = db.Column(db.String, primary_key = True)
