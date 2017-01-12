@@ -75,7 +75,7 @@
       	    <ul class="nav navbar-nav">
               <li {%- if request.path == "/home" %} class="active"{% endif %}><a href="/home">Home <span class="sr-only">(current)</span></a></li>
               <li {%- if request.path == "/about" %} class="active"{% endif %}><a href="https://github.com/paleomedia/idleg_flask">About</a></li>
-              <li {%- if request.path == "/lawmakers" %} class="active"{% endif %}><a href="/lawmakers">Lawmakers</a></li>
+              <!-- <li {%- if request.path == "/lawmakers" %} class="active"{% endif %}><a href="/lawmakers">Lawmakers</a></li> -->
               <!-- <li {%- if request.path == "/topics" %} class="active"{% endif %}><a href="/topics">Topics</a></li> -->
             </ul>
             <ul class="nav navbar-nav pull-right">
@@ -88,12 +88,12 @@
                 <li>
                 <a href="https://github.com/paleomedia/idleg"><img src="{{ url_for('static', filename="images/Github-Icon.png") }}" width="24px" height="24px"></a>
                 </li>
-                <li>
+                <!--<li>
                 <a href="mailto:editor@idleg.info"><img src="{{ url_for('static', filename="images/Email-Icon.png") }}" width="24px" height="24px"></a>
                 </li>
                 <li>
                 <a href="http://facebook.com"><img src="{{ url_for('static', filename="images/Facebook-Icon.png") }}" width="24px" height="24px"></a>
-                </li>
+                </li> -->
                 {% if current_user.is_authenticated %}
                   <li class="dropdown">
                     <button type="button" class="btn btn-xs dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -136,6 +136,7 @@
     {% block content %}{% endblock %}
     
     {% block footer %}{% endblock %}
+    
 
     <!-- Latest compiled and minified Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

@@ -129,8 +129,11 @@
     <div class="pager">{% if id_bills.has_prev %}<a href="{{ url_for('idleg.home', page=id_bills.prev_num) }}">&lt;&lt; Newer bills</a>{% else %}&lt;&lt; Newer bills{% endif %} |
     {% if id_bills.has_next %}<a href="{{ url_for('idleg.home', page=id_bills.next_num) }}">Older bills &gt;&gt;</a>{% else %}Older bills &gt;&gt;{% endif %}
     </div>
+    {% include "footer.html" %}
   </div>
 
 <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
 
 {% endblock %}
+
+
