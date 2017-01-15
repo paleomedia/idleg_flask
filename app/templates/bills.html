@@ -3,113 +3,265 @@
 {% block container %}
 
 <!-- {% include 'dash.html' %} -->
-<div class="col-md-3">
-    
-</div>
+<div class="col-md-2"></div>
   
-  <div class="col-md-5">
-    <div id="main-bill-panel" class="panel panel-primary">
-      <h1 class="panel-heading">Details for {% print id_bill_json.bill_id %}</h1>
-      <div class="panel-body">
-        <div class="billsummary">{% print id_bill_json.title %}</div>
-        <div class="panel-group">
+<div class="col-md-5">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h2>Bill Detail</h2>
+      <div><span class="billimage">{% print id_bill_json.bill_id %}</span></div>
+      <div class="lastaction">Last Update: {% print id_bill_json.updated_at %}</div>
+      <div class="billsummary">{% print id_bill_json.title %}</div>
+      <h3> <!-- <div class="sponsor">Committee: {% print id_bill_json['sponsors'][0]['name'] %}</div> -->
+      <div class="status">Bill Status:
+        {% if id_bill_json['action_dates']['first'] %}
+          <span class="label label-default">Intro {%print id_bill_json.action_dates.first|replace("00:00:00","") %}</span>
+        {% endif %}
+        {% if id_bill_json['action_dates']['passed_lower'] %}
+          <span class="label label-info">House {%print id_bill_json.action_dates.passed_lower|replace("00:00:00","") %}</span>
+        {% endif %}
+        {% if id_bill_json['action_dates']['passed_upper'] %}
+          <span class="label label-warning">Senate {%print id_bill_json.action_dates.passed_upper|replace("00:00:00","") %}</span>
+        {% endif %}
+        {% if id_bill_json['action_dates']['signed'] %}
+          <span class="label label-success">Signed {%print id_bill_json.action_dates.signed|replace("00:00:00","") %}</span>
+        {% endif %}
+      </div></h3>
+      <div class="source"><a href="{% print id_bill_json['sources'][0] %}">Source</a></div>
+    </div>
+      
+        <div class="panel-group"> <!-- Votes Panel -->
           <div class="panel panel-info">
             <div class="panel-heading">
-             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse1">Show bill actions</a>
-            </h4>
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse2">Votes on {% print id_bill_json.bill_id %}
+              </h4><span class="pull-right clickable"><i class="glyphicon glyphicon-plus"></i></span></a>
+            </div>
+            
+            <div id="collapse2" class="panel-collapse collapse">
+              <div class="voteList">
+              <table class="table table-hover table-responsive table-condensed">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th colspan="3">
+                      {% if id_bill_json['votes'][0]['chamber'] == "lower" %}
+                          House Vote
+                          {% else %}
+                          Senate Vote
+                          {% endif %}
+                    </th>
+                    <th colspan="3">
+                      {% if id_bill_json['votes'][1]['chamber'] == "upper" %}
+                          Senate Vote
+                          {% else %}
+                          House Vote
+                          {% endif %}
+                    </th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th>Republican</th>
+                    <th>Democrat</th>
+                    <th>Total</th>
+                    <th>Republican</th>
+                    <th>Democrat</th>
+                    <th>Total</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Aye</td>
+                      <td class="rVote"></td>
+                      <td class="dVote"></td>
+                      <td class="voteTot">{% print id_bill_json['votes'][0]['yes_count'] %}</td>
+                      <td class="rVote"></td>
+                      <td class="dVote"></td>
+                      <td class="voteTot">{% print id_bill_json['votes'][1]['yes_count'] %}</td>
+                    </tr>
+                    <tr>
+                      <td>Nay</td>
+                      <td class="rVote"></td>
+                      <td class="dVote"></td>
+                      <td class="voteTot">{% print id_bill_json['votes'][0]['no_count'] %}</td>
+                      <td class="rVote"></td>
+                      <td class="dVote"></td>
+                      <td class="voteTot">{% print id_bill_json['votes'][1]['no_count'] %}</td>
+                    </tr>
+                    <tr>
+                      <td>Did Not Vote</td>
+                      <td class="rVote"></td>
+                      <td class="dVote"></td>
+                      <td class="voteTot">{% print id_bill_json['votes'][0]['other_count'] %}</td>
+                      <td class="rVote"></td>
+                      <td class="dVote"></td>
+                      <td class="voteTot">{% print id_bill_json['votes'][1]['other_count'] %}</td>
+                    </tr>
+                  </tbody>
+                  </table>
+              <div class="voteTables">
+                <div class="col-md-6">
+                  <table class="table table-responsive table-hover table-condensed">
+                    <thead>
+                      <tr>
+                        <th colspan="4">
+                          {% if id_bill_json['votes'][0]['chamber'] == "lower" %}
+                          House Vote
+                          {% else %}
+                          Senate Vote
+                          {% endif %}</th>
+                        </tr>
+                        <tr>
+                        <th class="member">Member</th>
+                        <th class="party">Party</th>
+                        <th class="district">District</th>
+                        <th class="vote">Vote</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for vote in id_bill_json['votes'][0]['yes_votes'] %}
+                      <tr class="{{ loop.cycle('odd', 'even') }}">
+                        <td>
+                          {% if vote.leg_id %}
+                            <a href="{{ url_for('idleg.lawmaker', legid=vote.leg_id) }}">{% print vote.name %}</a>
+                          {% else %}
+                            {% print vote.name %}
+                          {% endif %}
+                        </td>
+                        <td>{% print lawmakers|attr('%s' % vote.leg_id) %}</td>
+                      
+                        <td>District</td>
+                        <td class='aye'>Aye</td>
+                      </tr>
+                      {% endfor %}
+                      {% for vote in id_bill_json['votes'][0]['no_votes'] %}
+                      <tr class="{{ loop.cycle('odd', 'even') }}">
+                        <td>
+                          {% if vote.leg_id %}
+                            <a href="{{ url_for('idleg.lawmaker', legid=vote.leg_id) }}">{% print vote.name %}</a>
+                          {% else %}
+                            {% print vote.name %}
+                          {% endif %}
+                        </td>
+                        <td>?</td>
+                        <td>District</td>
+                        <td class='nay'>Nay</td>
+                      </tr>
+                      {% endfor %}
+                      {% for vote in id_bill_json['votes'][0]['other_votes'] %}
+                      <tr class="{{ loop.cycle('odd', 'even') }}">
+                        <td>
+                          {% if vote.leg_id %}
+                            <a href="{{ url_for('idleg.lawmaker', legid=vote.leg_id) }}">{% print vote.name %}</a>
+                          {% else %}
+                            {% print vote.name %}
+                          {% endif %}
+                        </td>
+                        <td>?</td>
+                        <td>District</td>
+                        <td class='other'>No Vote</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  </div>
+                  
+                  <div class="col-md-6">
+                  <table class="table table-responsive table-hover table-condensed">
+                    <thead>
+                      <tr>
+                        <th colspan="4">
+                          {% if id_bill_json['votes'][1]['chamber'] == "upper" %}
+                          Senate Vote
+                          {% else %}
+                          House Vote
+                          {% endif %}</th>
+                        </tr>
+                        <tr>
+                        <th class="member">Member</th>
+                        <th class="party">Party</th>
+                        <th class="district">District</th>
+                        <th class="vote">Vote</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for vote in id_bill_json['votes'][1]['yes_votes'] %}
+                      <tr class="{{ loop.cycle('odd', 'even') }}">
+                        <td>
+                          {% if vote.leg_id %}
+                            <a href="{{ url_for('idleg.lawmaker', legid=vote.leg_id) }}">{% print vote.name %}</a>
+                          {% else %}
+                            {% print vote.name %}
+                          {% endif %}
+                        </td>
+                        <td>?</td>
+                        <td>District</td>
+                        <td class='aye'>Aye</td>
+                      </tr>
+                      {% endfor %}
+                      {% for vote in id_bill_json['votes'][1]['no_votes'] %}
+                      <tr class="{{ loop.cycle('odd', 'even') }}">
+                        <td>
+                          {% if vote.leg_id %}
+                            <a href="{{ url_for('idleg.lawmaker', legid=vote.leg_id) }}">{% print vote.name %}</a>
+                          {% else %}
+                            {% print vote.name %}
+                          {% endif %}
+                        </td>
+                        <td>?</td>
+                        <td>District</td>
+                        <td class='nay'>Nay</td>
+                      </tr>
+                      {% endfor %}
+                      {% for vote in id_bill_json['votes'][1]['other_votes'] %}
+                      <tr class="{{ loop.cycle('odd', 'even') }}">
+                        <td>
+                          {% if vote.leg_id %}
+                            <a href="{{ url_for('idleg.lawmaker', legid=vote.leg_id) }}">{% print vote.name %}</a>
+                          {% else %}
+                            {% print vote.name %}
+                          {% endif %}
+                        </td>
+                        <td>?</td>
+                        <td>District</td>
+                        <td class='other'>No Vote</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <p>Vote 1 Motion: {% print id_bill_json['votes'][0]['motion'] %}</p>
+                  <p>Vote 2 Motion: {% print id_bill_json['votes'][1]['motion'] %}</p>
+                  </div>
+                  
+                </div> <!--end voteList-->
+              </div>
+            </div>
+          </div>
+          </div>
+          
+          <div class="panel-group actions"> <!-- Bill Actions Panel -->
+          <div class="panel panel-info">
+            <div class="panel-heading">
+             <h4 class="panel-title"><a data-toggle="collapse" href="#collapse1">Show bill actions
+            </h4><span class="pull-right clickable"><i class="glyphicon glyphicon-plus"></i></span></a>
            </div>
+           
           <div id="collapse1" class="panel-collapse collapse">
             {% for action in id_bill_json.actions %}
             <div class="panel-body lastaction">
-              {% print action.date %} - {% print action.action %}
+              <b>{% print action.date|replace("00:00:00","") %}</b> - {% print action.action %}
             </div>
             {% endfor %}
           </div>
          </div>
         </div>
     
-        <div panel-group>
-          <div class="panel panel-info">
-            <div class="panel-heading">Votes on {% print id_bill_json.bill_id %}</div>
-              <div id="roll-call-tables">
-                {% for vote in id_bill_json.votes %}
-                <div class="roll-call-table-outer yes-votes">
-                  <h4>Aye Votes<span class="vote-count"> ({% print vote.yes_count %})</span><br /> <span class="{% print vote.chamber %}">{% print vote.motion %}</span></h4>
-
-                  <table class="roll-call">
-                    <thead>
-                      <th class="member">Member</th>
-                      <th class="party">Party</th>
-                    </thead>
-                    <tbody>
-                    {% for yes_vote in vote.yes_votes %}
-                      <tr><td>
-                        {% if yes_vote.leg_id %}
-                        <a href="{{ url_for('idleg.lawmaker', legid=yes_vote.leg_id) }}">{% print yes_vote.name %}</a>
-                        {% else %}
-                        {% print yes_vote.name %}
-                        {% endif %}
-                        </td><td>?</td></tr>
-                    {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-                  
-                <div class="roll-call-table-outer no-votes">
-                  <h4>Nay Votes<span class="vote-count">({% print vote.no_count %})</span></h4>
-                  
-                  <table class="roll-call">
-                    <thead>
-                      <th class="member">Member</th>
-                      <th class="party">Party</th>
-                    </thead>
-                    <tbody>
-                    {% for no_vote in vote.no_votes %}
-                      <tr><td>
-                        {% if no_vote.leg_id %}
-                        <a href="{{ url_for('idleg.lawmaker', legid=no_vote.leg_id) }}">{% print no_vote.name %}</a>
-                        {% else %}
-                        {% print no_vote.name %}
-                        {% endif %}
-                        </td><td>?</td></tr>
-                    {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-                
-                <div class="roll-call-table-outer other-votes">
-                  <h4>Did Not Vote<span class="vote-count">({% print vote.other_count %})</span></h4>
-                  
-                  <table class="roll-call">
-                    <thead>
-                      <th class="member">Member</th>
-                      <th class="party">Party</th>
-                    </thead>
-                    <tbody>
-                    {% for other_vote in vote.other_votes %}
-                     <tr><td>
-                       {% if other_vote.leg_id %}
-                       <a href="{{ url_for('idleg.lawmaker', legid=other_vote.leg_id) }}">{% print other_vote.name %}</a>
-                       {% else %}
-                       {% print other_vote.name %}
-                       {% endif %}
-                       </td><td>?</td></tr>
-                    {% endfor %}
-                    </tbody>
-                  </table>
-                </div>
-                
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
+          
+        </div>
     
     {% include "footer.html" %}
     
-  </div>
+      </div>
   
  
  {#

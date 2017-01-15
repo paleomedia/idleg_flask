@@ -234,6 +234,13 @@ div {
 }
 */
 
+.clickable{
+    cursor: pointer;
+}
+.panel-heading .glyphicon {
+  top: -13px;
+}
+
 #newuser {
 	text-align: right;
 	color: #3F5388;
@@ -596,12 +603,11 @@ Styles for comments
 	width: 40%;
 	line-height: 1rem;
 }
-
-.roll-call-table-outer {
-    width: 32%;
-}
-.roll-call-table-outer h4 {
-    padding: 10px 0;
+.voteList tbody td {
+    padding: 0;
+    border: 1px solid #d7ddd7;
+    height: 29px;
+    vertical-align: middle;
 }
 .yes-votes, .no-votes {
     padding-right: 8px;
@@ -611,6 +617,16 @@ Styles for comments
     width: 233px;
     float: left;
     display: inline;
+}
+.label {
+  line-height: 2;
+  margin: 2px;
+}
+.source {
+  float: right;
+}
+.panel-group {
+  clear: both;
 }
 
 /* Adapted from Propublica styles for votes */

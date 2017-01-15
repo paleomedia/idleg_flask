@@ -11,6 +11,7 @@ from sqlalchemy import cast, Integer, desc
 #from flask.ext.restful import reqparse
 from json import dumps
 
+
 idleg = Blueprint('idleg', __name__)
 #apiModule = Blueprint('api', __name__)
 
@@ -265,7 +266,8 @@ def topics():
 def bills(bill_deet):
   form = RegistrationForm(request.form)
   bill_deets = Bill.query.filter_by(bill_name=bill_deet).first_or_404()
-# Get bills from Sunlight and add to database Bills table
+  
+# Get bill detail from Sunlight
   import sunlight
   import json
   from sunlight import openstates
@@ -274,7 +276,15 @@ def bills(bill_deet):
     session = '%s' % bill_deets.year,
     bill_id = '%s' % bill_deets.bill_id
     )
-  return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json, form=form)
+
+#  vote_chart = {}
+#  for vote in id_bill_json:
+#    for yes_vote in vote.votes:
+
+#      vote_chart_json = json.dumps(vote_chart)
+  
+  lawmakers = Lawmaker.query.order_by(cast(Lawmaker.district, Integer)).all()
+  return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json, lawmakers=lawmakers, form=form)
   
 @idleg.route('/billyear/<path:year>')
 @cache.cached(timeout=5000)

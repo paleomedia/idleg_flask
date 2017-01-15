@@ -1,3 +1,49 @@
+/* Function for collapsable panels */
+$(document).on('click', '.panel-heading span.clickable', function(e){
+    var $this = $(this);
+	if(!$this.hasClass('panel-collapsed')) {
+		$this.parents('.panel').find('.specialCollapse').slideUp();
+		$this.addClass('panel-collapsed');
+		$this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+	} else {
+		$this.parents('.panel').find('.specialCollapse').slideDown();
+		$this.removeClass('panel-collapsed');
+		$this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+	}
+})
+
+/* Function for comment submission */
+$("#submitcomment").click(function (event) {
+  if (!$("input:radio[name='position']:checked").val()>0) {
+    alert('Please select your position on the bill before submitting comment.');
+    event.preventDefault();
+  } });
+
+$(function() {
+  $('.commentForm').submit(function(e) {
+    e.preventDefault();
+    var parent = $(this).parent().parent();
+    var position = "." + $(this).find("input[type=radio]:checked").val();
+    var commentBox = parent.find(position);
+    
+    $.ajax({
+      url: '/comment',
+      data: $(this).serialize(),
+      type: 'POST',
+      success: function(response) {
+        var newComment = response.comment;
+        commentBox.append('<li><span class="commentText"><p>' + newComment + '</p></span><span class="commenterName"><p>You</p></span><span class="date sub-text">Just now</span></li>');
+        $('input[type=text], textarea').val('');
+      },
+      error: function(error) {
+        console.log(error);
+        console.log("FAILURE");
+      }
+    });
+  });
+});
+
+
 /*var options = {
   valueNames: [ 'billimage', 'lastaction', 'billsummary' ],
   page: 10,
@@ -59,36 +105,6 @@ $('#filter-none').click(function() {
 */
 
 /* $("select#selForm").val("2016") */
-
-$("#submitcomment").click(function (event) {
-  if (!$("input:radio[name='position']:checked").val()>0) {
-    alert('Please select your position on the bill before submitting comment.');
-    event.preventDefault();
-  } });
-
-$(function() {
-  $('.commentForm').submit(function(e) {
-    e.preventDefault();
-    var parent = $(this).parent().parent();
-    var position = "." + $(this).find("input[type=radio]:checked").val();
-    var commentBox = parent.find(position);
-    
-    $.ajax({
-      url: '/comment',
-      data: $(this).serialize(),
-      type: 'POST',
-      success: function(response) {
-        var newComment = response.comment;
-        commentBox.append('<li><span class="commentText"><p>' + newComment + '</p></span><span class="commenterName"><p>You</p></span><span class="date sub-text">Just now</span></li>');
-        $('input[type=text], textarea').val('');
-      },
-      error: function(error) {
-        console.log(error);
-        console.log("FAILURE");
-      }
-    });
-  });
-});
 
 
 /*
