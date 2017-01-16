@@ -46,16 +46,16 @@
                     <th></th>
                     <th colspan="3">
                       {% if id_bill_json['votes'][0]['chamber'] == "lower" %}
-                          House Vote
+                          House Vote<sup><a href="#vote1">[1]</a></sup>
                           {% else %}
-                          Senate Vote
+                          Senate Vote<sup><a href="#vote1">[1]</a></sup>
                           {% endif %}
                     </th>
                     <th colspan="3">
                       {% if id_bill_json['votes'][1]['chamber'] == "upper" %}
-                          Senate Vote
+                          Senate Vote<sup><a href="#vote2">[2]</a></sup>
                           {% else %}
-                          House Vote
+                          House Vote<sup><a href="#vote2">[2]</a></sup>
                           {% endif %}
                     </th>
                   </tr>
@@ -128,9 +128,17 @@
                             {% print vote.name %}
                           {% endif %}
                         </td>
-                        <td>{% print lawmakers|attr('%s' % vote.leg_id) %}</td>
+                        <td>
+                        {% if lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Republican" %}
+                        R
+                        {% elif lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Democratic" %}
+                        D
+                        {% else %}
+                        
+                        {% endif %}
+                        </td>
                       
-                        <td>District</td>
+                        <td>{% print lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="district")|first %}</td>
                         <td class='aye'>Aye</td>
                       </tr>
                       {% endfor %}
@@ -143,8 +151,16 @@
                             {% print vote.name %}
                           {% endif %}
                         </td>
-                        <td>?</td>
-                        <td>District</td>
+                        <td>
+                        {% if lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Republican" %}
+                        R
+                        {% elif lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Democratic" %}
+                        D
+                        {% else %}
+                        
+                        {% endif %}
+                        </td>
+                        <td>{% print lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="district")|first %}</td>
                         <td class='nay'>Nay</td>
                       </tr>
                       {% endfor %}
@@ -157,8 +173,16 @@
                             {% print vote.name %}
                           {% endif %}
                         </td>
-                        <td>?</td>
-                        <td>District</td>
+                        <td>
+                        {% if lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Republican" %}
+                        R
+                        {% elif lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Democratic" %}
+                        D
+                        {% else %}
+                        
+                        {% endif %}
+                        </td>
+                        <td>{% print lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="district")|first %}</td>
                         <td class='other'>No Vote</td>
                       </tr>
                       {% endfor %}
@@ -194,8 +218,16 @@
                             {% print vote.name %}
                           {% endif %}
                         </td>
-                        <td>?</td>
-                        <td>District</td>
+                        <td>
+                        {% if lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Republican" %}
+                        R
+                        {% elif lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Democratic" %}
+                        D
+                        {% else %}
+                        
+                        {% endif %}
+                        </td>
+                        <td>{% print lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="district")|first %}</td>
                         <td class='aye'>Aye</td>
                       </tr>
                       {% endfor %}
@@ -208,8 +240,15 @@
                             {% print vote.name %}
                           {% endif %}
                         </td>
-                        <td>?</td>
-                        <td>District</td>
+                        <td>
+                        {% if lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Republican" %}
+                        {% elif lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Democratic" %}
+                        D
+                        {% else %}
+                        
+                        {% endif %}
+                        </td>
+                        <td>{% print lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="district")|first %}</td>
                         <td class='nay'>Nay</td>
                       </tr>
                       {% endfor %}
@@ -222,15 +261,23 @@
                             {% print vote.name %}
                           {% endif %}
                         </td>
-                        <td>?</td>
-                        <td>District</td>
+                        <td>
+                        {% if lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Republican" %}
+                        R
+                       {% elif lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="party")|first == "Democratic" %}
+                        D
+                        {% else %}
+                        
+                        {% endif %}
+                        </td>
+                        <td>{% print lawmakers|selectattr("leg_id","equalto", vote.leg_id)|map(attribute="district")|first %}</td>
                         <td class='other'>No Vote</td>
                       </tr>
                       {% endfor %}
                     </tbody>
                   </table>
-                  <p>Vote 1 Motion: {% print id_bill_json['votes'][0]['motion'] %}</p>
-                  <p>Vote 2 Motion: {% print id_bill_json['votes'][1]['motion'] %}</p>
+                  <p><a name="vote1"></a>[1] Motion: {% print id_bill_json['votes'][0]['motion'] %}</p>
+                  <p><a name="vote2"></a>[2] Motion: {% print id_bill_json['votes'][1]['motion'] %}</p>
                   </div>
                   
                 </div> <!--end voteList-->

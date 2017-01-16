@@ -628,8 +628,21 @@ Styles for comments
 .panel-group {
   clear: both;
 }
+th, td {
+  vertical-align: middle;
+  text-align: center;
+}
+td.voteTot {
+    background-color: lightgrey;
+}
+.voteTables tr td:first-child {
+  width: 40%;
+}
+.voteTables tr td:nth-child(2) {
+  width: 20%;
+}
 
-/* Adapted from Propublica styles for votes */
+/* Adapted from Propublica styles for votes
 table.roll-call-table {
     width: 100%;
     font-size: 12px;
@@ -666,4 +679,4 @@ table.roll-call-table td, table.roll-call-table th {
 }
 .upper:before {
     content: "Senate Motion: ";
-}
+}  */
