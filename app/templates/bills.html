@@ -40,67 +40,101 @@
             
             <div id="collapse2" class="panel-collapse collapse">
               <div class="voteList">
-              <table class="table table-hover table-responsive table-condensed">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th colspan="3">
-                      {% if id_bill_json['votes'][0]['chamber'] == "lower" %}
-                          House Vote<sup><a href="#vote1">[1]</a></sup>
+              {% if id_bill_json['votes'][0] %}
+              <div class="col-md-6">
+                <table class="table table-hover table-responsive table-condensed">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th colspan="3">
+                          {% if id_bill_json['votes'][0]['chamber'] == "lower" %}
+                            House Vote<sup><a href="#vote1">[1]</a></sup>
                           {% else %}
-                          Senate Vote<sup><a href="#vote1">[1]</a></sup>
+                            Senate Vote<sup><a href="#vote1">[1]</a></sup>
                           {% endif %}
-                    </th>
-                    <th colspan="3">
-                      {% if id_bill_json['votes'][1]['chamber'] == "upper" %}
+                      </th>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <th>Republican</th>
+                      <th>Democrat</th>
+                      <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Aye</td>
+                        <td class="rVote"></td>
+                        <td class="dVote"></td>
+                        <td class="voteTot">{% print id_bill_json['votes'][0]['yes_count']|default('N/A', true) %}</td>
+                      </tr>
+                      <tr>
+                        <td>Nay</td>
+                        <td class="rVote"></td>
+                        <td class="dVote"></td>
+                        <td class="voteTot">{% print id_bill_json['votes'][0]['no_count']|default('N/A') %}</td>
+                        
+                      </tr>
+                      <tr>
+                        <td>Did Not Vote</td>
+                        <td class="rVote"></td>
+                        <td class="dVote"></td>
+                        <td class="voteTot">{% print id_bill_json['votes'][0]['other_count']|default('N/A') %}</td>
+                      </tr>
+                    </tbody>
+                    </table>
+                  </div>
+                  {% else %}
+                  No votes yet
+                  {% endif %}
+                <div class="col-md-6">
+                {% if id_bill_json['votes'][1] %}
+                <table class="table table-hover table-responsive table-condensed">
+                  <thead>
+                    <tr>
+                      <th colspan="3">
+                      {% if id_bill_json['votes'][1] %}
+                        {% if id_bill_json['votes'][1]['chamber'] == "upper" %}
                           Senate Vote<sup><a href="#vote2">[2]</a></sup>
-                          {% else %}
+                        {% else %}
                           House Vote<sup><a href="#vote2">[2]</a></sup>
-                          {% endif %}
+                        {% endif %}
+                      {% else %}
+                        N/A
+                      {% endif %}
                     </th>
                   </tr>
+
                   <tr>
-                    <th></th>
-                    <th>Republican</th>
-                    <th>Democrat</th>
-                    <th>Total</th>
                     <th>Republican</th>
                     <th>Democrat</th>
                     <th>Total</th>
                   </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Aye</td>
-                      <td class="rVote"></td>
-                      <td class="dVote"></td>
-                      <td class="voteTot">{% print id_bill_json['votes'][0]['yes_count'] %}</td>
-                      <td class="rVote"></td>
-                      <td class="dVote"></td>
-                      <td class="voteTot">{% print id_bill_json['votes'][1]['yes_count'] %}</td>
-                    </tr>
-                    <tr>
-                      <td>Nay</td>
-                      <td class="rVote"></td>
-                      <td class="dVote"></td>
-                      <td class="voteTot">{% print id_bill_json['votes'][0]['no_count'] %}</td>
-                      <td class="rVote"></td>
-                      <td class="dVote"></td>
-                      <td class="voteTot">{% print id_bill_json['votes'][1]['no_count'] %}</td>
-                    </tr>
-                    <tr>
-                      <td>Did Not Vote</td>
-                      <td class="rVote"></td>
-                      <td class="dVote"></td>
-                      <td class="voteTot">{% print id_bill_json['votes'][0]['other_count'] %}</td>
-                      <td class="rVote"></td>
-                      <td class="dVote"></td>
-                      <td class="voteTot">{% print id_bill_json['votes'][1]['other_count'] %}</td>
-                    </tr>
-                  </tbody>
-                  </table>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="rVote"></td>
+                    <td class="dVote"></td>
+                    <td class="voteTot">{% print id_bill_json['votes'][1]['yes_count'] %}</td>
+                  </tr>
+                  <tr>
+                    <td class="rVote"></td>
+                    <td class="dVote"></td>
+                    <td class="voteTot">{% print id_bill_json['votes'][1]['no_count'] %}</td>
+                  </tr>
+                  <tr>
+                  <td class="rVote"></td>
+                        <td class="dVote"></td>
+                        <td class="voteTot">{% print id_bill_json['votes'][1]['other_count'] %}</td>
+                  </tr>
+                </table>
+                {% else %}
+                  No votes yet
+                 {% endif %}
+              </div>
               <div class="voteTables">
                 <div class="col-md-6">
+                  {% if id_bill_json['votes'][0] %}
                   <table class="table table-responsive table-hover table-condensed">
                     <thead>
                       <tr>
@@ -188,9 +222,13 @@
                       {% endfor %}
                     </tbody>
                   </table>
+                  {% else %}
+                  No votes yet
+                  {% endif %}
                   </div>
                   
                   <div class="col-md-6">
+                    {% if id_bill_json['votes'][1] %}
                   <table class="table table-responsive table-hover table-condensed">
                     <thead>
                       <tr>
@@ -276,8 +314,12 @@
                       {% endfor %}
                     </tbody>
                   </table>
+                  
                   <p><a name="vote1"></a>[1] Motion: {% print id_bill_json['votes'][0]['motion'] %}</p>
                   <p><a name="vote2"></a>[2] Motion: {% print id_bill_json['votes'][1]['motion'] %}</p>
+                {% else %}
+                  No votes yet
+                {% endif %}
                   </div>
                   
                 </div> <!--end voteList-->

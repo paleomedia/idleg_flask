@@ -41,25 +41,26 @@ def register():
     flash('Your are already logged in.', 'info')
     return redirect(url_for('idleg.home'))
 
-  form = RegistrationForm(request.form)
+  r_form = RegistrationForm(request.form, prefix="register-form")
 
-  if request.method == 'POST' and form.validate():
+  if request.method == 'POST' and r_form.validate():
     username = request.form.get('username')
     password = request.form.get('password')
     email= request.form.get('email')
+    confirm = request.form.get('confirm')
     existing_username = User.query.filter_by(username=username).first()
     if existing_username:
       flash('This username has been already taken. Try another  one.','warning')
-      return render_template('register.html', form=form)
+      return render_template('register.html', rform=r_form, lform=LoginForm(), )
     user = User(username, password, email)
     db.session.add(user)
     db.session.commit()
     login_user(user)
     flash('You are now registered and logged in.', 'success')
     return redirect(url_for('idleg.home'))
-  if form.errors:
-    flash(form.errors, 'danger')
-  return render_template('registration-modal.html', form=form)
+  if r_form.errors:
+    flash(r_form.errors, 'danger')
+  return render_template('register.html', lform=LoginForm(), rform=r_form)
 
 
 @idleg.route('/login', methods=['GET', 'POST'])
@@ -68,21 +69,23 @@ def login():
     flash('You are already logged in.')
     return redirect(url_for('idleg.home'))
 
-  form = LoginForm(request.form)
+  l_form = LoginForm(request.form, prefix="login-form")
 
-  if request.method == 'POST' and form.validate():
+  if request.method == 'POST' and l_form.validate():
     username = request.form.get('username')
     password = request.form.get('password')
     existing_user =  User.query.filter_by(username=username).first()
     if not (existing_user and existing_user.check_password(password)):
+      popup = True
       flash('Invalid username or password. Please try  again.', 'danger')
-      return render_template('login.html', form=form)
+      return render_template('login.html', lform=l_form, rform=RegistrationForm(), popup=popup)
     login_user(existing_user)
     flash('You have successfully logged in.', 'success')
     return redirect(url_for('idleg.home'))
-  if form.errors:
-    flash(form.errors, 'danger')
-  return render_template('login.html',form=form)
+  if l_form.errors:
+    popup = True
+    flash(l_form.errors, 'danger')
+  return render_template('login.html',lform=l_form, rform=RegistrationForm(), popup=popup)
   
 @idleg.route('/facebook-login')
 def facebook_login():
@@ -164,13 +167,14 @@ def populateLawmakers():
 @idleg.route('/index/<int:page>', methods=['GET','POST'])
 @cache.cached(timeout=60)
 def home(page=1):
-  form = RegistrationForm(request.form)
+  rform = RegistrationForm(request.form)
+  lform = LoginForm(request.form)
   comment_form = CommentForm(request.form)
   search_form = SearchForm(request.form)
       
   id_bills = Bill.query.order_by(desc(Bill.last_updated)).paginate(page, 10, False)
 
-  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form, search_form=search_form)
+  return render_template('home.html', user=current_user, id_bills=id_bills, lform=lform, comment_form=comment_form, search_form=search_form, rform=rform)
 
 # route gets more bills by year by AJAX
 '''
@@ -207,7 +211,7 @@ def search(page=1):
     year = form.year.data
     print year
     if year == []:
-      year = [2016]
+      year = [2017]
    
     searchResults = []
     for session in year:
@@ -227,13 +231,14 @@ def search(page=1):
       idList.append(bill['id'])
     #idList = json.dumps(idList)
     
-    form = RegistrationForm(request.form)
+    rform = RegistrationForm(request.form)
+    lform = LoginForm(request.form)
     comment_form = CommentForm(request.form)
     search_form = SearchForm(request.form)
         
     id_bills = Bill.query.filter(Bill.bill_name.in_(idList)).order_by(desc(Bill.last_updated)).paginate(page, 10, False)
 
-    return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form, search_form=search_form)
+    return render_template('home.html', user=current_user, id_bills=id_bills, lform=lform, rform=rform, comment_form=comment_form, search_form=search_form)
 
 @idleg.route('/about')
 def about():
@@ -242,29 +247,34 @@ def about():
 
 @idleg.route('/lawmakers')
 def lawmakers():
-  form = RegistrationForm(request.form)
+  rform = RegistrationForm(request.form)
+  lform = LoginForm(request.form)
   lawmakers = Lawmaker.query.order_by(cast(Lawmaker.district, Integer)).all()
-  return render_template('lawmakers.html', user=current_user, form=form, lawmakers=lawmakers)
+  return render_template('lawmakers.html', user=current_user, lform=lform, rform=rform, lawmakers=lawmakers)
   
 @idleg.route('/lawmaker/<path:legid>')
 def lawmaker(legid):
-  form = RegistrationForm(request.form)
+  rform = RegistrationForm(request.form)
+  lform = LoginForm(request.form)
 # Get lawmaker detail from Sunlight
   import sunlight
   import json
   from sunlight import openstates
   id_lm_json = openstates.legislator_detail(legid)
+  lawmakers = Lawmaker.query.filter_by(leg_id=legid).first()
 
-  return render_template('leg_detail.html', legid=legid, id_lm_json=id_lm_json, user=current_user, form=form)
+  return render_template('leg_detail.html', legid=legid, lawmakers=lawmakers, id_lm_json=id_lm_json, user=current_user, lform=lform, rform=rform)
 
 @idleg.route('/topics')
 def topics():
-  form = RegistrationForm(request.form)
-  return render_template('topics.html', user=current_user, form=form)
+  rform = RegistrationForm(request.form)
+  lform = LoginForm(request.form)
+  return render_template('topics.html', user=current_user, lform=lform, rform=rform)
 
 @idleg.route('/bills/<path:bill_deet>')
 def bills(bill_deet):
-  form = RegistrationForm(request.form)
+  rform = RegistrationForm(request.form)
+  lform = LoginForm(request.form)
   bill_deets = Bill.query.filter_by(bill_name=bill_deet).first_or_404()
   
 # Get bill detail from Sunlight
@@ -284,21 +294,23 @@ def bills(bill_deet):
 #      vote_chart_json = json.dumps(vote_chart)
   
   lawmakers = Lawmaker.query.order_by(cast(Lawmaker.district, Integer)).all()
-  return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json, lawmakers=lawmakers, form=form)
+  return render_template('bills.html', bill_deet = bill_deet, user=current_user, id_bill_json=id_bill_json, lawmakers=lawmakers, lform=lform, rform=rform)
   
 @idleg.route('/billyear/<path:year>')
 @cache.cached(timeout=5000)
 def billyear(year):
-  form = RegistrationForm(request.form)
+  rform = RegistrationForm(request.form)
+  lform = LoginForm(request.form)
   comment_form = CommentForm(request.form)
   id_bills = Bill.query.order_by(desc(Bill.last_updated)).filter_by(year=year)
-  return render_template('home.html', user=current_user, id_bills=id_bills, form=form, comment_form=comment_form)
+  return render_template('home.html', user=current_user, id_bills=id_bills, lform=lform, rform=rform, comment_form=comment_form)
       
 
 @app.route('/comment', methods=['POST'])
 @login_required
 def add_comment():
-  form = CommentForm(request.form)
+  rform = RegistrationForm(request.form)
+  lform = LoginForm(request.form)
   if request.method == 'POST' and form.validate():
     comment = request.form.get('comment')
     author = current_user.id

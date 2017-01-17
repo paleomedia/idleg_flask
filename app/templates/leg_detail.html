@@ -9,11 +9,13 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="thumbnail">
-        <img src="{% print id_lm_json.photo_url %}" height="150" alt="{% print id_lm_json.full_name %}">
+     <!--   <img src="{% print id_lm_json.photo_url %}" height="150" alt="{% print id_lm_json.full_name %}"> -->
         <div class="caption">
           <h3>{% print id_lm_json.full_name %}</h3>
-          <p>{% print id_lm_json.party %}</p>
-          <p>District: {% print id_lm_json.district %}</p>
+          <p>{% print lawmakers.party %}</p>
+          <p>District: {% print lawmakers.district %}</p>
+          <p>Phone: {% print id_lm_json['+phone_number'] %}</p>
+          <p>Email: {% print id_lm_json.email %}</p>
         </div>
       </div>
     </div>

@@ -12,16 +12,16 @@
           <div id='social-icons-conatainer'>
             <div class='modal-body-left'>
               
-              <form method="POST" action="{{ url_for('idleg.register') }}" role="form">
+              <form name="rform" method="POST" action="{{ url_for('idleg.register') }}" role="form">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                <div class="form-group">{{ form.username.label }}: {{  form.username() }}
+                <div class="form-group">{{ rform.username.label }}: {{  rform.username() }}
                   <i class="fa fa-user login-field-icon"></i>
                 </div>
-                <div class="form-group">{{ form.email.label }}: {{ form.email() }}</div>
-                <div class="form-group">{{ form.password.label }}: {{  form.password() }}
+                <div class="form-group">{{ rform.email.label }}: {{ rform.email() }}</div>
+                <div class="form-group">{{ rform.password.label }}: {{  rform.password() }}
                   <i class="fa fa-lock login-field-icon"></i>
                 </div>
-                <div class="form-group">{{ form.confirm.label }}: {{ form.confirm() }}
+                <div class="form-group">{{ rform.confirm.label }}: {{ rform.confirm() }}
                   <i class="fa fa-lock login-field-icon"></i>
                 </div>
                 <button type="submit" class="btn btn-success modal-register-brn"> Submit</button>

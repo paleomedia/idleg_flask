@@ -2,11 +2,21 @@
 
 {% block container %}
   <div class="top-pad">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <form method="POST" action="{{ url_for('idleg.register') }}" role="form">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-      <div class="form-group">{{ form.username.label }}: {{  form.username() }}</div>
-      <div class="form-group">{{ form.password.label }}: {{  form.password() }}</div>
-      <div class="form-group">{{ form.confirm.label }}: {{ form.confirm() }}</div>
+      <div class="form-group">{{ rform.username.label }}: {{  rform.username() }}</div>
+      <div class="form-group">{{ rform.email.label }}: {{  rform.email() }}</div>
+      <div class="form-group">{{ rform.password.label }}: {{  rform.password() }}</div>
+      <div class="form-group">{{ rform.confirm.label }}: {{ rform.confirm() }}</div>
       <button type="submit" class="btn btn-default"> Submit</button>
     </form>
   </div>
