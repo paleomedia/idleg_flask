@@ -5,6 +5,13 @@ from wtforms.validators import InputRequired, EqualTo, Required
 import datetime
 from app import db
 
+class lastCall(db.Model):
+  id = db.Column(db.Integer, primary_key=True)
+  lastSunlight = db.Column(db.String(10))
+  
+  def __init__(self, lastSunlight):
+    self.lastSunlight = lastSunlight
+
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   username = db.Column(db.String(100), unique=True)

@@ -5,12 +5,11 @@ from app import app, db
 from app import login_manager, facebook
 from app.cache import cache
 from flask_login import current_user, login_user, logout_user, login_required
-from app.idleg.models import User, RegistrationForm, LoginForm, SearchForm, Bill, Comment, CommentForm, Lawmaker
+from app.idleg.models import User, RegistrationForm, LoginForm, SearchForm, Bill, Comment, CommentForm, Lawmaker, lastCall
 from sqlalchemy import cast, Integer, desc
 #from flask_restful import Resource, Api
 #from flask.ext.restful import reqparse
 from json import dumps
-
 
 idleg = Blueprint('idleg', __name__)
 #apiModule = Blueprint('api', __name__)
@@ -34,7 +33,7 @@ def byteify(input):
   else:
     return input
     
-# routes for login and registrations --------------
+# routes for login and registrations -------------------------------
 @idleg.route('/register', methods=['GET', 'POST'])
 def register():
   if session.get('username'):
@@ -61,7 +60,6 @@ def register():
   if r_form.errors:
     flash(r_form.errors, 'danger')
   return render_template('register.html', lform=LoginForm(), rform=r_form)
-
 
 @idleg.route('/login', methods=['GET', 'POST'])
 def login():
@@ -126,31 +124,42 @@ def favicon():
 # routes to download data from Sunlight <---- to be automated later
 @idleg.route('/populateBills')
 def populateBills():
+  from datetime import datetime, date
+  lastSunCall = lastCall.query.order_by(lastCall.id.desc()).first()
+  
   import sunlight
   import json
   from sunlight import openstates
   id_bill_json = openstates.bills(
-    state = 'id'
-#    search_window = 'session',
-#    updated_since = '2016-03-08'
+    state = 'id',
+    updated_since = '%s' % lastSunCall.lastSunlight
     )
   print id_bill_json
   id_bills = byteify(json.dumps(id_bill_json))
-#  db.session.query(Bill).update({Bill.bill_id:id_bills["bill_id"], Bill.session: id_bills["session"], Bill.title: id_bills["title"], Bill.id: id_bills["id"], Bill.updated_at: id_bills["updated_at"]})
+
   for bill in id_bill_json:
     bill_adder = Bill(bill["bill_id"], bill["session"], bill["title"], bill["id"], bill["updated_at"])
-    db.session.add(bill_adder)
+    db.session.merge(bill_adder)
     db.session.commit()
-  return id_bills
   
+  lastSunCall=datetime.now().date()
+  lastSunCall=lastSunCall.strftime('%Y-%m-%d')
+  
+  dateUpdate = lastCall(lastSunCall)
+  #lastCall.query.with_entities(lastCall.lastSunlight).one()
+  db.session.merge(dateUpdate)
+  db.session.commit()
+  
+  return id_bills
+
 @idleg.route('/populateLawmakers')
 def populateLawmakers():
   import sunlight
   import json
   from sunlight import openstates
   id_lm_json = openstates.legislators(
-    state = 'id',
-    active = 'true'
+    state = 'id'
+#    active = 'true'
     )
   print id_lm_json
   id_lm = byteify(json.dumps(id_lm_json))
